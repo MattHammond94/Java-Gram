@@ -2,7 +2,12 @@ import express from "express";
 import morgan from "morgan";
 import dotenv from "dotenv";
 dotenv.config();
-import {  notFound, errorHandler } from './middleware/errorHandler.js';
+import { notFound, errorHandler } from './middleware/errorHandler.js';
+
+// Database connection:
+import connectDB from "./config/databaseConnector.js";
+
+connectDB();
 
 // Routes:
 import userRoutes from './routes/userRoutes.js'

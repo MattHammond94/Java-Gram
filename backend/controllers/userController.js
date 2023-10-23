@@ -5,22 +5,22 @@ const createUser = asyncHandler(async (req, res) => {
   res.status(201).json({ message: 'User created' })
 });
 
-//Route POST /users/token
+//Route:      POST /users/token
 const logInUser = asyncHandler(async (req, res) => {
   res.status(200).json({ message: 'User logged in' })
 });
 
-//Route POST /users/token/logout
+//Route:      POST /users/token/logout
 const logOutUser = asyncHandler(async (req, res) => {
   res.status(200).json({ message: 'User logged out' })
 });
 
-//Route GET /users/user
+//Route:      GET /users/user
 const getUser = asyncHandler(async (req, res) => {
   res.status(200).json({ message: 'User returned' })
 });
 
-//Route PATCH /users/user
+//Route       PATCH /users/user
 const updateUser = asyncHandler(async (req, res) => {
   res.status(201).json({ message: 'User updated' })
 });
