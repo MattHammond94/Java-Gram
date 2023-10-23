@@ -1,27 +1,29 @@
+import asyncHandler from "express-async-handler";
+
 // Route:    POST /users/new
-const createUser = (req, res) => {
+const createUser = asyncHandler(async (req, res) => {
   res.status(201).json({ message: 'User created' })
-}
+});
 
 //Route POST /users/token
-const logInUser = (req, res) => {
+const logInUser = asyncHandler(async (req, res) => {
   res.status(200).json({ message: 'User logged in' })
-}
+});
 
 //Route POST /users/token/logout
-const logOutUser = (req, res) => {
+const logOutUser = asyncHandler(async (req, res) => {
   res.status(200).json({ message: 'User logged out' })
-}
+});
 
 //Route GET /users/user
-const getUser = (req, res) => {
+const getUser = asyncHandler(async (req, res) => {
   res.status(200).json({ message: 'User returned' })
-}
+});
 
 //Route PATCH /users/user
-const updateUser = (req, res) => {
+const updateUser = asyncHandler(async (req, res) => {
   res.status(201).json({ message: 'User updated' })
-}
+});
 
 export {
   createUser,

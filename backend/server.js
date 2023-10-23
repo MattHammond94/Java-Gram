@@ -2,6 +2,7 @@ import express from "express";
 import morgan from "morgan";
 import dotenv from "dotenv";
 dotenv.config();
+import {  notFound, errorHandler } from './middleware/errorHandler.js';
 
 // Routes:
 import userRoutes from './routes/userRoutes.js'
@@ -18,5 +19,8 @@ app.use('/users', userRoutes);
 app.get('/', (req, res) => {
   res.send('server is running');
 })
+
+app.use(notFound);
+app.use(errorHandler);
 
 app.listen(port, () => console.log(`Server started on port ${port}`));
