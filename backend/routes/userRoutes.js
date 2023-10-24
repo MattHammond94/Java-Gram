@@ -5,13 +5,16 @@ import {
   logInUser,
   logOutUser,
   getUser,
-  updateUser
+  updateUser,
+  deleteUser
 } from '../controllers/userController.js';
+import { protect } from '../middleware/authMiddleware.js';
 
 router.post('/new', createUser);
 router.post('/token', logInUser)
 router.post('/token/logout', logOutUser);
-router.get('/user', getUser);
-router.patch('/user', updateUser)
+router.get('/user', protect, getUser);
+router.put('/user', protect, updateUser);
+router.delete('/user', protect, deleteUser);
 
 export default router;
