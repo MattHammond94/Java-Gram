@@ -22,7 +22,7 @@ app.use(morgan('dev'));
 app.use(express.json());
 app.use(cookieParser());
 
-app.use('/users', userRoutes);
+app.use('/api/users', userRoutes);
 
 app.get('/', (req, res) => {
   res.send('server is running');
