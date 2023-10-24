@@ -37,7 +37,24 @@ const createUser = asyncHandler(async (req, res) => {
 
 //Route:      POST /users/token
 const logInUser = asyncHandler(async (req, res) => {
-  res.status(200).json({ message: 'User logged in' })
+
+  const { username, password } = req.body
+
+  const user = await User.findOne({ username })
+
+  if (user && (await user.matchPasswords(password))) {
+    
+    generateToken(res, user._id);
+
+    res.status(201).json({
+      _id: user._id,
+      username: user.username,
+      email: user.email,
+    });
+  } else {
+    res.status(401);
+    throw new Error('Username or password is invalid');
+  }
 });
 
 //Route:      POST /users/token/logout
