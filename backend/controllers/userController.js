@@ -4,13 +4,12 @@ import User from "../models/userModel.js";
 // Route:    POST /users/new
 const createUser = asyncHandler(async (req, res) => {
 
-  console.log(req.body);
-
   const { username, email, password } = req.body;
 
-  const userExists = await User.findOne({ username });
+  const usernameExists = await User.findOne({ username });
+  const emailExists = await User.findOne({ email })
 
-  if (userExists) {
+  if (usernameExists || emailExists ) {
     res.status(400);
     throw new Error('A user already exists with these details');
   }
@@ -21,7 +20,16 @@ const createUser = asyncHandler(async (req, res) => {
     password
   });
 
-  res.status(201).json({ message: `User created with username: ${ user.username }` })
+  if (user) {
+    res.status(201).json({
+      _id: user._id,
+      username: user.username,
+      email: user.email,
+    });
+  } else {
+    res.status(400);
+    throw new Error('Invalid user data');
+  }
 });
 
 //Route:      POST /users/token
