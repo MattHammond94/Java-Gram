@@ -1,5 +1,4 @@
-// import mongoose from "mongoose";
-const mongoose = require("mongoose");
+import mongoose from "mongoose";
 
 const specHelper = () => {
   beforeAll((done) => {
@@ -12,4 +11,4 @@ const specHelper = () => {
   });
 };
 
-module.exports = specHelper;
+export default specHelper;

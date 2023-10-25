@@ -1,8 +1,5 @@
-// import mongoose from "mongoose";
-// import specHelper from "../specHelper.js";
-
-const mongoose = require("mongoose");
-const specHelper = require("../specHelper");
+import mongoose from "mongoose";
+import specHelper from "../specHelper.js";
 
 specHelper();
 
