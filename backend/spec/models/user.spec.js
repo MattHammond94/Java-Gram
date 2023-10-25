@@ -1,15 +1,19 @@
 import User from "../../models/userModel.js";
-import mongoose from "mongoose";
+import { testDatabaseConnector, 
+  testDatabaseUsersTruncator,
+  testDatabaseConnectionCloser
+} from "../../../testSetup.js";
 
 describe("User model", () => {
 
-  afterAll(async () => {
-    await mongoose.connection.close();
+  beforeAll(async () => {
+    await testDatabaseConnector();
+    await testDatabaseUsersTruncator();
   });
 
-  // beforeAll(async () => {
-  //   await mongoose.connection.collections.users.drop();
-  // });
+  afterAll(async () => {
+    await testDatabaseConnectionCloser();
+  });
 
   const user = new User({
     email: "AFakeEmail@tiscali.net",
@@ -44,26 +48,12 @@ describe("User model", () => {
     expect(user.dateOfBirth).toBe(undefined)
   });
 
-  it("Should be able to create a new user in the database", async() => {
+  it("Should be able to save a new user in the database", async() => {
+    await user.save();
 
-    const connected = await mongoose.connect(process.env.TEST_DB_URI, {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-    });
-
-    console.log(`Connected to the test database @: ${connected.connection.host}`)
-
-    await mongoose.connection.collections.users.drop();
-
-    const newUser = await User.create({
-      email: "fake@tiscali.net",
-      username: "fakes",
-      password: "password1234"
-    });
-
-    const savedUser = await User.findOne({ username: newUser.username });
+    const savedUser = await User.findOne({ username: user.username });
 
     expect(savedUser).not.toBeNull();
-    expect(savedUser.email).toEqual("fake@tiscali.net");
+    expect(savedUser.email).toEqual("AFakeEmail@tiscali.net");
   });
 });
