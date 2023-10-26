@@ -3,7 +3,7 @@ import { testDatabaseConnector,
   testDatabaseConnectionCloser
 } from "../../../testSetup.js";
 
-import Server from "../../server.js";
+// import Server from "../../server.js";
 
 describe("/api/users - Endpoint", () => {
   beforeAll(async () => {
