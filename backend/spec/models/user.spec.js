@@ -5,16 +5,6 @@ import { testDatabaseConnector,
 } from "../../../testSetup.js";
 
 describe("User model", () => {
-
-  beforeAll(async () => {
-    await testDatabaseConnector();
-    await testDatabaseUsersTruncator();
-  });
-
-  afterAll(async () => {
-    await testDatabaseConnectionCloser();
-  });
-
   const user = new User({
     email: "AFakeEmail@tiscali.net",
     username: "fakeUsername",
@@ -49,11 +39,15 @@ describe("User model", () => {
   });
 
   it("Should be able to save a new user in the database", async() => {
+    await testDatabaseConnector();
+    await testDatabaseUsersTruncator();
     await user.save();
 
     const savedUser = await User.findOne({ username: user.username });
 
     expect(savedUser).not.toBeNull();
     expect(savedUser.email).toEqual("AFakeEmail@tiscali.net");
+
+    await testDatabaseConnectionCloser();
   });
 });

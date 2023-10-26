@@ -1,5 +1,21 @@
-// import mongoose from "mongoose";
-// import specHelper from "../specHelper.js";
+import { testDatabaseConnector, 
+  testDatabaseUsersTruncator,
+  testDatabaseConnectionCloser
+} from "../../../testSetup.js";
 
-// specHelper();
+import Server from "../../server.js";
 
+describe("/api/users - Endpoint", () => {
+  beforeAll(async () => {
+    await testDatabaseConnector();
+    await testDatabaseUsersTruncator();
+  });
+
+  afterAll(async () => {
+    await testDatabaseConnectionCloser();
+  });
+
+  
+
+
+})
