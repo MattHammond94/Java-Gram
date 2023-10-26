@@ -2,9 +2,7 @@ import mongoose from "mongoose";
 import dotenv from "dotenv";
 dotenv.config();
 
-// const testLogger = () => {
-//   console.log('Tests are running as expected...')
-// }
+console.log(process.env.NODE_ENV);
 
 const testDatabaseConnector = async () => {
   try {
@@ -23,7 +21,6 @@ const testDatabaseConnector = async () => {
 const testDatabaseUsersTruncator = async () => {
   try {
     await mongoose.connection.collections.users.drop();
-    // console.log('Database has been cleared.')
   } catch(error) {
     console.log(error)
   }
