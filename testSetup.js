@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 import dotenv from "dotenv";
 dotenv.config();
 
-console.log(process.env.NODE_ENV);
+// console.log(process.env.NODE_ENV);
 
 const testDatabaseConnector = async () => {
   try {
@@ -29,7 +29,6 @@ const testDatabaseUsersTruncator = async () => {
 const testDatabaseConnectionCloser = async () => {
   try {
     await mongoose.connection.close();
-    console.log('Test database connection closed.')
   } catch(error) {
     console.log(error)
   }

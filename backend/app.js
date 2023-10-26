@@ -11,8 +11,10 @@ import userRoutes from './routes/userRoutes.js'
 // Create app:
 const app = express();
 
-// Middleware: 
-app.use(morgan('dev'));
+// Middleware:
+if (!process.env.NODE_ENV === 'test') {
+  app.use(morgan('dev'));
+}
 app.use(express.json());
 app.use(cookieParser());
 
