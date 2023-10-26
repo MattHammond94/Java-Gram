@@ -53,7 +53,7 @@ describe("/api/users - Endpoint", () => {
         let response = await supertest(app)
           .post("/api/users/new")
           .send({ username: user.username, email: user.email, password: user.password })
-        expect(response.cookie).not.toBeNull();
+        expect(response.header["set-cookie"]).not.toBeNull();
       });
     });
 
