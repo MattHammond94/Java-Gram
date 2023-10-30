@@ -1,14 +1,39 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { useLoginMutation } from '../slices/usersApiSlice';
+import { setCredentials } from '../slices/authSlice';
 
 const LogInForm = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const [login, { isLoading, error }] = useLoginMutation();
+
+  const { userInfo } = useSelector((state) => state.auth);
+
+  useEffect(() => {
+    if (userInfo) {
+      navigate('/feed');
+    }
+  }, [navigate, userInfo]);
 
   const submitHandler = async (e) => {
     e.preventDefault();
     console.log('submit');
     console.log(username);
     console.log(password);
+
+    try {
+      const res = await login({ username, password }).unwrap();
+      dispatch(setCredentials({...res}))
+      navigate('/feed')
+    } catch (err) {
+      console.log(err?.data?.message || err.error)
+    }
   }
 
   return (
