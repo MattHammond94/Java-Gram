@@ -43,7 +43,7 @@ const LogInForm = () => {
           <input type="text" name="username" value={ username } onChange={ (e) => setUsername(e.target.value) }/>
           <label>Password:</label>
           <input type="password" name="password" value={ password } onChange={ (e) => setPassword(e.target.value) }/>
-          { error && <p>{error}</p> }
+          { error && <p className='error'>{error}</p> }
           { isLoading ? <button disabled><Loader /></button> : <button>Sign In</button> }
         <p>New to Java-Gram? <a href='/'>Register here</a></p>
       </form>

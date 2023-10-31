@@ -1,7 +1,30 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Fjalla+One&display=swap');
+
 * {
   margin: 0px;
   padding: 0px;
 }
+
+:root {
+  --text-font: 'Playfair Display', serif;
+  --headers-font: 'Fjalla One', sans-serif;
+  --error-colour: #B92533;
+}
+
+h1 {
+  font-family: var(--headers-font);
+}
+
+p, button, a {
+  font-family: var(--text-font);
+  font-weight: bold;
+}
+
+.error {
+  color: var(--error-colour);
+}
+
 
 /* body {
   display: flex;
@@ -13,7 +36,7 @@
   margin: 20px;
   background-color: grey;
   width: 300px;
-  height: 250px;
+  height: 280px;
   padding: 15px;
   border-radius: 1%;
 }
@@ -25,6 +48,10 @@
   align-items: center;
   justify-content: center;
   gap: 10px
+}
+
+.login-form label, .login-form input {
+  font-family: var(--text-font);
 }
 
 /* ==== COMPONENTS ==== */
@@ -41,7 +68,7 @@
 
 .loader div {
   position: absolute;
-  border: 4px solid #454ADE;
+  border: 4px solid var(--error-colour);
   border-radius: 50%;
   animation: ripple 1s ease-out infinite;
 }
