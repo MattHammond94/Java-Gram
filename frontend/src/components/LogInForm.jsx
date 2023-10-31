@@ -8,7 +8,9 @@ import Loader from '../components/Loader';
 const LogInForm = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
+  const [apiError, setApiError] = useState('');
+  const [usernameError, setUsernameError] = useState('');
+  const [passwordError, setPasswordError] = useState('');
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -18,12 +20,26 @@ const LogInForm = () => {
   const submitHandler = async (e) => {
     e.preventDefault();
 
+    setApiError('');
+
+    if (username.length <= 0) {
+      return setUsernameError('Username field is empty');
+    } else {
+      setUsernameError('');
+    }
+
+    if (password.length <= 0) {
+      return setPasswordError('Password field is empty');
+    } else {
+      setPasswordError('');
+    }
+
     try {
       const res = await login({ username, password }).unwrap();
       dispatch(setCredentials({...res}))
       navigate('/feed')
     } catch (err) {
-      setError(err?.data?.message || err.error)
+      setApiError(err?.data?.message || err.error)
     }
   }
 
@@ -33,9 +49,11 @@ const LogInForm = () => {
         <h1>Log In</h1>
           <label>Username:</label>
           <input type="text" name="username" value={ username } onChange={ (e) => setUsername(e.target.value) }/>
+          { usernameError && <p className='error'>{usernameError}</p> }
           <label>Password:</label>
           <input type="password" name="password" value={ password } onChange={ (e) => setPassword(e.target.value) }/>
-          { error && <p className='error'>{error}</p> }
+          { passwordError && <p className='error'>{passwordError}</p> }
+          { apiError && <p className='error'>{apiError}</p> }
           { isLoading ? <button disabled><Loader /></button> : <button>Sign In</button> }
         <p>New to Java-Gram? <a href='/'>Register here</a></p>
       </form>

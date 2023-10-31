@@ -41,6 +41,13 @@ export const usersApiSlice = apiSlice.injectEndpoints({
       url: `${USERS_URL}/user`
     }),
   }),
+  onError: (error) => {
+    if (error.data && error.data.message) {
+      return 'Unable to connect to the server at this time.'
+    } else {
+      return 'An error occured. Please try again';
+    }
+  }
 });
 
 export const {
