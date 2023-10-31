@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLoginMutation } from '../slices/usersApiSlice';
 import { setCredentials } from '../slices/authSlice';
+import Loader from '../components/Loader';
 
 const LogInForm = () => {
   const [username, setUsername] = useState('');
@@ -38,12 +39,12 @@ const LogInForm = () => {
     <div className="login-form">
       <form onSubmit={ submitHandler }>
         <h1>Log In</h1>
-        <label>Username:</label>
-        <input type="text" name="username" value={ username } onChange={ (e) => setUsername(e.target.value) }/>
-        <label>Password:</label>
-        <input type="password" name="password" value={ password } onChange={ (e) => setPassword(e.target.value) }/>
-        { error && <p>{error}</p> }
-        <button>Sign In</button>
+          <label>Username:</label>
+          <input type="text" name="username" value={ username } onChange={ (e) => setUsername(e.target.value) }/>
+          <label>Password:</label>
+          <input type="password" name="password" value={ password } onChange={ (e) => setPassword(e.target.value) }/>
+          { error && <p>{error}</p> }
+          { isLoading ? <button disabled><Loader /></button> : <button>Sign In</button> }
         <p>New to Java-Gram? <a href='/'>Register here</a></p>
       </form>
     </div>

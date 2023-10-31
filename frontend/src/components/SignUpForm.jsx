@@ -8,9 +8,6 @@ const SignUpForm = () => {
 
   const submitHandler = async (e) => {
     e.preventDefault();
-    console.log('submit');
-    console.log(username);
-    console.log(password);
   }
 
   return (

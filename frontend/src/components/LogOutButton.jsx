@@ -1,13 +1,14 @@
 import { useLogoutMutation } from "../slices/usersApiSlice";
 import { logout } from "../slices/authSlice";
-import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from "react-router-dom";
+import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import Loader from '../components/Loader';
 
 const LogOutButton = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const [removeCookie] = useLogoutMutation();
+  const [removeCookie, { isLoading }] = useLogoutMutation();
 
   const logOutFunction = async() => {
     try {
@@ -21,7 +22,7 @@ const LogOutButton = () => {
 
   return (
     <div>
-      <button onClick={ logOutFunction }>Log Out</button>
+      { isLoading ? <button disabled><Loader /></button> : <button onClick={ logOutFunction }>Log Out</button> }
     </div>
   )
 }
