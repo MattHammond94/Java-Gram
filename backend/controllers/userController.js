@@ -55,7 +55,7 @@ const logInUser = asyncHandler(async (req, res) => {
     });
   } else {
     res.status(401);
-    throw new Error('Username or password is invalid');
+    throw new Error('Invalid username or password');
   }
 });
 
