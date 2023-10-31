@@ -13,12 +13,15 @@ import './index.css'
 import App from './App.jsx';
 import HomePage from './pages/HomePage.jsx';
 import FeedPage from './pages/FeedPage.jsx';
+import PrivateRoute from './components/PrivateRoute';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path='/' element={<App />}>
       <Route index={true} path='/' element={<HomePage />} />
-      <Route path='/feed' element={<FeedPage />} />
+      <Route path='' element={<PrivateRoute />}>
+        <Route path='/feed' element={<FeedPage />} />
+      </Route>
     </Route>
   )
 );
