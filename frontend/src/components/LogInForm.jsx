@@ -44,7 +44,7 @@ const LogInForm = () => {
   }
 
   return (
-    <div className="login-form">
+    <div className="formTemplate">
       <form onSubmit={ submitHandler }>
         <h1>Log In</h1>
           <label>Username:</label>

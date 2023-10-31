@@ -32,16 +32,16 @@ p, button, a {
   align-items: center;
 } */
 
-.login-form {
+.formTemplate {
   margin: 20px;
   background-color: grey;
   width: 300px;
-  height: 370px;
+  height: 350px;
   padding: 15px;
   border-radius: 1%;
 }
 
-.login-form form {
+.formTemplate form {
   margin-top: 30px;
   display: flex;
   flex-direction: column;
@@ -50,7 +50,7 @@ p, button, a {
   gap: 10px
 }
 
-.login-form label, .login-form input {
+.formTemplate label, .login-form input {
   font-family: var(--text-font);
 }
 
