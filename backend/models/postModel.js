@@ -21,10 +21,11 @@ const postSchema = new Schema({
     ref: "Comment",
     default: []
   }],
-  likedBy: {
-    type: Array,
+  likedBy: [{
+    type: Schema.Types.ObjectId, 
+    ref: "User",
     default: []
-  }
+  }]
 },
 {
   timestamps: true
