@@ -1,44 +1,121 @@
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Fjalla+One&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Heebo&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=PT+Sans+Narrow&display=swap');
 
 * {
   margin: 0px;
   padding: 0px;
+  user-select: none;
 }
 
 :root {
-  --text-font: 'Playfair Display', serif;
+  --text-font-smart: 'Playfair Display', serif;
+  --text-font: 'Heebo', sans-serif;
+  --text-font-alternate: 'PT Sans Narrow', sans-serif;
   --headers-font: 'Fjalla One', sans-serif;
-  --error-colour: #B92533;
+  --error-colour: #c84250;
+
+
+  /* LIGHTMODE */ 
+  --dark-purp: #2A0160;
+  --semi-dark-purp: #462f63;
+  --mid-purp: #8F5FCD;
+  --light-purp: #C59BFA;
+  --nice-purp: #7474E3;
+  --grey-purp: #887B9A;
+  --very-light-purp: #F1EAFA;
+  --dark-grey: #4B4256;
+  --vite-purple: #646cffaa;
+  --light-grey-two: #BFBEBF; 
+  --light-grey: #C1BCC1;
+
+
+  /* DARKMODE */ 
+  --dark-colour: #211F19;
+  --secondary-dark-colour: #4A4638;
+  --traditional-grey: #50504B;
+  --light-grey: #A5A59E;
+  --yellow-font-colour: #FCDD2B;
+  --another-yellow: #FFF00E;
 }
+
+body {
+  background-color: #F1EAFA;
+}
+
+
+
+
+.waves {
+  aspect-ratio: 960/540;
+  width: 100%;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+}
+
+.layer1 {
+  background-image: url('960x540.svg');
+  position: absolute;
+  bottom: 0px;
+  z-index: -1;
+}
+
+.homeContentContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+
 
 h1 {
   font-family: var(--headers-font);
+  color: var(--semi-dark-purp);
 }
 
 p, button, a {
   font-family: var(--text-font);
   font-weight: bold;
+  font-size: 1.03rem;
+}
+
+p {
+  text-align: center;
+}
+
+button {
+  background-color: #d6baf8;
+  padding: 12.5px;
+  border-radius: 20px;
+  border: solid;
+  margin: 5px;
+  margin-bottom: 20px;
+  cursor: pointer;
+
+
+  will-change: filter;
+  transition: filter 300ms;
+}
+
+button:hover {
+  filter: drop-shadow(0 0 2em #6e16d9);
 }
 
 .error {
   color: var(--error-colour);
 }
 
-
-/* body {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-} */
-
 .formTemplate {
   margin: 20px;
-  background-color: grey;
+  background-color: white;
+  box-shadow: 0 4px 8px 0 rgba(57, 5, 72, 0.2), 0 6px 20px 0 rgba(55, 2, 61, 0.19);
   width: 300px;
-  height: 350px;
+  height: 400px;
   padding: 15px;
-  border-radius: 1%;
+  border-radius: 25px;
 }
 
 .formTemplate form {
@@ -47,11 +124,45 @@ p, button, a {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 10px
+  gap: 6px
 }
 
-.formTemplate label, .login-form input {
+.formTemplate input {
+  background-color: var(--grey-purp);
+  width: 220px;
+  height: 25px;
+  font-size: 1.03rem;
+  border-radius: 10px;
+  padding: 2px;
+  border-style: solid;
+  text-align: center;
+  border-color: var(--grey-purp);
+  caret-color: var(--semi-dark-purp);
+  color: var(--semi-dark-purp);
+  font-family: var(--text-font-smart);
+  user-select: none;
+}
+
+.formTemplate label, .formTemplate input {
   font-family: var(--text-font);
+  color: var(--semi-dark-purp);
+  font-size: 1.03rem;
+}
+
+.formTemplate p {
+  color: #7474E3;
+}
+
+.formTemplate a {
+  color: #2A0160;
+}
+
+.formTemplate input:focus {
+  outline: none;
+}
+
+.formTemplate h1 {
+  margin-bottom: 16px;
 }
 
 /* ==== COMPONENTS ==== */
@@ -63,12 +174,11 @@ p, button, a {
   position: relative;
   width: 100px;
   height: 100px;
-  margin-bottom: 50px;
 }
 
 .loader div {
   position: absolute;
-  border: 4px solid var(--error-colour);
+  border: 4px solid white;
   border-radius: 50%;
   animation: ripple 1s ease-out infinite;
 }

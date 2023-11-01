@@ -3,15 +3,15 @@ import SignUpForm from "../components/SignUpForm";
 
 const HomePage = () => {
   return (
-    <div>
-      <h1>Welcome to Java-Gram</h1>
-      <h1>Home page</h1>
-      <div>Log In</div>
-      <div>Sign Up</div>
-
-      <LogInForm />
+    <div className="homePage">
+      <div className="homeContentContainer">
+        <h1>Java-Gram</h1>
       
-      <SignUpForm />
+        <LogInForm />
+      
+        {/* <SignUpForm /> */}
+      </div>
+      <div className="waves layer1"></div>
     </div>
   )
 }

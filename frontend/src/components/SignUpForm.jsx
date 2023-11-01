@@ -4,7 +4,6 @@ import { useCreateUserMutation } from '../slices/usersApiSlice';
 import { setCredentials } from '../slices/authSlice';
 import { useDispatch } from 'react-redux';
 import signUpValidator from '../inputValidators/SignUpValidator';
-
 import Loader from '../components/Loader';
 
 const SignUpForm = () => {
@@ -30,9 +29,7 @@ const SignUpForm = () => {
 
     if (Object.keys(errors).length === 0) {
       try {
-        const email = formValues.email
-        const username = formValues.username
-        const password = formValues.password
+        const { email, username, password } = formValues;
         const response = await newUser({ email, username, password }).unwrap();
         dispatch(setCredentials({...response}));
         navigate('/feed')
@@ -43,7 +40,7 @@ const SignUpForm = () => {
   }
 
   return (
-    <div className="formTemplate" style={{ height: '420px'}}>
+    <div className="formTemplate" style={{ height: '550px'}}>
       <form onSubmit={ submitHandler } style={{ marginTop: '16px' }}>
         <h1>Sign Up</h1>
         <label>E-mail Address:</label>
