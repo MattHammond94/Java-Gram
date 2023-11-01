@@ -26,6 +26,14 @@ const testDatabaseUsersTruncator = async () => {
   }
 }
 
+const testDatabasePostsTruncator = async () => {
+  try {
+    await mongoose.connection.collections.posts.drop();
+  } catch(error) {
+    console.log(error)
+  }
+}
+
 const testDatabaseConnectionCloser = async () => {
   try {
     await mongoose.connection.close();
@@ -37,5 +45,6 @@ const testDatabaseConnectionCloser = async () => {
 export { 
   testDatabaseConnector,
   testDatabaseUsersTruncator,
+  testDatabasePostsTruncator,
   testDatabaseConnectionCloser
 };

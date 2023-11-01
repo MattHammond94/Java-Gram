@@ -1,6 +1,10 @@
 import Post from '../../models/postModel.js';
 import User from '../../models/userModel.js';
 import Comment from '../../models/commentModel.js';
+import { testDatabaseConnector, 
+  testDatabasePostsTruncator,
+  testDatabaseConnectionCloser
+} from "../../../testSetup.js";
 
 describe ('Post Model', () => {
   const newUser = new User({
@@ -58,6 +62,26 @@ describe ('Post Model', () => {
 
   it('Should be able to access any comments within the comments array', () => {
     expect(anotherPost.comments.length).toBe(1);
-    expect(anotherPost.comments[1]).toBe(newComment);
+    expect(anotherPost.comments[0]).toBe(newComment);
+    expect(anotherPost.comments[0].caption).toBe('This is a comment');
+  });
+
+  it('Should be able to access the userInfo of a user that has liked the post', () => {
+    expect(anotherPost.likedBy.length).toBe(2);
+    expect(anotherPost.likedBy[1]).toBe(anotherUser);
+    expect(anotherPost.likedBy[1].username).toBe('AnotherFakeUser420');
+  });
+
+  it("Should be able to save a new user in the database", async() => {
+    await testDatabaseConnector();
+    await testDatabasePostsTruncator();
+    await newPost.save();
+
+    const savedPost = await Post.findOne({ image: 'This is a new image' });
+
+    expect(savedPost).not.toBeNull();
+    expect(savedPost.caption).toBe('This is a caption');
+
+    await testDatabaseConnectionCloser();
   });
 });
