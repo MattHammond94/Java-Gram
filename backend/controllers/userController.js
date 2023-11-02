@@ -2,7 +2,6 @@ import asyncHandler from "express-async-handler";
 import User from "../models/userModel.js";
 import generateToken from "../utilities/generateToken.js";
 import tokenCookieRemover from "../middleware/tokenCookieRemover.js";
-import { token } from "morgan";
 
 // Route:    POST /users/new
 const createUser = asyncHandler(async (req, res) => {
