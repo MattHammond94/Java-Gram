@@ -72,7 +72,7 @@ describe ('Post Model', () => {
     expect(anotherPost.likedBy[1].username).toBe('AnotherFakeUser420');
   });
 
-  it("Should be able to save a new user in the database", async() => {
+  it("Should be able to save a new post in the database", async() => {
     await testDatabaseConnector();
     await testDatabasePostsTruncator();
     await newPost.save();
@@ -80,6 +80,7 @@ describe ('Post Model', () => {
     const savedPost = await Post.findOne({ image: 'This is a new image' });
 
     expect(savedPost).not.toBeNull();
+    expect(savedPost.createdAt instanceof Date).toBe(true);
     expect(savedPost.caption).toBe('This is a caption');
 
     await testDatabaseConnectionCloser();
