@@ -174,4 +174,50 @@ describe("/api/users - Endpoint", () => {
       expect (response.status).toBe(400);
     });
   });
+
+  describe('Get all posts - GET /all endpoint', () => {
+    test('Should return the correct response status', async () => {
+      await supertest(app)
+      .post("/api/posts/new")
+      .set('Cookie', `jwt=${token}`)
+      .send({ image: 'post 1', caption: 'Caption for post 1', user: postUser._id });
+      await supertest(app)
+      .post("/api/posts/new")
+      .set('Cookie', `jwt=${token}`)
+      .send({ image: 'post 2', caption: 'Caption for post 2', user: postUser._id });
+      await supertest(app)
+      .post("/api/posts/new")
+      .set('Cookie', `jwt=${token}`)
+      .send({ image: 'post 3', caption: 'Caption for post 3', user: postUser._id });
+      const response = await supertest(app)
+      .get('/api/posts/all')
+      .set('Cookie', `jwt=${token}`)
+      expect(response.statusCode).toBe(200);
+    });
+
+    test('Should return an array of all created posts from database', async () => {
+      await supertest(app)
+      .post("/api/posts/new")
+      .set('Cookie', `jwt=${token}`)
+      .send({ image: 'post 1', caption: 'Caption for post 1', user: postUser._id });
+      await supertest(app)
+      .post("/api/posts/new")
+      .set('Cookie', `jwt=${token}`)
+      .send({ image: 'post 2', caption: 'Caption for post 2', user: postUser._id });
+      await supertest(app)
+      .post("/api/posts/new")
+      .set('Cookie', `jwt=${token}`)
+      .send({ image: 'post 3', caption: 'Caption for post 3', user: postUser._id });
+      const response = await supertest(app)
+      .get('/api/posts/all')
+      .set('Cookie', `jwt=${token}`)
+      expect(Array.isArray(response.body)).toBe(true);
+      expect(response.body.length).toBe(3);
+      expect(response.body[1].caption).toBe('caption2');
+    });
+
+    // test('If no posts exist in databse a message should be returned', () => {
+    //   expect(response.body.message).toBe('There are currently no posts');
+    // });
+  });
 });
