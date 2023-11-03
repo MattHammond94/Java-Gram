@@ -213,11 +213,16 @@ describe("/api/users - Endpoint", () => {
       .set('Cookie', `jwt=${token}`)
       expect(Array.isArray(response.body)).toBe(true);
       expect(response.body.length).toBe(3);
-      expect(response.body[1].caption).toBe('caption2');
+      expect(response.body[1].caption).toBe('Caption for post 2');
+      // expect(response.body[2].user.username).toBe('AnotherUser')
     });
 
-    // test('If no posts exist in databse a message should be returned', () => {
-    //   expect(response.body.message).toBe('There are currently no posts');
-    // });
+    test('If no posts exist in databse an alert message should be returned', async () => {
+      const response = await supertest(app)
+      .get('/api/posts/all')
+      .set('Cookie', `jwt=${token}`)
+      expect(response.statusCode).toBe(200);
+      expect(response.body.message).toBe('There are currently no posts');
+    });
   });
 });

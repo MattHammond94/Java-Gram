@@ -62,7 +62,15 @@ const getPost = asyncHandler(async (req, res) => {
 //Route      GET  /all
 //Get all posts
 const getAllPosts = asyncHandler(async (req, res) => {
-  res.status(200).json({ message: 'Gets all posts' });
+  const allPosts = await Post.find({});
+
+  if (allPosts) {
+    const status = res.status(200)
+    allPosts.length < 1 ? status.json({ message: 'There are currently no posts' }) : status.json(allPosts)
+  } else {
+    res.status(400)
+    throw new Error('Unable to retrieve posts from the database')
+  }
 })
 
 //Route:     PUT  /:id
