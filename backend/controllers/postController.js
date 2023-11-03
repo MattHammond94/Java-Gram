@@ -95,7 +95,9 @@ const updatePost = asyncHandler(async (req, res) => {
 //Route:     DELETE  /:id
 //Deletes a post
 const deletePost = asyncHandler(async (req, res) => {
-  res.status(201).json({ message: 'Post deleted' });
+
+
+  res.status(201).json({ message: 'Post deleted', fail: 'Unable to delete post as post does not exist' });
 })
 
 export {

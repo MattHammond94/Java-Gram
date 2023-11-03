@@ -65,21 +65,21 @@ describe("/api/users - Endpoint", () => {
     });
 
     describe('/:id endpoints', () => {
-      test('Cannot delete a post when user is not logged in', async () => {
+      test('Cannot DELETE a post when user is not logged in', async () => {
         let response = await supertest(app)
           .delete(`/api/posts/${testPost._id}`)
         expect(response.body.message).toBe('Unauthorized without a token');
         expect(response.statusCode).toBe(401);
       });
 
-      test('Cannot get a post when user is not logged in', async () => {
+      test('Cannot GET a post when user is not logged in', async () => {
         let response = await supertest(app)
           .get(`/api/posts/${testPost._id}`)
         expect(response.body.message).toBe('Unauthorized without a token');
         expect(response.statusCode).toBe(401);
       });
 
-      test('Cannot get a post when user is not logged in', async () => {
+      test('Cannot UPDATE a post when user is not logged in', async () => {
         let response = await supertest(app)
           .put(`/api/posts/${testPost._id}`)
         expect(response.body.message).toBe('Unauthorized without a token');
@@ -106,13 +106,13 @@ describe("/api/users - Endpoint", () => {
         expect(response.statusCode).toBe(400);
     });
 
-    // test('The correct error and response code are returned for the DELETE endpoint', async () => {
-    //   let response = await supertest(app)
-    //       .delete('/api/posts/invalidId')
-    //       .set('Cookie', `jwt=${token}`)
-    //     expect(response.body.message).toBe('Not a valid ID parameter');
-    //     expect(response.statusCode).toBe(400);
-    // });
+    test('The correct error and response code are returned for the DELETE endpoint', async () => {
+      let response = await supertest(app)
+          .delete('/api/posts/invalidId')
+          .set('Cookie', `jwt=${token}`)
+        expect(response.body.message).toBe('Not a valid ID parameter');
+        expect(response.statusCode).toBe(400);
+    });
 
     // test('The correct error and response code are returned for the PUT endpoint', async () => {
     //   let response = await supertest(app)
@@ -223,6 +223,29 @@ describe("/api/users - Endpoint", () => {
       .set('Cookie', `jwt=${token}`)
       expect(response.statusCode).toBe(200);
       expect(response.body.message).toBe('There are currently no posts');
+    });
+  });
+
+  describe('Delete post - DELETE /:id endpoint', () => {
+    test('The correct status and response code are returned when deleting a post', async () => {
+      await supertest(app)
+      .post("/api/posts/new")
+      .set('Cookie', `jwt=${token}`)
+      .send({ image: 'Another', caption: 'Caption for post', user: postUser._id });
+      const foundPost = await Post.findOne({ image: 'Another' })
+      const response = await supertest(app)
+      .delete(`/api/posts/${foundPost._id}`)
+      .set('Cookie', `jwt=${token}`)
+      expect(response.status).toBe(200);
+      expect(response.body.message).toBe('Post successfully deleted')
+    });
+
+    test('An error is returned when a post does not exist', async () => {
+      const response = await supertest(app)
+      .delete(`/api/posts/${testPost._id}`)
+      .set('Cookie', `jwt=${token}`)
+      expect (response.body.message).toBe('Unable to delete post as post does not exist');
+      expect (response.status).toBe(400);
     });
   });
 });
