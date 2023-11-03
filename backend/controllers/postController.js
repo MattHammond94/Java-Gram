@@ -95,10 +95,22 @@ const updatePost = asyncHandler(async (req, res) => {
 //Route:     DELETE  /:id
 //Deletes a post
 const deletePost = asyncHandler(async (req, res) => {
+  const { id } = req.params
 
+  if (!mongoose.Types.ObjectId.isValid(id)) {
+    res.status(400);
+    throw new Error('Not a valid ID parameter');
+  }
 
-  res.status(201).json({ message: 'Post deleted', fail: 'Unable to delete post as post does not exist' });
-})
+  const deletedPost = await Post.findOneAndDelete({ _id: id });
+
+  if (deletedPost) {
+    res.status(200).json({ message: 'Post successfully deleted' })
+  } else {
+    res.status(400)
+    throw new Error('Unable to delete post as post does not exist')
+  }
+});
 
 export {
   createPost,

@@ -242,7 +242,7 @@ describe("/api/users - Endpoint", () => {
 
     test('An error is returned when a post does not exist', async () => {
       const response = await supertest(app)
-      .delete(`/api/posts/${testPost._id}`)
+      .delete('/api/posts/6543bbd67c5782a9d41e35ab')
       .set('Cookie', `jwt=${token}`)
       expect (response.body.message).toBe('Unable to delete post as post does not exist');
       expect (response.status).toBe(400);
