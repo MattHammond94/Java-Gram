@@ -30,7 +30,7 @@ const testDatabasePostsTruncator = async () => {
   try {
     await mongoose.connection.collections.posts.drop();
   } catch(error) {
-    console.log(error)
+    // console.log(error)
   }
 }
 

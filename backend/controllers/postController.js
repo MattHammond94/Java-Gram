@@ -37,30 +37,29 @@ const createPost = asyncHandler(async (req, res) => {
 
 //Route:     GET /:id
 //Gets a single post
-// Unsure if this route is even required - Can just import mongoose into frontend and do a findOne there providing i had the _id for the post.
 
 const getPost = asyncHandler(async (req, res) => {
   const { id } = req.params
 
   if (!mongoose.Types.ObjectId.isValid(id)) {
-    res.status(404)
-    throw new Error('Id param is invalid')
+    res.status(400)
+    throw new Error('Not a valid ID parameter')
   }
 
   const post = await Post.findOne({ _id: id })
 
   if (post) {
-    res.status(200).json({ 
-      _id: post._id,
-      
-    })
+    await post.populate("user");
+    // await post.populate("comments");
+    await post.populate("likedBy");
+    res.status(200).json(post);
   } else {
     res.status(400)
-    throw new Error('Unable to retrieve post')
+    throw new Error('Unable to retrieve post - This post has likely been deleted')
   }
-})
+});
 
-//Route      GET  /
+//Route      GET  /all
 //Get all posts
 const getAllPosts = asyncHandler(async (req, res) => {
   res.status(200).json({ message: 'Gets all posts' });
