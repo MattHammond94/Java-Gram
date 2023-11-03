@@ -12,6 +12,7 @@ const testDatabaseConnector = async () => {
     });
   
     console.log(`Connected to the test database @: ${connected.connection.host}`);
+    
   } catch(error) {
     console.error(`Error: ${error.message}`);
     process.exit(1);
@@ -22,7 +23,7 @@ const testDatabaseUsersTruncator = async () => {
   try {
     await mongoose.connection.collections.users.drop();
   } catch(error) {
-    console.log(error)
+    console.error(error)
   }
 }
 
@@ -30,7 +31,7 @@ const testDatabasePostsTruncator = async () => {
   try {
     await mongoose.connection.collections.posts.drop();
   } catch(error) {
-    // console.log(error)
+    // console.error(error)
   }
 }
 
@@ -38,7 +39,7 @@ const testDatabaseCommentTruncator = async () => {
   try {
     await mongoose.connection.collections.comments.drop();
   } catch(error) {
-    console.log(error)
+    console.error(error)
   }
 }
 
@@ -46,7 +47,7 @@ const testDatabaseConnectionCloser = async () => {
   try {
     await mongoose.connection.close();
   } catch(error) {
-    console.log(error)
+    console.error(error)
   }
 }
 

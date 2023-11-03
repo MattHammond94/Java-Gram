@@ -65,11 +65,21 @@ const getAllPosts = asyncHandler(async (req, res) => {
   const allPosts = await Post.find({});
 
   if (allPosts) {
-    const status = res.status(200)
-    allPosts.length < 1 ? status.json({ message: 'There are currently no posts' }) : status.json(allPosts)
+    const status = res.status(200);
+
+    if (allPosts.length < 1) {
+      status.json({ message: 'There are currently no posts' });
+    }
+
+    const arrayOfPromises = allPosts.map((post) => post.populate("user"));
+    
+    await Promise.all(arrayOfPromises);
+
+    status.json(allPosts)
+    
   } else {
-    res.status(400)
-    throw new Error('Unable to retrieve posts from the database')
+    res.status(400);
+    throw new Error('Unable to retrieve posts from the database');
   }
 })
 

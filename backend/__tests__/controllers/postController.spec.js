@@ -214,7 +214,7 @@ describe("/api/users - Endpoint", () => {
       expect(Array.isArray(response.body)).toBe(true);
       expect(response.body.length).toBe(3);
       expect(response.body[1].caption).toBe('Caption for post 2');
-      // expect(response.body[2].user.username).toBe('AnotherUser')
+      expect(response.body[2].user.username).toBe('AnotherUser')
     });
 
     test('If no posts exist in databse an alert message should be returned', async () => {
