@@ -81,7 +81,14 @@ describe("/api/users - Endpoint", () => {
 
       test('Cannot UPDATE a post when user is not logged in', async () => {
         let response = await supertest(app)
-          .put(`/api/posts/${testPost._id}`)
+          .put(`/api/posts/${testPost._id}/updateCaption`)
+        expect(response.body.message).toBe('Unauthorized without a token');
+        expect(response.statusCode).toBe(401);
+      });
+
+      test('Cannot UPDATE a post when user is not logged in', async () => {
+        let response = await supertest(app)
+          .put(`/api/posts/${testPost._id}/addLike`)
         expect(response.body.message).toBe('Unauthorized without a token');
         expect(response.statusCode).toBe(401);
       });
@@ -90,7 +97,7 @@ describe("/api/users - Endpoint", () => {
     describe('/all endpoint', () => {
       test('Returns the correct statusCode and message when a user is not logged in', async () => {
         let response = await supertest(app)
-          .put('/api/posts/all')
+          .get('/api/posts/all')
         expect(response.body.message).toBe('Unauthorized without a token');
         expect(response.statusCode).toBe(401);
       });
@@ -114,13 +121,21 @@ describe("/api/users - Endpoint", () => {
         expect(response.statusCode).toBe(400);
     });
 
-    // test('The correct error and response code are returned for the PUT endpoint', async () => {
-    //   let response = await supertest(app)
-    //       .put('/api/posts/notAValidId')
-    //       .set('Cookie', `jwt=${token}`)
-    //     expect(response.body.message).toBe('Not a valid ID parameter');
-    //     expect(response.statusCode).toBe(400);
-    // });
+    test('The correct error and response code are returned for the PUT endpoint', async () => {
+      let response = await supertest(app)
+          .put('/api/posts/notAValidId/updateCaption')
+          .set('Cookie', `jwt=${token}`)
+        expect(response.body.message).toBe('Not a valid ID parameter');
+        expect(response.statusCode).toBe(400);
+    });
+
+    test('The correct error and response code are returned for the PUT endpoint', async () => {
+      let response = await supertest(app)
+          .put('/api/posts/notAValidId/addLike')
+          .set('Cookie', `jwt=${token}`)
+        expect(response.body.message).toBe('Not a valid ID parameter');
+        expect(response.statusCode).toBe(400);
+    });
   });
 
   describe('Create post - /new endpoint', () => {
@@ -226,6 +241,11 @@ describe("/api/users - Endpoint", () => {
     });
   });
 
+  // describe('Update post - /:id endpoint', () => {
+    
+
+  // });
+
   describe('Delete post - DELETE /:id endpoint', () => {
     test('The correct status and response code are returned when deleting a post', async () => {
       await supertest(app)
@@ -242,7 +262,7 @@ describe("/api/users - Endpoint", () => {
 
     test('An error is returned when a post does not exist', async () => {
       const response = await supertest(app)
-      .delete('/api/posts/6543bbd67c5782a9d41e35ab')
+      .delete(`/api/posts/${testPost._id}`)
       .set('Cookie', `jwt=${token}`)
       expect (response.body.message).toBe('Unable to delete post as post does not exist');
       expect (response.status).toBe(400);

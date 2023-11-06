@@ -34,10 +34,8 @@ const createPost = asyncHandler(async (req, res) => {
   }
 });
 
-
 //Route:     GET /:id
 //Gets a single post
-
 const getPost = asyncHandler(async (req, res) => {
   const { id } = req.params
 
@@ -83,14 +81,79 @@ const getAllPosts = asyncHandler(async (req, res) => {
   }
 })
 
-//Route:     PUT  /:id
+//Route:     PUT  /:id/addLike  -  /:id/updateCaption
 // Updating a caption
 // Adding a comment 
 // Adding a like 
-// Could seperate these into 3 seperate routes (Look into if this is more efficent/user friendly)
-const updatePost = asyncHandler(async (req, res) => {
-  res.status(201).json({ message: 'Post updated' });
-})
+const addLikeToPost = asyncHandler(async (req, res) => {
+  const user = req.user
+  const { id } = req.params
+
+  if (!mongoose.Types.ObjectId.isValid(id)) {
+    res.status(400)
+    throw new Error('Not a valid ID parameter')
+  }
+
+  const post = await Post.findById(id);
+
+  if (!post) {
+    res.status(400)
+    throw new Error('Unable to retrieve post at this time')
+  }
+
+  const existingLike = post.likedBy.some(userId => userId.toString() === user._id.toString());
+  console.log(existingLike);
+
+  if (existingLike) {
+    post.likedBy = post.likedBy.filter(userId => userId.toString() !== user._id.toString());
+    const likeRemoved = await post.save({ likedBy: post.likedBy });
+
+    if (likeRemoved) {
+      const updatedPost = await Post.findById(id)
+      console.log(updatedPost.likedBy);
+      res.status(200).json(updatedPost);
+    } else {
+      res.status(400)
+      throw new Error('Unable to update post')
+    }
+
+  } else {
+    post.likedBy.push(user);
+    const likeAdded = await post.save({ likedBy: post.likedBy });
+
+    if(likeAdded) {
+      const updatedPost = await Post.findById(id)
+      console.log(updatedPost.likedBy[0]);
+      res.status(200).json(updatedPost);
+    } else {
+      res.status(400)
+      throw new Error('Unable to update post')
+    }
+  }
+});
+
+
+const updatePostCaption = asyncHandler( async (req, res) => {
+  const { caption } = req.body
+  const { id } = req.params
+
+  //Handle caption input validation on frontend.
+
+  if (!mongoose.Types.ObjectId.isValid(id)) {
+    res.status(400)
+    throw new Error('Not a valid ID parameter')
+  }
+
+  const update = await Post.findOneAndUpdate({ _id: id }, { caption: caption });
+
+  if (update) {
+    const updatedPost = await Post.findById(id)
+    res.status(200).json(updatedPost);
+  } else {
+    res.status(400)
+    throw new Error('Unable to update post')
+  }
+});
 
 //Route:     DELETE  /:id
 //Deletes a post
@@ -116,6 +179,7 @@ export {
   createPost,
   getPost,
   getAllPosts,
-  updatePost,
+  addLikeToPost,
+  updatePostCaption,
   deletePost
 }
