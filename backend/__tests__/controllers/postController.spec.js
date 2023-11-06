@@ -241,11 +241,83 @@ describe("/api/users - Endpoint", () => {
     });
   });
 
-  // describe('Update post - /:id endpoint', () => {
-    
+  //UPDATE:
+  describe('Updating a post endpoints - /:id/ endpoint', () => {
+    describe('/addLike', () => {
+      test('Adds a like to the likedBy array if the user have not yet liked a post', async () => {
+        await supertest(app)
+        .post("/api/posts/new")
+        .set('Cookie', `jwt=${token}`)
+        .send({ image: 'post 1', caption: 'Caption for post 1', user: postUser._id });
+        const post = await Post.findOne({ image: 'post 1' })
+        const response = await supertest(app)
+        .put(`/api/posts/${post._id}/addLike`)
+        .set('Cookie', `jwt=${token}`)
+        expect(Array.isArray(response.body.likedBy)).toBe(true);
+        expect(response.body.likedBy.length).toBe(1);
+      });
 
-  // });
+      test('Removes a like from the likedBy array if the user has already liked a post', async () => {
+        await supertest(app)
+        .post("/api/posts/new")
+        .set('Cookie', `jwt=${token}`)
+        .send({ image: 'post 1', caption: 'Caption for post 1', user: postUser._id });
+        const post = await Post.findOne({ image: 'post 1' })
+        await supertest(app)
+        .put(`/api/posts/${post._id}/addLike`)
+        .set('Cookie', `jwt=${token}`)
+        const response = await supertest(app)
+        .put(`/api/posts/${post._id}/addLike`)
+        .set('Cookie', `jwt=${token}`)
+        expect(response.status).toBe(200);
+        expect(Array.isArray(response.body.likedBy)).toBe(true);
+        expect(response.body.likedBy.length).toBe(0);
+      });
 
+      test('Should return an error if the selected post cannot be found', async () => {
+        const response = await supertest(app)
+          .put(`/api/posts/${testPost._id}/addLike`)
+          .set('Cookie', `jwt=${token}`)
+          expect(response.status).toBe(400);
+          expect(response.body.message).toBe('Unable to retrieve post at this time');
+      });
+
+      // test('Should return an error if a like cannot be added', async () => {
+      //   const response = await supertest(app)
+      //     .put(`/api/posts/${testPost._id}/addLike`)
+      //     .set('Cookie', `jwt=${token}`)
+      //     expect(response.status).toBe(400);
+      //     expect(response.body.message).toBe('Unable to update post');
+      // });
+    });
+
+    describe('/updateCaption', () => {
+      test('Successfully updates a caption', async () => {
+        await supertest(app)
+        .post("/api/posts/new")
+        .set('Cookie', `jwt=${token}`)
+        .send({ image: 'post 1', caption: 'Caption for post 1', user: postUser._id });
+        const post = await Post.findOne({ image: 'post 1' })
+        const response = await supertest(app)
+        .put(`/api/posts/${post._id}/updateCaption`)
+        .set('Cookie', `jwt=${token}`)
+        .send({ caption: 'Caption has been updated' })
+        expect(response.status).toBe(200);
+        expect(response.body.caption).toBe('Caption has been updated');
+      });
+
+      test('Should return an error if post is not updated', async () => {
+        const response = await supertest(app)
+          .put(`/api/posts/${testPost._id}/updateCaption`)
+          .set('Cookie', `jwt=${token}`)
+          .send({ caption: 'Caption has been updated' })
+          expect(response.status).toBe(400);
+          expect(response.body.message).toBe('Unable to update post');
+      });
+    });
+  });
+
+  //DELETE:
   describe('Delete post - DELETE /:id endpoint', () => {
     test('The correct status and response code are returned when deleting a post', async () => {
       await supertest(app)

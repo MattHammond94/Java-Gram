@@ -100,7 +100,6 @@ const addLikeToPost = asyncHandler(async (req, res) => {
   }
 
   const existingLikeAsIndex = post.likedBy.findIndex(userId => userId.toString() === user._id.toString());
-  console.log(existingLikeAsIndex);
 
   if (existingLikeAsIndex !== -1) {
     post.likedBy.splice(existingLikeAsIndex, 1);
@@ -114,6 +113,7 @@ const addLikeToPost = asyncHandler(async (req, res) => {
     const updatedPost = await Post.findById(id)
     res.status(200).json(updatedPost);
   } else {
+    res.status(400)
     throw new Error('Unable to update post')
   }
 });
@@ -124,7 +124,7 @@ const updatePostCaption = asyncHandler( async (req, res) => {
   const { caption } = req.body
   const { id } = req.params
 
-  //Handle caption input validation on frontend.
+  //Handle caption input validation on frontend. - Account for empty strings
 
   if (!mongoose.Types.ObjectId.isValid(id)) {
     res.status(400)
