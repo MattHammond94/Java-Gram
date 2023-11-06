@@ -13,7 +13,7 @@ import jwt from 'jsonwebtoken';
 
 let token;
 let postUser;
-let testPost
+let testPost;
 
 describe("/api/users - Endpoint", () => {
   beforeAll(async () => {
