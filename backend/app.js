@@ -8,6 +8,7 @@ import { notFound, errorHandler } from './middleware/errorHandler.js';
 // Routes:
 import userRoutes from './routes/userRoutes.js';
 import postRoutes from './routes/postRoutes.js';
+import commentRoutes from './routes/commentRoutes.js';
 
 // Create app:
 const app = express();
@@ -22,6 +23,7 @@ app.use(cookieParser());
 
 app.use('/api/users', userRoutes);
 app.use('/api/posts', postRoutes);
+app.use('/api/comments', commentRoutes);
 
 app.get('/', (req, res) => {
   res.send('server is running');

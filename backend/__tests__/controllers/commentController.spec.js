@@ -44,9 +44,9 @@ describe('/api/comment - Endpoint', () => {
   });
 
   describe('/new - Endpoint', () => {
-    test('Creates a new comment', () => {
-      const response = supertest(app)
-      .post("/api/comment/new")
+    test('Creates a new comment', async () => {
+      const response = await supertest(app)
+      .post("/api/comments/new")
       .set('Cookie', `jwt=${token}`)
       expect(response.status).toBe(200);
       expect(response.body.message).toBe('Comment added')
