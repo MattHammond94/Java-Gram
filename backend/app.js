@@ -13,7 +13,9 @@ import postRoutes from './routes/postRoutes.js';
 const app = express();
 
 // Middleware:
-app.use(morgan('dev'));
+if (process.env.NODE_ENV !== 'test') {
+  app.use(morgan('dev'));
+}
 
 app.use(express.json());
 app.use(cookieParser());

@@ -1,8 +1,8 @@
 import mongoose from "mongoose";
 import dotenv from "dotenv";
 dotenv.config();
-
-// console.log(process.env.NODE_ENV);
+process.env.NODE_ENV = 'test'
+console.log(process.env.NODE_ENV);
 
 const testDatabaseConnector = async () => {
   try {

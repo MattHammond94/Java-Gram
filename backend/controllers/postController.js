@@ -81,10 +81,8 @@ const getAllPosts = asyncHandler(async (req, res) => {
   }
 })
 
-//Route:     PUT  /:id/addLike  -  /:id/updateCaption
-// Updating a caption
-// Adding a comment 
-// Adding a like 
+//Route:     PUT  /:id/addLike
+//Adding a like 
 const addLikeToPost = asyncHandler(async (req, res) => {
   const user = req.user
   const { id } = req.params
@@ -101,38 +99,27 @@ const addLikeToPost = asyncHandler(async (req, res) => {
     throw new Error('Unable to retrieve post at this time')
   }
 
-  const existingLike = post.likedBy.some(userId => userId.toString() === user._id.toString());
-  console.log(existingLike);
+  const existingLikeAsIndex = post.likedBy.findIndex(userId => userId.toString() === user._id.toString());
+  console.log(existingLikeAsIndex);
 
-  if (existingLike) {
-    post.likedBy = post.likedBy.filter(userId => userId.toString() !== user._id.toString());
-    const likeRemoved = await post.save({ likedBy: post.likedBy });
-
-    if (likeRemoved) {
-      const updatedPost = await Post.findById(id)
-      console.log(updatedPost.likedBy);
-      res.status(200).json(updatedPost);
-    } else {
-      res.status(400)
-      throw new Error('Unable to update post')
-    }
-
+  if (existingLikeAsIndex !== -1) {
+    post.likedBy.splice(existingLikeAsIndex, 1);
   } else {
     post.likedBy.push(user);
-    const likeAdded = await post.save({ likedBy: post.likedBy });
+  }
 
-    if(likeAdded) {
-      const updatedPost = await Post.findById(id)
-      console.log(updatedPost.likedBy[0]);
-      res.status(200).json(updatedPost);
-    } else {
-      res.status(400)
-      throw new Error('Unable to update post')
-    }
+  const update = await post.save();
+
+  if (update) {
+    const updatedPost = await Post.findById(id)
+    res.status(200).json(updatedPost);
+  } else {
+    throw new Error('Unable to update post')
   }
 });
 
-
+//Route:    PUT  /:id/updateCaption
+//Update caption
 const updatePostCaption = asyncHandler( async (req, res) => {
   const { caption } = req.body
   const { id } = req.params
