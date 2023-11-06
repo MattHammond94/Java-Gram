@@ -14,6 +14,9 @@ import supertest from "supertest";
 import jwt from 'jsonwebtoken';
 
 let token;
+let altToken;
+let differentUser;
+let differentComment;
 let postUser;
 let testComment;
 
@@ -28,16 +31,30 @@ describe('/api/comment - Endpoint', () => {
       password: 'Password123!'
     });
 
+    await User.create({
+      username: 'A Different User', 
+      email: 'diffuser@gmail.com', 
+      password: 'Password123!'
+    });
+
     postUser = await User.findOne({ username: 'AUser' });
+    differentUser = await User.findOne({ username: 'A Different User' });
 
     await Comment.create({
       caption: 'This is a test comment',
       user: postUser
-    })
+    });
+
+    await Comment.create({
+      caption: 'This is a different comment',
+      user: differentUser
+    });
     
-    testComment = await Comment.findOne({ caption: 'This is a test comment' })
+    testComment = await Comment.findOne({ caption: 'This is a test comment' });
+    differentComment = await Comment.findOne({ caption: 'This is a differnt comment' });
 
     token = jwt.sign({ userId: postUser._id }, process.env.JWT_SECRET);
+    altToken = jwt.sign({ userId: differentUser._id }, process.env.JWT_SECRET);
   });
 
   beforeEach(async() => {
@@ -98,6 +115,14 @@ describe('/api/comment - Endpoint', () => {
       expect(response.status).toBe(200);
     });
 
+    test('If an incorrect ID param is passed the correct error should be returned', async () => {
+      const response = await supertest(app)
+      .put(`/api/comments/InvalidId`)
+      .set('Cookie', `jwt=${token}`)
+      expect(response.status).toBe(400);
+      expect(response.body.message).toBe('Not a valid ID parameter');
+    });
+
     // test('If the comment does not belong to the user then an error should be returned', () => {
 
     // });
@@ -112,8 +137,17 @@ describe('/api/comment - Endpoint', () => {
       expect(response.body.message).toBe('Comment successfully deleted');
     });
 
-    // test('If the comment does not belong to the user then an error should be returned', () => {
-
+    // test('If the comment does not belong to the user then an error should be returned', async () => {
+    //   expect(response.body.message).toBe('Cannot delete a comment if user did not post it');
+    //   expect(response.status).toBe(400);
     // });
+
+    test('If an incorrect ID param is passed the correct error should be returned', async () => {
+      const response = await supertest(app)
+      .delete(`/api/comments/InvalidId`)
+      .set('Cookie', `jwt=${token}`)
+      expect(response.status).toBe(400);
+      expect(response.body.message).toBe('Not a valid ID parameter');
+    });
   });
 });

@@ -5,7 +5,6 @@ import mongoose from "mongoose";
 //Route:     POST /new
 //Creates a post
 const createPost = asyncHandler(async (req, res) => {
-
   const { image, caption, user } = req.body;
 
   // const existingPost = Post.findOne({ image: image });
@@ -142,6 +141,36 @@ const updatePostCaption = asyncHandler( async (req, res) => {
   }
 });
 
+//Route      PUT   /:id/addComment 
+//Add a comment to post
+const addCommentToPost = asyncHandler(async (req, res) => {
+  const { id } = req.params
+  const { comment } = req.body
+
+  if (!mongoose.Types.ObjectId.isValid(id)) {
+    res.status(400)
+    throw new Error('Not a valid ID parameter')
+  }
+  
+  const postCommentBelongsTo = await Post.findById({ _id: id });
+
+  console.log(postCommentBelongsTo);
+
+  postCommentBelongsTo.comments.push(comment)
+
+  const commentAddedToPost = await postCommentBelongsTo.save()
+
+  // updatedPost.populate('comments');
+
+  if (commentAddedToPost) { 
+    const updatedPost = await Post.findOne({ _id: commentAddedToPost._id })
+    res.status(200).json(updatedPost)
+  } else {
+    res.status(400)
+    throw new Error('Error - Unable to add comment to post')
+  }
+});
+
 //Route:     DELETE  /:id
 //Deletes a post
 const deletePost = asyncHandler(async (req, res) => {
@@ -168,5 +197,6 @@ export {
   getAllPosts,
   addLikeToPost,
   updatePostCaption,
+  addCommentToPost,
   deletePost
 }

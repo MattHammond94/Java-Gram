@@ -28,13 +28,26 @@ const createComment = asyncHandler(async (req, res) => {
 const updateComment = asyncHandler(async (req, res) => {
   const { id } = req.params
   const { caption } = req.body
+  const user = req.user
 
   if (!mongoose.Types.ObjectId.isValid(id)) {
     res.status(400)
     throw new Error('Not a valid ID parameter')
   }
 
-  const updatedCaption = await Comment.findOneAndUpdate({ _id: id }, { caption: caption })
+  const comment = await Comment.findOne({ _id: id });
+
+  console.log(comment.user._id);
+  console.log(user._id);
+
+  if (comment.user._id.toString() !== user._id.toString()) {
+    res.status(400)
+    throw new Error('Cannot update a comment if user did not post it')
+  }
+
+  comment.caption = caption
+
+  const updatedCaption = await comment.save();
 
   if (updatedCaption) {
     const updatedComment = await Comment.findOne({ _id: updatedCaption._id })
@@ -49,13 +62,21 @@ const updateComment = asyncHandler(async (req, res) => {
 //Deletes a comment
 const deleteComment = asyncHandler(async (req, res) => {
   const { id } = req.params
+  const user = req.user
 
   if (!mongoose.Types.ObjectId.isValid(id)) {
     res.status(400)
     throw new Error('Not a valid ID parameter')
   }
 
-  const deletedComment = await Comment.findOneAndDelete({ _id: id })
+  const comment = await Comment.findOne({ _id: id });
+
+  if (comment.user._id.toString() !== user._id.toString()) {
+    res.status(400)
+    throw new Error('Cannot delete a comment if user did not post it')
+  }
+
+  const deletedComment = await Comment.deleteOne({ _id: id })
 
   if(deletedComment) {
     res.status(200).json({ message: 'Comment successfully deleted' })
