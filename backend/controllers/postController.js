@@ -172,6 +172,32 @@ const addCommentToPost = asyncHandler(async (req, res) => {
   }
 });
 
+//ROUTE      POST /cloud
+//Adds image to cloud and returns img URL to be stored in DB
+const addImageToCloudinary = asyncHandler(async(req, res) => {
+  const { image } = req.body;
+
+  const uploadedImage = await cloudinary.uploader.upload(image,
+    { 
+      upload_preset: 'unsigned_uploads',
+      allowed_formats: ['png', 'jpg', 'jpeg', 'svg', 'ico', 'jfif', 'webp']
+     }, 
+    (error) => {
+      if(error) {
+        res.status(400)
+        throw new Error(`Error: ${error}`)
+      }
+    }
+  );
+
+  if(uploadedImage) {
+    res.status(200).json(uploadedImage.secure_url);
+  } else {
+    res.status(400)
+    throw new Error('Unable to store image in cloud')
+  }
+});
+
 //Route:     DELETE  /:id
 //Deletes a post
 const deletePost = asyncHandler(async (req, res) => {
@@ -190,40 +216,6 @@ const deletePost = asyncHandler(async (req, res) => {
     res.status(400)
     throw new Error('Unable to delete post as post does not exist')
   }
-});
-
-
-
-
-//ROUTE      POST /cloud
-//Adds image to cloud and returns img URL to be stored in DB
-const addImageToCloudinary = asyncHandler(async(req, res) => {
-  const { image } = req.body;
-
-  try {
-    await cloudinary.uploader.upload(image,
-      { 
-        upload_preset: 'unsigned_uploads',
-        allowed_formats: ['png', 'jpg', 'jpeg', 'svg', 'ico', 'jfif', 'webp']
-       },
-      (error, result) => {
-        if(error) {
-          console.log(`Error: ${error}`)
-        }
-        console.log(result);
-        res.status(200).json(result)
-    });
-
-  } catch(error) {
-    console.log(`Error: ${error}`)
-  }
-
-  // if(uploadedImage) {
-  //   res.status(200).json(uploadedImage);
-  // } else {
-  //   res.status(400)
-  //   throw new Error('Unable to store image in cloud')
-  // }
 });
 
 export {
