@@ -38,7 +38,7 @@ export const usersApiSlice = apiSlice.injectEndpoints({
       }),
     }),
     getUserInfo: builder.query({
-      url: `${USERS_URL}/user`
+      query: () => `${USERS_URL}/user`
     }),
   }),
   onError: (error) => {
