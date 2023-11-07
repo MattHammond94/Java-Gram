@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+// import { useEffect, useState } from 'react';
 import { useGetAllPostsQuery } from '../slices/postApiSlice';
 import Loader from './Loader';
 
@@ -16,17 +16,16 @@ const Feed = () => {
     return <div>Error: {error.message}</div>;
   }
 
-  console.log(allPosts)
-
   return (
-    <div >
-        {allPosts.map((post) => (
-          <div key={post._id}>
-            <h1>{ post.image }</h1>
-            <h1>{ post.caption }</h1>
-            <p>{ post.createdAt }</p>
-          </div>
-        ))}
+    <div className='feedContainer'>
+      {allPosts.map((post) => (
+        <div key={post._id}>
+          <img src={post.image} alt={post.caption}/>
+          <h1>{ post.caption }</h1>
+          <p>{ post.createdAt }</p>
+          <p>{ post.user.username }</p>
+        </div>
+      ))}
     </div>
   );
 }

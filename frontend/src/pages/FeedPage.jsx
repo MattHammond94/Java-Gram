@@ -3,6 +3,9 @@ import LogOutButton from "../components/LogOutButton";
 import CreatePostButton from "../components/CreatePostButton";
 import Feed from "../components/Feed";
 
+
+import UploadImage from '../components/UploadImage';
+
 const FeedPage = () => {
   const { userInfo } = useSelector((state) => state.auth)
 
@@ -10,9 +13,11 @@ const FeedPage = () => {
     <div className="feed-page">
       <h1>Feed Page</h1>
       <h1>{ userInfo.username }</h1>
-      <CreatePostButton />
+      {/* <CreatePostButton /> */}
       <LogOutButton />
-      <Feed />
+
+      <UploadImage />
+      {/* <Feed /> */}
     </div>
   )
 }

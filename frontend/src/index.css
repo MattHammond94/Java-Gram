@@ -236,3 +236,22 @@ button:hover {
   }
 
 }
+
+
+
+
+/* ================================================================ */
+/* FEED COMPONENT */
+
+.feedContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  text-align: center;
+}
+
+.feedContainer img {
+  height: 500px;
+  width: 400px;
+}

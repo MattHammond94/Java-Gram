@@ -43,6 +43,13 @@ export const postsApiSlice = apiSlice.injectEndpoints({
         body: data
       }),
     }),
+    addImageToCloud: builder.mutation({
+      query: (data) => ({
+        url: `${POST_URL}/cloud`,
+        method: 'POST',
+        body: data
+      }),
+    }),
   }),
   onError: (error) => {
     if (error.data && error.data.message) {
@@ -60,5 +67,6 @@ export const {
   useDeletePostMutation,
   useUpdatePostCaptionMutation,
   useAddLikeToPostMutation,  
-  useAddCommentToPostMutation
+  useAddCommentToPostMutation,
+  useAddImageToCloudMutation
 } = postsApiSlice;
