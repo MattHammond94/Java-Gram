@@ -1,5 +1,6 @@
 import { useSelector } from "react-redux";
 import LogOutButton from "../components/LogOutButton";
+import CreatePostButton from "../components/CreatePostButton";
 
 const FeedPage = () => {
   const { userInfo } = useSelector((state) => state.auth)
@@ -8,6 +9,7 @@ const FeedPage = () => {
     <div className="feed-page">
       <h1>Feed Page</h1>
       <h1>{ userInfo.username }</h1>
+      <CreatePostButton />
       <LogOutButton />
     </div>
   )
