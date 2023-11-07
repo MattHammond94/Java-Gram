@@ -1,8 +1,8 @@
 import express from "express";
 import morgan from "morgan";
 import dotenv from "dotenv";
-import cookieParser from "cookie-parser";
 dotenv.config();
+import cookieParser from "cookie-parser";
 import { notFound, errorHandler } from './middleware/errorHandler.js';
 
 // Routes:
@@ -18,7 +18,8 @@ if (process.env.NODE_ENV !== 'test') {
   app.use(morgan('dev'));
 }
 
-app.use(express.json());
+app.use(express.json({ limit: '50mb' }));
+app.use(express.urlencoded({ extended: true, limit: '50mb' }));
 app.use(cookieParser());
 
 app.use('/api/users', userRoutes);

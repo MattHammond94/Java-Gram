@@ -1,6 +1,7 @@
 import asyncHandler from "express-async-handler";
 import Post from "../models/postModel.js";
 import mongoose from "mongoose";
+import cloudinary from "../config/cloudinaryConfig.js";
 
 //Route:     POST /new
 //Creates a post
@@ -191,6 +192,40 @@ const deletePost = asyncHandler(async (req, res) => {
   }
 });
 
+
+
+
+//ROUTE      POST /cloud
+//Adds image to cloud and returns img URL to be stored in DB
+const addImageToCloudinary = asyncHandler(async(req, res) => {
+  const { image } = req.body;
+
+  try {
+    await cloudinary.uploader.upload(image,
+      { 
+        upload_preset: 'unsigned_uploads',
+        allowed_formats: ['png', 'jpg', 'jpeg', 'svg', 'ico', 'jfif', 'webp']
+       },
+      (error, result) => {
+        if(error) {
+          console.log(`Error: ${error}`)
+        }
+        console.log(result);
+        res.status(200).json(result)
+    });
+
+  } catch(error) {
+    console.log(`Error: ${error}`)
+  }
+
+  // if(uploadedImage) {
+  //   res.status(200).json(uploadedImage);
+  // } else {
+  //   res.status(400)
+  //   throw new Error('Unable to store image in cloud')
+  // }
+});
+
 export {
   createPost,
   getPost,
@@ -198,5 +233,6 @@ export {
   addLikeToPost,
   updatePostCaption,
   addCommentToPost,
+  addImageToCloudinary,
   deletePost
 }

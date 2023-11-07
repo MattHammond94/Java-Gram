@@ -314,7 +314,17 @@ describe("/api/users - Endpoint", () => {
           expect(response.status).toBe(400);
           expect(response.body.message).toBe('Unable to update post');
       });
+
+      // test('Cannot update a posts caption if the post does not belong to the user', () => {
+
+    // });
     });
+
+    // describe('/addComment', () => {
+    //   test('Adds a comment document to the comments array of the selected post', () => {
+
+    //   });
+    // });
   });
 
   //DELETE:
@@ -331,6 +341,10 @@ describe("/api/users - Endpoint", () => {
       expect(response.status).toBe(200);
       expect(response.body.message).toBe('Post successfully deleted')
     });
+
+    // test('Cannot delete a post if the post does not belong to the user', () => {
+
+    // })
 
     test('An error is returned when a post does not exist', async () => {
       const response = await supertest(app)
