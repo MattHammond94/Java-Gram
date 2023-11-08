@@ -12,7 +12,8 @@ const userSchema = mongoose.Schema({
     type: Date,
   },
   profilePicture: {
-    type: String
+    type: String,
+    default: '/Placeholder.jpg'
   },
   username: {
     type: String,
