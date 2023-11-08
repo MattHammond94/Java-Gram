@@ -8,12 +8,13 @@ import { Provider } from 'react-redux';
 
 // Styling:
 import './index.css'
+import PrivateRoute from './components/PrivateRoute';
 
 //Components:
 import App from './App.jsx';
 import HomePage from './pages/HomePage.jsx';
 import FeedPage from './pages/FeedPage.jsx';
-import PrivateRoute from './components/PrivateRoute';
+import NotFoundPage from './pages/NotFoundPage.jsx';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -22,6 +23,8 @@ const router = createBrowserRouter(
       <Route path='' element={<PrivateRoute />}>
         <Route path='/feed' element={<FeedPage />} />
       </Route>
+
+      <Route path='*' element={<NotFoundPage />} />
     </Route>
   )
 );
