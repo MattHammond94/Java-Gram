@@ -90,7 +90,7 @@ button {
   background-color: #d6baf8;
   padding: 12.5px;
   border-radius: 20px;
-  border: solid;
+  border: none;
   margin: 5px;
   margin-bottom: 20px;
   cursor: pointer;
@@ -254,4 +254,12 @@ button:hover {
 .feedContainer img {
   height: 500px;
   width: 400px;
+}
+
+
+/* ================================================================ */
+/* CREATE POST BUTTON COMPONENT */
+.createPostBtnImg {
+  height: 60px;
+  width: 80px;
 }

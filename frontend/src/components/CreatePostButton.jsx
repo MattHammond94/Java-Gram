@@ -1,20 +1,27 @@
-import { useSelector } from "react-redux";
-import { useCreatePostMutation } from "../slices/postApiSlice";
+import { useState } from "react";
+import OpenModalButton from "./OpenModalButton";
+import Modal from "./Modal";
+import CreatePostForm from "./CreatePostForm";
 
 const CreatePostButton = () => {
-  const { userInfo } = useSelector((state) => state.auth)
-  const [newPost, { isLoading }] = useCreatePostMutation();
-
-  const createPost = async () => {
-    await newPost({ image: 'An image', caption: 'This was posted through frontend', user: userInfo._id })
-    console.log('Post created')
-  }
-
+  const [modalOpenStatus, setModalOpenStatus] = useState(false);
+  const [modalContent, setModalContent] = useState(null);
+  
   return (
-    <div>
-      <button onClick={createPost}>Create Post</button>
-    </div>
-  )
+    <>
+      <div>
+        <OpenModalButton 
+          buttonContent={ <img className="createPostBtnImg" src="/CreatePostButton.png" alt="Graphic Icon of a Camera" /> }
+          modalContent={ <CreatePostForm /> }
+          setModalContent={ setModalContent }
+          setModalOpenStatus={ setModalOpenStatus }
+        />
+      </div>
+      <Modal status={modalOpenStatus} setStatus={setModalOpenStatus}>
+        { modalContent }
+      </Modal>
+    </>
+  );
 }
 
-export default CreatePostButton
+export default CreatePostButton;

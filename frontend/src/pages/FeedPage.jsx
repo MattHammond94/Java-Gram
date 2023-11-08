@@ -13,11 +13,10 @@ const FeedPage = () => {
     <div className="feed-page">
       <h1>Feed Page</h1>
       <h1>{ userInfo.username }</h1>
-      {/* <CreatePostButton /> */}
       <LogOutButton />
-
       <UploadImage />
-      {/* <Feed /> */}
+      <Feed />
+      <CreatePostButton />
     </div>
   )
 }
