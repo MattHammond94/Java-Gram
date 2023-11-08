@@ -7,10 +7,11 @@ const CreatePostForm = () => {
   const [file, setFile] = useState(null);
   const [image, setImage] = useState('');
   const [caption, setCaption] = useState('');
+  const [imageUploaded, setImageUploaded] = useState(false);
 
   const { userInfo } = useSelector((state) => state.auth)
-  const [newPost, { isLoading }] = useCreatePostMutation();
-  const [addToCloud] = useAddImageToCloudMutation();
+  const [newPost, { isLoading: newPostLoading }] = useCreatePostMutation();
+  const [addToCloud, { isLoading: addToCloudLoading }] = useAddImageToCloudMutation();
 
   const handleChange = (e) => {
     const file = e.target.files[0]
@@ -33,26 +34,29 @@ const CreatePostForm = () => {
 
     console.log(storedImage);
 
-    await newPost({ image: storedImage, caption: caption, user: userInfo._id })
-    console.log('Post created')
+    await newPost({ image: storedImage, caption: caption, user: userInfo._id });
+    console.log('Post created');
+    setImageUploaded(true);
   }
 
   return (
     <div className="formTemplate">
-      <form onSubmit={e => {handleSubmit(e)}}>
-      <h1>Create A New Post!</h1>
-        <label>Upload Image:</label>
-        <input 
-          className="fileUploader"
-          type="file" 
-          onChange={e => handleChange(e)} 
-          required
-          accept="image/png, image/jpeg, image/jpg, image/jfif" 
-        ></input>
-        <label>Caption:</label>
-        <input type="text" name="caption" value={ caption } onChange={ (e) => setCaption(e.target.value) } />
-        { isLoading ? <button disabled><Loader /></button> : <button>Submit</button> }
-      </form>
+      { imageUploaded ? <h1>Post successfully posted</h1>
+       : <form onSubmit={e => {handleSubmit(e)}}>
+        <h1>Create A New Post!</h1>
+          <label>Upload Image:</label>
+          <input 
+            className="fileUploader"
+            type="file"
+            onChange={e => handleChange(e)} 
+            required
+            accept="image/png, image/jpeg, image/jpg, image/jfif" 
+          ></input>
+          <label>Caption:</label>
+          <input type="text" name="caption" value={ caption } onChange={ (e) => setCaption(e.target.value) } />
+          { addToCloudLoading || newPostLoading ? <button className='disabledButton' disabled><Loader /></button> : <button>Submit</button>}
+        </form>
+      }
     </div>
   )
 }

@@ -309,3 +309,11 @@ button:hover {
 .fileUploader {
   cursor: pointer;
 }
+
+
+/* DISABLED BUTTON */
+.disabledButton {
+  background-color: var(--dark-purp);
+  cursor: not-allowed; 
+  pointer-events: none; 
+}
