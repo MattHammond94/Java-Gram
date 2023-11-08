@@ -44,9 +44,6 @@ body {
   background-color: #F1EAFA;
 }
 
-
-
-
 .waves {
   aspect-ratio: 960/540;
   width: 100%;
@@ -243,17 +240,62 @@ button:hover {
 /* ================================================================ */
 /* FEED COMPONENT */
 
+.feedPage {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
 .feedContainer {
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
   text-align: center;
+  width: 450px;
+}
+
+.postContainer {
+  margin-bottom: 20px;
+  background-color: white;
+}
+
+.postContainer p {
+  align-self: flex-start;
+}
+
+.postImgContainer {
+  height: 550px;
+  width: 430px;
 }
 
 .feedContainer img {
-  height: 500px;
-  width: 400px;
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+  margin-bottom: 3px;
+}
+
+.postFooterContainer {
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  flex-direction: column;
+}
+
+.postHeaderContainer .profilePicture {
+  height: 40px;
+  width: 40px;
+}
+
+.postHeaderContainer {
+  display: flex;
+  flex-direction: row;
+}
+
+.postHeaderContainer :last-child {
+  align-self: flex-end;
 }
 
 
@@ -262,4 +304,8 @@ button:hover {
 .createPostBtnImg {
   height: 60px;
   width: 80px;
+}
+
+.fileUploader {
+  cursor: pointer;
 }

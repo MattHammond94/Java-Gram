@@ -6,6 +6,7 @@ import { useSelector } from "react-redux";
 const CreatePostForm = () => {
   const [file, setFile] = useState(null);
   const [image, setImage] = useState('');
+  const [caption, setCaption] = useState('');
 
   const { userInfo } = useSelector((state) => state.auth)
   const [newPost, { isLoading }] = useCreatePostMutation();
@@ -32,28 +33,24 @@ const CreatePostForm = () => {
 
     console.log(storedImage);
 
-    await newPost({ image: storedImage, caption: 'This was posted through frontend', user: userInfo._id })
+    await newPost({ image: storedImage, caption: caption, user: userInfo._id })
     console.log('Post created')
-
-
-    // First validate all fields before sending any req's to backend.
-    // THEN send image to backend to be created in cloudinary 
-    // get the response from that and store it in a var
-    // Put that var into the image: attr in post 
-    // send another req to backend to create post 
-
   }
 
   return (
-    <div>
+    <div className="formTemplate">
       <form onSubmit={e => {handleSubmit(e)}}>
+      <h1>Create A New Post!</h1>
         <label>Upload Image:</label>
         <input 
+          className="fileUploader"
           type="file" 
           onChange={e => handleChange(e)} 
           required
           accept="image/png, image/jpeg, image/jpg, image/jfif" 
         ></input>
+        <label>Caption:</label>
+        <input type="text" name="caption" value={ caption } onChange={ (e) => setCaption(e.target.value) } />
         { isLoading ? <button disabled><Loader /></button> : <button>Submit</button> }
       </form>
     </div>

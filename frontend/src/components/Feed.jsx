@@ -2,11 +2,18 @@
 import { useGetAllPostsQuery } from '../slices/postApiSlice';
 import Loader from './Loader';
 
+// date fns
+import formatDistanceToNow from 'date-fns/formatDistanceToNow';
+
 const Feed = () => {
 
   const { data, error, isLoading } = useGetAllPostsQuery();
 
-  const allPosts = data || [];
+  const allPosts = data;
+
+  if(!Array.isArray(allPosts)) {
+    return <Loader />
+  }
 
   if (isLoading) {
     return <Loader />;
@@ -19,11 +26,20 @@ const Feed = () => {
   return (
     <div className='feedContainer'>
       {allPosts.map((post) => (
-        <div key={post._id}>
-          <img src={post.image} alt={post.caption}/>
-          <h1>{ post.caption }</h1>
-          <p>{ post.createdAt }</p>
-          <p>{ post.user.username }</p>
+        <div className="postContainer" key={post._id}>
+          <div className="postHeaderContainer">
+            <img className="profilePicture" src="/Placeholder.jpg" alt="Users personal profile picture" />
+            <a>{ post.user.username }</a>
+            <p>{ formatDistanceToNow(new Date(post.createdAt), { addSuffix: true }) }</p>
+          </div>
+          <div className="postImgContainer">
+            <img src={post.image} alt={post.caption}/>
+          </div>
+          <div className="postFooterContainer">
+            <a>{ post.user.username }</a>
+            <p>{ post.caption }</p>
+            <p>{ `${post.likedBy.length} likes` }</p>
+          </div>
         </div>
       ))}
     </div>
