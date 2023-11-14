@@ -1,7 +1,17 @@
-import AddLikeButton from './AddLikeButton';
+// import AddLikeButton from './AddLikeButton';
 import formatDistanceToNow from 'date-fns/formatDistanceToNow';
+import { useState } from 'react';
+import { useAddLikeToPostMutation } from "../slices/postApiSlice";
 
 const Post = ({ post }) => {
+  const[likeCount, setLikeCount] = useState(post.likedBy.length);
+
+  const [like] = useAddLikeToPostMutation();
+
+  const handleLike = async () => {
+    const updatedPost = await like({ id: post._id });
+    setLikeCount(updatedPost.data.likedBy.length);
+  }
 
   return (
     <div className="postContainer" key={post._id}>
@@ -16,8 +26,8 @@ const Post = ({ post }) => {
       <div className="postFooterContainer">
         <a>{ post.user.username }</a>
         <p>{ post.caption }</p>
-        <p>{ `${post.likedBy.length} likes` }</p>
-        <AddLikeButton postId={post._id} />
+        <p>{ `${likeCount} likes` }</p>
+        <button onClick={ handleLike }>Like</button>
       </div>
     </div>
   )

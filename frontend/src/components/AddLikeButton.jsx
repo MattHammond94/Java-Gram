@@ -1,14 +1,15 @@
 import { useAddLikeToPostMutation } from "../slices/postApiSlice";
 
 const AddLikeButton = ({ postId }) => {
-  const [addLike] = useAddLikeToPostMutation();
+  const [like] = useAddLikeToPostMutation();
 
-  const addLikeToPost = async () => {
-    await addLike({ id: postId })
+  const handleLike = async () => {
+    await like({ id: postId })
+    setCurrentLikeCount(post.likedBy.length)
   }
 
   return (
-    <button onClick={ addLikeToPost }>
+    <button onClick={ handleLike }>
       Like
     </button>
   )

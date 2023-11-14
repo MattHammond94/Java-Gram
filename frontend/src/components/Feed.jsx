@@ -5,11 +5,11 @@ import Post from './Post';
 const Feed = () => {
   const { data, error, isLoading } = useGetAllPostsQuery();
 
-  const allPosts = data;
+  // const allPosts = data;
 
-  if(!Array.isArray(allPosts)) {
-    return <Loader />
-  }
+  // if(!Array.isArray(allPosts)) {
+  //   return <Loader />
+  // }
 
   if (isLoading) {
     return <Loader />;
@@ -21,7 +21,7 @@ const Feed = () => {
 
   return (
     <div className='feedContainer'>
-      {allPosts.map((post) => (
+      {data.map((post) => (
         <Post key={post._id} post={post} />
       ))}
     </div>
