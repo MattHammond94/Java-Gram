@@ -1,12 +1,18 @@
-// import AddLikeButton from './AddLikeButton';
 import formatDistanceToNow from 'date-fns/formatDistanceToNow';
 import { useState } from 'react';
 import { useAddLikeToPostMutation } from "../slices/postApiSlice";
 
+// Icons:
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faHeart } from '@fortawesome/free-solid-svg-icons';
+
 const Post = ({ post }) => {
   const[likeCount, setLikeCount] = useState(post.likedBy.length);
-
   const [like] = useAddLikeToPostMutation();
+
+  // const handleNavigate = () => {
+  //   console.log(`Navigating to ${} users page`)
+  // }
 
   const handleLike = async () => {
     const updatedPost = await like({ id: post._id });
@@ -24,10 +30,12 @@ const Post = ({ post }) => {
         <img src={post.image} alt={post.caption}/>
       </div>
       <div className="postFooterContainer">
+        <p>{ `${likeCount} likes` }</p>
         <a>{ post.user.username }</a>
         <p>{ post.caption }</p>
-        <p>{ `${likeCount} likes` }</p>
-        <button onClick={ handleLike }>Like</button>
+      </div>
+      <div className='likeIconContainer' onClick={ handleLike }>
+        <FontAwesomeIcon icon={faHeart} className="heartIcon" />
       </div>
     </div>
   )
