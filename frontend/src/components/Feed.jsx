@@ -1,6 +1,7 @@
 // import { useEffect, useState } from 'react';
 import { useGetAllPostsQuery } from '../slices/postApiSlice';
 import Loader from './Loader';
+import AddLikeButton from './AddLikeButton';
 
 // date fns
 import formatDistanceToNow from 'date-fns/formatDistanceToNow';
@@ -39,6 +40,7 @@ const Feed = () => {
             <a>{ post.user.username }</a>
             <p>{ post.caption }</p>
             <p>{ `${post.likedBy.length} likes` }</p>
+            <AddLikeButton post={post._id} />
           </div>
         </div>
       ))}
