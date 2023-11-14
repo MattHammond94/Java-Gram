@@ -41,7 +41,7 @@ const SignUpForm = () => {
 
   return (
     <div className="formTemplate" style={{ height: '550px'}}>
-      <form onSubmit={ submitHandler } style={{ marginTop: '16px' }}>
+      <form autoComplete="off" onSubmit={ submitHandler } style={{ marginTop: '16px' }}>
         <h1>Sign Up</h1>
         <label>E-mail Address:</label>
         <input type="text" name="email" value={ formValues.email } onChange={ handleChange }/>
@@ -57,7 +57,7 @@ const SignUpForm = () => {
         <p className='error'>{ errorMessages.confirmPassword }</p>
         <p className='error'>{ apiError }</p>
         { isLoading ? <button disabled><Loader /></button> : <button>Create Account</button> }
-        <p>Already registered? <a href='/'>Log in here</a></p>
+        <p>Already registered?<a href='/'>Log in here</a></p>
       </form>
     </div>
   )

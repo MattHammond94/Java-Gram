@@ -6,7 +6,7 @@ const OpenModalButton = ({ buttonContent, modalContent, setModalContent, setModa
   };
 
   return (
-    <button onClick={ handleClick }>{ buttonContent }</button>
+    <button className="openModalButton" onClick={ handleClick }>{ buttonContent }</button>
   );
 }
 

@@ -14,30 +14,16 @@
   --text-font: 'Heebo', sans-serif;
   --text-font-alternate: 'PT Sans Narrow', sans-serif;
   --headers-font: 'Fjalla One', sans-serif;
-  --error-colour: #c84250;
 
-
-  /* LIGHTMODE */ 
   --dark-purp: #2A0160;
   --semi-dark-purp: #462f63;
-  --mid-purp: #8F5FCD;
+  --mid-purp: #d6baf8;
   --light-purp: #C59BFA;
   --nice-purp: #7474E3;
   --grey-purp: #887B9A;
   --very-light-purp: #F1EAFA;
   --dark-grey: #4B4256;
   --vite-purple: #646cffaa;
-  --light-grey-two: #BFBEBF; 
-  --light-grey: #C1BCC1;
-
-
-  /* DARKMODE */ 
-  --dark-colour: #211F19;
-  --secondary-dark-colour: #4A4638;
-  --traditional-grey: #50504B;
-  --light-grey: #A5A59E;
-  --yellow-font-colour: #FCDD2B;
-  --another-yellow: #FFF00E;
 }
 
 body {
@@ -59,14 +45,25 @@ body {
   z-index: -1;
 }
 
-.homeContentContainer {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
+@media (max-width: 800px) {
+  .waves {
+    aspect-ratio: 900/675;
+  }
+
+  .layer1 {
+    background-image: url('900x675.svg');
+  }
 }
 
+@media (max-width: 450px) {
+  .waves {
+    aspect-ratio: 675/900;
+  }
 
+  .layer1 {
+    background-image: url('675x900.svg');
+  }
+}
 
 h1 {
   font-family: var(--headers-font);
@@ -84,32 +81,46 @@ p {
 }
 
 button {
-  background-color: #d6baf8;
+  background-color: var(--mid-purp);
   padding: 12.5px;
   border-radius: 20px;
   border: none;
   margin: 5px;
   margin-bottom: 20px;
   cursor: pointer;
-
-
-  will-change: filter;
-  transition: filter 300ms;
+  color: var(--semi-dark-purp);
 }
 
-button:hover {
-  filter: drop-shadow(0 0 2em #6e16d9);
+
+
+
+
+/* HOMEPAGE */
+.homeContentContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
 }
 
-.error {
-  color: var(--error-colour);
+.homeContentContainer h1 {
+  margin-top: 200px;
+  margin-bottom: 10px;
+  font-size: 45px;
 }
+
+.homeContentContainer button {
+  margin-bottom: 5px;
+}
+
+
+
 
 .formTemplate {
   margin: 20px;
   background-color: white;
   box-shadow: 0 4px 8px 0 rgba(57, 5, 72, 0.2), 0 6px 20px 0 rgba(55, 2, 61, 0.19);
-  width: 300px;
+  width: 320px;
   height: 400px;
   padding: 15px;
   border-radius: 25px;
@@ -125,8 +136,8 @@ button:hover {
 }
 
 .formTemplate input {
-  background-color: var(--grey-purp);
-  width: 220px;
+  background-color: white;
+  width: 240px;
   height: 25px;
   font-size: 1.03rem;
   border-radius: 10px;
@@ -136,22 +147,43 @@ button:hover {
   border-color: var(--grey-purp);
   caret-color: var(--semi-dark-purp);
   color: var(--semi-dark-purp);
-  font-family: var(--text-font-smart);
   user-select: none;
+}
+
+.formTemplate :focus {
+  outline: 1px solid var(--semi-dark-purp);
+}
+
+input[type='password'] {
+  font-family: Verdana;
+  letter-spacing: 0.125em;
 }
 
 .formTemplate label, .formTemplate input {
   font-family: var(--text-font);
   color: var(--semi-dark-purp);
-  font-size: 1.03rem;
+  font-size: 1.2rem;
+}
+
+.formTemplate textarea {
+  resize: none;
+  height: 150px;
+  width: 295px;
+
+  font-family: var(--text-font);
+  color: var(--semi-dark-purp);
+  font-size: 1.1rem;
+  border-color: bold var(--grey-purp);
+  caret-color: var(--semi-dark-purp);
+  border-radius: 7px;
 }
 
 .formTemplate p {
-  color: #7474E3;
+  color: var(--nice-purp);
 }
 
 .formTemplate a {
-  color: #2A0160;
+  color: var(--dark-purp);
 }
 
 .formTemplate input:focus {
@@ -161,6 +193,17 @@ button:hover {
 .formTemplate h1 {
   margin-bottom: 16px;
 }
+
+.formTemplate button {
+  background-color: var(--semi-dark-purp);
+  color: white;
+}
+
+
+
+
+
+
 
 /* ==== COMPONENTS ==== */
 /* ================================================================ */
@@ -198,10 +241,11 @@ button:hover {
 
 /* ================================================================ */
 /* LOADER COMPONENT */
+
 .loader {
   position: relative;
-  width: 100px;
-  height: 100px;
+  width: 40px;
+  height: 40px;
 }
 
 .loader div {
@@ -217,8 +261,8 @@ button:hover {
 
 @keyframes ripple {
   0% {
-    top: 50px;
-    left: 50px;
+    top: 20px;
+    left: 20px;
     width: 0;
     height: 0px;
     opacity: 1;
@@ -227,13 +271,12 @@ button:hover {
   100% {
     top: 0;
     left: 0;
-    width: 100px;
-    height: 100px;
+    width: 40px;
+    height: 40px;
     opacity: 0;
   }
 
 }
-
 
 
 
@@ -256,14 +299,41 @@ button:hover {
   width: 450px;
 }
 
+
+/* POST COMPONENT */
+
 .postContainer {
   margin-bottom: 20px;
-  background-color: white;
+  background-color: red;
 }
 
-.postContainer p {
-  align-self: flex-start;
+.postHeaderContainer {
+  display: flex;
+  width: 100%;
 }
+
+.postHeaderContainer .profilePicture {
+  height: 50px;
+  width: 50px;
+  margin-left: 8px;
+  margin-top: 5px;
+  margin-bottom: 6px;
+  margin-right: 4px;
+  border-radius: 50%;
+}
+
+.postHeaderContainer a {
+  margin-top: 17px;
+  font-size: 18px;
+}
+
+.postHeaderContainer :last-child {
+  margin-top: 19px;
+  margin-left: 120px;
+  font-size: 14px;
+}
+
+
 
 .postImgContainer {
   height: 550px;
@@ -271,11 +341,15 @@ button:hover {
 }
 
 .feedContainer img {
-  height: 100%;
-  width: 100%;
+  height: 98%;
+  width: 98%;
   object-fit: cover;
+  margin-top: 3px;
   margin-bottom: 3px;
 }
+
+
+
 
 .postFooterContainer {
   display: flex;
@@ -284,19 +358,26 @@ button:hover {
   flex-direction: column;
 }
 
-.postHeaderContainer .profilePicture {
-  height: 40px;
+.postFooterContainer p, a {
+  margin-left: 10px;
+
+}
+
+.postFooterContainer a {
+  font-size: 20px;
+}
+
+.likeIconContainer {
+  width: 100%;
+}
+
+.heartIcon {
+  height: 55px;
   width: 40px;
+  cursor: pointer;
+  color: var(--dark-purp);
 }
 
-.postHeaderContainer {
-  display: flex;
-  flex-direction: row;
-}
-
-.postHeaderContainer :last-child {
-  align-self: flex-end;
-}
 
 
 /* ================================================================ */
@@ -306,10 +387,29 @@ button:hover {
   width: 80px;
 }
 
-.fileUploader {
+
+/* CREATE POST FORM */
+
+input::file-selector-button {
+  color: white;
+  background-color: var(--semi-dark-purp);
+  border: none;
+  padding: 10px;
+  border-radius: 7px;
   cursor: pointer;
+  margin-right: 15px;
 }
 
+/* OPEN MODAL BUTTON */ 
+
+.openModalButton {
+  will-change: filter;
+  transition: filter 300ms;
+}
+
+.openModalButton:hover {
+  filter: drop-shadow(0 0 2em #6e16d9);
+}
 
 /* DISABLED BUTTON */
 .disabledButton {

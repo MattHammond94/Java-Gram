@@ -40,21 +40,21 @@ const CreatePostForm = () => {
   }
 
   return (
-    <div className="formTemplate">
-      { imageUploaded ? <h1>Post successfully posted</h1>
-       : <form onSubmit={e => {handleSubmit(e)}}>
-        <h1>Create A New Post!</h1>
+    <div className="formTemplate"  style={{ height: '440px'}}>
+      { imageUploaded ? <h1 style={{ marginTop: '150px', marginLeft: '105px' }}>Success!</h1>
+       : <form onSubmit={e => {handleSubmit(e)}}  autoComplete='off'>
+        <h1>Create A New Post</h1>
           <label>Upload Image:</label>
           <input 
             className="fileUploader"
             type="file"
-            onChange={e => handleChange(e)} 
-            required
+            onChange={e => handleChange(e)}
             accept="image/png, image/jpeg, image/jpg, image/jfif" 
+            style={{ width: '290px', height: '42px' }}
           ></input>
           <label>Caption:</label>
-          <input type="text" name="caption" value={ caption } onChange={ (e) => setCaption(e.target.value) } />
-          { addToCloudLoading || newPostLoading ? <button className='disabledButton' disabled><Loader /></button> : <button>Submit</button>}
+          <textarea name="caption" value={ caption } onChange={ (e) => setCaption(e.target.value) } />
+          { addToCloudLoading || newPostLoading ? <button className='disabledButton' disabled><Loader /></button> : <button>Submit</button> }
         </form>
       }
     </div>
