@@ -15,6 +15,7 @@ import App from './App.jsx';
 import HomePage from './pages/HomePage.jsx';
 import FeedPage from './pages/FeedPage.jsx';
 import NotFoundPage from './pages/NotFoundPage.jsx';
+import UserPage from './pages/UserPage.jsx';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -22,6 +23,7 @@ const router = createBrowserRouter(
       <Route index={true} path='/' element={<HomePage />} />
       <Route path='' element={<PrivateRoute />}>
         <Route path='/feed' element={<FeedPage />} />
+        <Route path='/user/:id' element={<UserPage /> } />
       </Route>
 
       <Route path='*' element={<NotFoundPage />} />
