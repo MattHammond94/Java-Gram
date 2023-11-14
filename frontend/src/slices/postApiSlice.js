@@ -31,9 +31,10 @@ export const postsApiSlice = apiSlice.injectEndpoints({
       }),
     }),
     addLikeToPost: builder.mutation({
-      query: () => ({
-        url: `${POST_URL}/:id/addLike`,
-        method: 'PUT'
+      query: (data) => ({
+        url: `${POST_URL}/addLike`,
+        method: 'PUT',
+        body: data
       }),
     }),
     addCommentToPost: builder.mutation({

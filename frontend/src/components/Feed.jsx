@@ -40,7 +40,7 @@ const Feed = () => {
             <a>{ post.user.username }</a>
             <p>{ post.caption }</p>
             <p>{ `${post.likedBy.length} likes` }</p>
-            <AddLikeButton post={post._id} />
+            <AddLikeButton postId={post._id} />
           </div>
         </div>
       ))}

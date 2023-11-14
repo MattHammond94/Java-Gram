@@ -1,12 +1,14 @@
+import { useAddLikeToPostMutation } from "../slices/postApiSlice";
 
-const AddLikeButton = ({ post }) => {
+const AddLikeButton = ({ postId }) => {
+  const [addLike] = useAddLikeToPostMutation();
 
-  const addLike = () => {
-    console.log(post);
+  const addLikeToPost = async () => {
+    await addLike({ id: postId })
   }
 
   return (
-    <button onClick={ addLike }>
+    <button onClick={ addLikeToPost }>
       Like
     </button>
   )
