@@ -85,7 +85,7 @@ const getAllPosts = asyncHandler(async (req, res) => {
 //Adding a like 
 const addLikeToPost = asyncHandler(async (req, res) => {
   const user = req.user
-  const { id } = req.params
+  const { id } = req.body
 
   if (!mongoose.Types.ObjectId.isValid(id)) {
     res.status(400)
