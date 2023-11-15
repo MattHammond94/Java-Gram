@@ -1,6 +1,7 @@
 import formatDistanceToNow from 'date-fns/formatDistanceToNow';
 import { useState } from 'react';
 import { useAddLikeToPostMutation } from "../slices/postApiSlice";
+import { useNavigate } from 'react-router-dom';
 
 // Icons:
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -10,9 +11,12 @@ const Post = ({ post }) => {
   const[likeCount, setLikeCount] = useState(post.likedBy.length);
   const [like] = useAddLikeToPostMutation();
 
-  // const handleNavigate = () => {
-  //   console.log(`Navigating to ${} users page`)
-  // }
+  const navigate = useNavigate();
+
+  const handleNavigate = () => {
+    console.log(post.user.username);
+    navigate(`/user/${post.user.username}`)
+  }
 
   const handleLike = async () => {
     const updatedPost = await like({ id: post._id });
@@ -22,8 +26,8 @@ const Post = ({ post }) => {
   return (
     <div className="postContainer" key={post._id}>
       <div className="postHeaderContainer">
-        <img className="profilePicture" src="/Placeholder.jpg" alt="Users personal profile picture" />
-        <a>{ post.user.username }</a>
+        <img onClick={ handleNavigate } className="profilePicture" src="/Placeholder.jpg" alt="Users personal profile picture" />
+        <p onClick={ handleNavigate }>{ post.user.username }</p>
         <p>{ formatDistanceToNow(new Date(post.createdAt), { addSuffix: true }) }</p>
       </div>
       <div className="postImgContainer">
@@ -31,7 +35,7 @@ const Post = ({ post }) => {
       </div>
       <div className="postFooterContainer">
         <p>{ `${likeCount} likes` }</p>
-        <a>{ post.user.username }</a>
+        <p  onClick={ handleNavigate }>{ post.user.username }</p>
         <p>{ post.caption }</p>
       </div>
       <div className='likeIconContainer' onClick={ handleLike }>

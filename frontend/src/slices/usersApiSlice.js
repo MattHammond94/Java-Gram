@@ -40,6 +40,11 @@ export const usersApiSlice = apiSlice.injectEndpoints({
     getUserInfo: builder.query({
       query: () => `${USERS_URL}/user`
     }),
+    getSelectedUserInfo: builder.query({
+      query: (username) => ({
+        url: `${USERS_URL}/${username}`
+      }),
+    }),
   }),
   onError: (error) => {
     if (error.data && error.data.message) {
@@ -56,5 +61,6 @@ export const {
   useCreateUserMutation,
   useUpdateUserMutation,
   useDeleteUserMutation,
+  useGetSelectedUserInfoQuery,
   useGetUserInfoQuery
 } = usersApiSlice;

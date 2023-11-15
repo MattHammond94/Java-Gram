@@ -9,8 +9,6 @@ const Feed = () => {
     return <h1>No posts exists yet</h1>
   }
 
-  console.log(data)
-
   if (isLoading) {
     return <Loader />;
   }

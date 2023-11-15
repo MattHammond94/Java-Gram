@@ -23,7 +23,7 @@ const router = createBrowserRouter(
       <Route index={true} path='/' element={<HomePage />} />
       <Route path='' element={<PrivateRoute />}>
         <Route path='/feed' element={<FeedPage />} />
-        <Route path='/user/:id' element={<UserPage /> } />
+        <Route path='/user/:username' element={<UserPage /> } />
       </Route>
 
       <Route path='*' element={<NotFoundPage />} />

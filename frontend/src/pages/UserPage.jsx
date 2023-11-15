@@ -1,4 +1,7 @@
-import { useSelector } from "react-redux";
+// import { useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
+import { useGetSelectedUserInfoQuery } from "../slices/usersApiSlice";
+import Loader from "../components/Loader";
 
 // Will consist of two components - A header and a gallery
 
@@ -21,11 +24,36 @@ import { useSelector } from "react-redux";
 
 
 const UserPage = () => {
-  const { userInfo } = useSelector((state) => state.auth)
+  // const { userInfo } = useSelector((state) => state.auth)
+
+  const { username } = useParams();
+  const { data, error, isLoading} = useGetSelectedUserInfoQuery(`${username}`);
+
+  // const getUserData = async() => {
+
+  //   const res = await getData({ username: username }).unwrap();
+  
+  //   console.log(res);
+  // }
+
+  if (isLoading) {
+    return <Loader />;
+  }
+
+  if (error) {
+    return <div>Error: {error.message}</div>;
+  }
+
+  console.log(data)
 
   return (
     <div>
-      <h1>{ userInfo.username }</h1>
+      <h1>{ username }</h1>
+      <button>Update Profile Picture</button>
+      <img src={`${data.profilePicture}`} alt='Users personal profile picture' />
+      <p>{`${data.followers.length} Followers`}</p>
+      <p>{`${data.following.length} Following`}</p>
+      
     </div>
   )
 }
