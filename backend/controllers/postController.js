@@ -6,7 +6,7 @@ import cloudinary from "../config/cloudinaryConfig.js";
 //Route:     POST /new
 //Creates a post
 const createPost = asyncHandler(async (req, res) => {
-  const { image, caption, user } = req.body;
+  const { image, imageCloudId, caption, user } = req.body;
 
   // const existingPost = Post.findOne({ image: image });
 
@@ -17,6 +17,7 @@ const createPost = asyncHandler(async (req, res) => {
 
   const post = await Post.create({
     image,
+    imageCloudId,
     caption,
     user
   });

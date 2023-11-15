@@ -38,7 +38,7 @@ const CreatePostForm = () => {
 
     const storedImage = await addToCloud({ image: image }).unwrap();
 
-    await newPost({ image: storedImage, caption: caption, user: userInfo._id });
+    await newPost({ image: storedImage.url, imageCloudId: storedImage.id, caption: caption, user: userInfo._id });
     setImageUploaded(true);
   }
 
