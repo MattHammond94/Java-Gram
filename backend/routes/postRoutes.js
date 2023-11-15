@@ -4,6 +4,7 @@ import {
   createPost,
   getPost,
   getAllPosts,
+  getAllUsersPosts,
   addLikeToPost,
   updatePostCaption,
   addCommentToPost,
@@ -21,6 +22,7 @@ import cors from 'cors';
 router.get('/all', protect, getAllPosts);
 router.post('/new', protect, createPost);
 router.get('/:id', protect, getPost);
+router.get('/allUsersPosts/:id', protect, getAllUsersPosts)
 router.delete('/cloud', protect, removeImageFromCloudinary)
 router.delete('/:id', protect, deletePost);
 router.put('/addLike', protect, addLikeToPost);

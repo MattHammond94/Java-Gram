@@ -82,6 +82,32 @@ const getAllPosts = asyncHandler(async (req, res) => {
   }
 })
 
+//Route:     GET  /allUsersPosts/:id
+//Returns all posts that belong to specific user
+const getAllUsersPosts = asyncHandler(async (req, res) => {
+  const { id } = req.params
+
+  if (!mongoose.Types.ObjectId.isValid(id)) {
+    res.status(400)
+    throw new Error('Not a valid ID parameter')
+  }
+
+  const allUsersPosts = await Post.find({ user: id });
+
+  if (allUsersPosts) {
+    if (allUsersPosts.length < 1) {
+      return res.status(204).json({ message: 'This user currently has no posts' });
+    }
+
+    res.status(200).json(allUsersPosts.reverse())
+    
+  } else {
+    res.status(400);
+    throw new Error('Unable to retrieve posts from the database');
+  }
+})
+
+
 //Route:     PUT  /addLike
 //Adding a like 
 const addLikeToPost = asyncHandler(async (req, res) => {
@@ -256,6 +282,7 @@ export {
   createPost,
   getPost,
   getAllPosts,
+  getAllUsersPosts,
   addLikeToPost,
   updatePostCaption,
   addCommentToPost,
