@@ -72,6 +72,20 @@ const getLoggedInUser = asyncHandler(async (req, res) => {
   res.status(200).json(req.user)
 });
 
+//Route:      GET /users/checkUsername/:username
+const checkUsernameExists = asyncHandler(async (req, res) => {
+  const { username } = req.params
+
+  const response = await User.findOne({ username: username });
+
+  if (response) {
+    res.status(200).json(true);
+  } else {
+    res.status(400);
+    throw new Error('User does not exist');
+  }
+});
+
 //Route:      GET /users/:username
 const getASelectedUser = asyncHandler(async (req, res) => {
 
@@ -228,5 +242,6 @@ export {
   addProfilePictureToCloudinary,
   removeProfilePictureFromCloudinary,
   updateUser,
-  deleteUser
+  deleteUser,
+  checkUsernameExists
 }

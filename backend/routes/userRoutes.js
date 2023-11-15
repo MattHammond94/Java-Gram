@@ -9,7 +9,8 @@ import {
   addProfilePictureToCloudinary,
   removeProfilePictureFromCloudinary,
   updateUser,
-  deleteUser
+  deleteUser,
+  checkUsernameExists
 } from '../controllers/userController.js';
 import { protect } from '../middleware/authMiddleware.js';
 
@@ -22,5 +23,6 @@ router.post('/cloud', protect, addProfilePictureToCloudinary);
 router.delete('/cloud', protect, removeProfilePictureFromCloudinary);
 router.put('/user', protect, updateUser);
 router.delete('/user', protect, deleteUser);
+router.get('/checkUsername/:username', protect, checkUsernameExists)
 
 export default router;
