@@ -5,7 +5,11 @@ const postSchema = new Schema({
   image: {
     type: String,
     required: true,
-    // unique: true
+    unique: true
+  },
+  imageCloudId: {
+    type: String,
+    required: true
   },
   caption: {
     type: String,

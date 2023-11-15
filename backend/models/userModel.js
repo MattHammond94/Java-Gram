@@ -15,6 +15,9 @@ const userSchema = mongoose.Schema({
     type: String,
     default: '/Placeholder.jpg'
   },
+  profilePictureCloudId: {
+    type: String,
+  },
   username: {
     type: String,
     required: true,

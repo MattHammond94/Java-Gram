@@ -7,6 +7,7 @@ import {
   getLoggedInUser,
   getASelectedUser,
   addProfilePictureToCloudinary,
+  removeProfilePictureFromCloudinary,
   updateUser,
   deleteUser
 } from '../controllers/userController.js';
@@ -18,6 +19,7 @@ router.post('/token/logout', logOutUser);
 router.get('/user', protect, getLoggedInUser);
 router.get('/:username', protect, getASelectedUser);
 router.post('/cloud', protect, addProfilePictureToCloudinary);
+router.delete('/cloud', protect, removeProfilePictureFromCloudinary);
 router.put('/user', protect, updateUser);
 router.delete('/user', protect, deleteUser);
 

@@ -174,14 +174,22 @@ const addCommentToPost = asyncHandler(async (req, res) => {
 
 //ROUTE      POST /cloud
 //Adds image to cloud and returns img URL to be stored in DB
+
+// Can add further adjustments to the transformation array to adjust image further before being stored.
+// Will need to first settle on which approach to take with image scale/formatting.
 const addImageToCloudinary = asyncHandler(async(req, res) => {
   const { image } = req.body;
 
   const uploadedImage = await cloudinary.uploader.upload(image,
     { 
       upload_preset: 'unsigned_uploads',
-      allowed_formats: ['png', 'jpg', 'jpeg', 'svg', 'ico', 'jfif', 'webp']
-     }, 
+      allowed_formats: ['png', 'jpg', 'jpeg', 'svg', 'ico', 'jfif', 'webp'],
+      transformation: [ 
+        {crop: "scale"},
+        {quality: "auto"},
+        {fetch_format: "auto"}
+      ],
+     },
     (error) => {
       if(error) {
         res.status(400)
@@ -191,7 +199,10 @@ const addImageToCloudinary = asyncHandler(async(req, res) => {
   );
 
   if(uploadedImage) {
-    res.status(200).json(uploadedImage.secure_url);
+    res.status(200).json({
+      url: uploadedImage.secure_url,
+      id: uploadedImage.public_id
+    });
   } else {
     res.status(400)
     throw new Error('Unable to store image in cloud')
@@ -199,7 +210,7 @@ const addImageToCloudinary = asyncHandler(async(req, res) => {
 });
 
 //Route      DELETE /cloud
-//Deletes sected image from cloudinary library
+//Deletes selected image from cloudinary library
 const removeImageFromCloudinary = asyncHandler(async(req, res) => {
   const { image } = req.body;
 

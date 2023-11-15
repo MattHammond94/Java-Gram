@@ -2,6 +2,7 @@ import asyncHandler from "express-async-handler";
 import User from "../models/userModel.js";
 import generateToken from "../utilities/generateToken.js";
 import tokenCookieRemover from "../middleware/tokenCookieRemover.js";
+import cloudinary from "../config/cloudinaryConfig.js";
 
 // Route:    POST /users/new
 const createUser = asyncHandler(async (req, res) => {
@@ -101,9 +102,15 @@ const addProfilePictureToCloudinary = asyncHandler(async(req, res) => {
 
   const uploadedImage = await cloudinary.uploader.upload(image,
     { 
+      folder: 'Java-Gram/Profile Pictures',
       upload_preset: 'unsigned_uploads',
-      allowed_formats: ['png', 'jpg', 'jpeg', 'svg', 'ico', 'jfif', 'webp']
-     }, 
+      allowed_formats: ['png', 'jpg', 'jpeg', 'svg', 'ico', 'jfif', 'webp'],
+      transformation: [ 
+        {crop: "scale"},
+        {quality: "auto"},
+        {fetch_format: "auto"}
+      ],
+     },
     (error) => {
       if(error) {
         res.status(400)
@@ -113,12 +120,38 @@ const addProfilePictureToCloudinary = asyncHandler(async(req, res) => {
   );
 
   if(uploadedImage) {
-    res.status(200).json(uploadedImage.secure_url);
+    res.status(200).json({
+      url: uploadedImage.secure_url,
+      id: uploadedImage.public_id
+    });
   } else {
     res.status(400)
     throw new Error('Unable to store image in cloud')
   }
 });
+
+//ROUTE      DELETE /cloud
+//Removes a profilePicture from Cloudinary.
+const removeProfilePictureFromCloudinary = asyncHandler(async(req, res) => {
+  const { image } = req.body;
+
+  const removedImage = await cloudinary.uploader.destroy(image,
+    (error) => {
+      if(error) {
+        res.status(400)
+        throw new Error(`Error: ${error}`)
+      }
+    }
+  );
+
+  if(removedImage) {
+    res.status(200).json({ message: 'Image successfully removed from the cloud' });
+  } else {
+    res.status(400)
+    throw new Error('Unable to remove image from the cloud')
+  }
+});
+
 
 //Route       PUT /users/user
 const updateUser = asyncHandler(async (req, res) => {
@@ -193,6 +226,7 @@ export {
   getLoggedInUser,
   getASelectedUser,
   addProfilePictureToCloudinary,
+  removeProfilePictureFromCloudinary,
   updateUser,
   deleteUser
 }
