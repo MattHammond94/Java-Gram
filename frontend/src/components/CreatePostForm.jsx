@@ -8,6 +8,8 @@ const CreatePostForm = () => {
   const [image, setImage] = useState('');
   const [caption, setCaption] = useState('');
   const [imageUploaded, setImageUploaded] = useState(false);
+  const [fileError, setFileError] = useState('');
+  // const [captionError, setCaptionError] = useState('');
 
   const { userInfo } = useSelector((state) => state.auth)
   const [newPost, { isLoading: newPostLoading }] = useCreatePostMutation();
@@ -24,23 +26,24 @@ const CreatePostForm = () => {
       }
       reader.readAsDataURL(file)
     }
-    console.log(`This is the image as a BASE64: ${image}`);
   }
 
   const handleSubmit = async (e) => {
+
     e.preventDefault();
+
+    if (!file) {
+      return setFileError('Please select a file to upload')
+    }
 
     const storedImage = await addToCloud({ image: image }).unwrap();
 
-    console.log(storedImage);
-
     await newPost({ image: storedImage, caption: caption, user: userInfo._id });
-    console.log('Post created');
     setImageUploaded(true);
   }
 
   return (
-    <div className="formTemplate"  style={{ height: '440px'}}>
+    <div className="formTemplate"  style={{ height: '455px'}}>
       { imageUploaded ? <h1 style={{ marginTop: '150px', marginLeft: '105px' }}>Success!</h1>
        : <form onSubmit={e => {handleSubmit(e)}}  autoComplete='off'>
         <h1>Create A New Post</h1>
@@ -52,9 +55,11 @@ const CreatePostForm = () => {
             accept="image/png, image/jpeg, image/jpg, image/jfif" 
             style={{ width: '290px', height: '42px' }}
           ></input>
+          { fileError && <p className='error'>{fileError}</p> }
           <label>Caption:</label>
           <textarea name="caption" value={ caption } onChange={ (e) => setCaption(e.target.value) } />
           { addToCloudLoading || newPostLoading ? <button className='disabledButton' disabled><Loader /></button> : <button>Submit</button> }
+          {/* { captionError && <p className='error'>{captionError}</p> } */}
         </form>
       }
     </div>

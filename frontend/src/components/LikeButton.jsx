@@ -1,7 +1,7 @@
 // import { useAddLikeToPostMutation } from "../slices/postApiSlice";
 // import { useState } from "react";
 
-// const AddLikeButton = ({ postId, currentLikes }) => {
+// const LikeButton = ({ postId, currentLikes }) => {
 //   const[likeCount, setLikeCount] = useState(currentLikes);
 //   const [like] = useAddLikeToPostMutation();
 
@@ -20,4 +20,4 @@
 //   )
 // }
 
-// export default AddLikeButton
+// export default LikeButton
