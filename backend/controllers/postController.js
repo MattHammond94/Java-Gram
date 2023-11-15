@@ -198,6 +198,28 @@ const addImageToCloudinary = asyncHandler(async(req, res) => {
   }
 });
 
+//Route      DELETE /cloud
+//Deletes sected image from cloudinary library
+const removeImageFromCloudinary = asyncHandler(async(req, res) => {
+  const { image } = req.body;
+
+  const removedImage = await cloudinary.uploader.destroy(image,
+    (error) => {
+      if(error) {
+        res.status(400)
+        throw new Error(`Error: ${error}`)
+      }
+    }
+  );
+
+  if(removedImage) {
+    res.status(200).json({ message: 'Image successfully removed from the cloud' });
+  } else {
+    res.status(400)
+    throw new Error('Unable to remove image from the cloud')
+  }
+});
+
 //Route:     DELETE  /:id
 //Deletes a post
 const deletePost = asyncHandler(async (req, res) => {
@@ -226,5 +248,6 @@ export {
   updatePostCaption,
   addCommentToPost,
   addImageToCloudinary,
+  removeImageFromCloudinary,
   deletePost
 }

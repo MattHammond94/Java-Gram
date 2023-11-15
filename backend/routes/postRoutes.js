@@ -8,6 +8,7 @@ import {
   updatePostCaption,
   addCommentToPost,
   addImageToCloudinary,
+  removeImageFromCloudinary,
   deletePost
 } from '../controllers/postController.js';
 import { protect } from '../middleware/authMiddleware.js';
@@ -20,6 +21,7 @@ import cors from 'cors';
 router.get('/all', protect, getAllPosts);
 router.post('/new', protect, createPost);
 router.get('/:id', protect, getPost);
+router.delete('/cloud', protect, removeImageFromCloudinary)
 router.delete('/:id', protect, deletePost);
 router.put('/addLike', protect, addLikeToPost);
 router.put('/:id/updateCaption', protect, updatePostCaption);
