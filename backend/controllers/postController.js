@@ -73,7 +73,7 @@ const getAllPosts = asyncHandler(async (req, res) => {
     
     await Promise.all(arrayOfPromises);
 
-    status.json(allPosts)
+    status.json(allPosts.reverse())
     
   } else {
     res.status(400);
@@ -81,7 +81,7 @@ const getAllPosts = asyncHandler(async (req, res) => {
   }
 })
 
-//Route:     PUT  /:id/addLike
+//Route:     PUT  /addLike
 //Adding a like 
 const addLikeToPost = asyncHandler(async (req, res) => {
   const user = req.user

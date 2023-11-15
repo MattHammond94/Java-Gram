@@ -67,8 +67,57 @@ const logOutUser = asyncHandler(async (req, res) => {
 });
 
 //Route:      GET /users/user
-const getUser = asyncHandler(async (req, res) => {
+const getLoggedInUser = asyncHandler(async (req, res) => {
   res.status(200).json(req.user)
+});
+
+//Route:      GET /users/:username
+const getASelectedUser = asyncHandler(async (req, res) => {
+
+  // Will add logic here if/when only following users can view said user profile.
+
+  const { username } = req.params
+
+  const selectedUser = await User.findOne({ username: username });
+
+  if(selectedUser) {
+    res.status(200).json({
+      _id: selectedUser._id,
+      profilePicture: selectedUser.profilePicture,
+      username: selectedUser.username,
+      followers: selectedUser.followers,
+      following: selectedUser.following,
+    });
+  } else {
+    res.status(400);
+    throw new Error('This user does not exist.');
+  }
+});
+
+//ROUTE      POST /cloud
+//Adds profilePicture to Cloud and returns img URL to be stored in DB.
+const addProfilePictureToCloudinary = asyncHandler(async(req, res) => {
+  const { image } = req.body;
+
+  const uploadedImage = await cloudinary.uploader.upload(image,
+    { 
+      upload_preset: 'unsigned_uploads',
+      allowed_formats: ['png', 'jpg', 'jpeg', 'svg', 'ico', 'jfif', 'webp']
+     }, 
+    (error) => {
+      if(error) {
+        res.status(400)
+        throw new Error(`Error: ${error}`)
+      }
+    }
+  );
+
+  if(uploadedImage) {
+    res.status(200).json(uploadedImage.secure_url);
+  } else {
+    res.status(400)
+    throw new Error('Unable to store image in cloud')
+  }
 });
 
 //Route       PUT /users/user
@@ -80,7 +129,7 @@ const updateUser = asyncHandler(async (req, res) => {
 
     if (existingUsername) {
       res.status(401);
-      throw new Error('This username is already in use.')
+      throw new Error('This username is already in use.');
     }
   }
 
@@ -141,7 +190,9 @@ export {
   createUser,
   logInUser,
   logOutUser,
-  getUser,
+  getLoggedInUser,
+  getASelectedUser,
+  addProfilePictureToCloudinary,
   updateUser,
   deleteUser
 }
