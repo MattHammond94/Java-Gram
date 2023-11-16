@@ -299,6 +299,46 @@ input[type='password'] {
   width: 450px;
 }
 
+/* FEED NAVBAR COMPONENT */
+
+.feedNavBar {
+  width: 100vw;
+  height: 125px;
+  background-image: linear-gradient(to right, rgb(70, 47, 99), rgb(214, 186, 248));;
+  position: sticky;
+  top: 0;
+}
+
+.feedNavBar h1 {
+  color: var(--mid-purp);
+  position: absolute;
+  top: 42px;
+  left: 130px
+}
+
+.feedNavBar img {
+  height: 100px;
+  width: 100px;
+  border-radius: 50%;
+  position: absolute;
+  top: 13px;
+  left: 20px;
+  cursor: pointer;
+}
+
+.feedNavBar button {
+  position: absolute;
+  right: 30px;
+  top: 30px;
+  background-color: var(--semi-dark-purp);
+  color: var(--mid-purp);
+}
+
+/* FEED FOOTER COMPONENT */
+
+.feedFooter {
+  
+}
 
 /* POST COMPONENT */
 
@@ -417,3 +457,26 @@ input::file-selector-button {
   cursor: not-allowed; 
   pointer-events: none; 
 }
+
+
+
+
+
+
+
+
+
+/*  Styles for logout button if return to button over anchor */
+
+/* .feedNavBar button {
+  position: absolute;
+  right: 30px;
+  top: 30px;
+  background-color: var(--semi-dark-purp);
+  color: var(--mid-purp);
+}
+
+.feedNavBar button:hover {
+  background-color: var(--mid-purp);
+  color: var(--semi-dark-purp);
+} */

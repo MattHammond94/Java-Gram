@@ -51,6 +51,7 @@ const logInUser = asyncHandler(async (req, res) => {
     res.status(201).json({
       _id: user._id,
       username: user.username,
+      profilePicture: user.profilePicture,
       email: user.email,
     });
   } else {

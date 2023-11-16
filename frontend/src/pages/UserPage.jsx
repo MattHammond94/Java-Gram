@@ -1,4 +1,3 @@
-// import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { useGetSelectedUserInfoQuery } from "../slices/usersApiSlice";
 import Loader from "../components/Loader";
@@ -24,8 +23,6 @@ import Loader from "../components/Loader";
 
 
 const UserPage = () => {
-  // const { userInfo } = useSelector((state) => state.auth)
-
   const { username } = useParams();
   const { data, error, isLoading} = useGetSelectedUserInfoQuery(`${username}`);
 
@@ -53,7 +50,7 @@ const UserPage = () => {
       <img src={`${data.profilePicture}`} alt='Users personal profile picture' />
       <p>{`${data.followers.length} Followers`}</p>
       <p>{`${data.following.length} Following`}</p>
-      
+
     </div>
   )
 }

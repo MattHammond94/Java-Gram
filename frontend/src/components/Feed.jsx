@@ -6,7 +6,7 @@ const Feed = () => {
   const { data, error, isLoading } = useGetAllPostsQuery();
 
   if (!Array.isArray(data)) {
-    return <h1>No posts exists yet</h1>
+    return <Loader />
   }
 
   if (isLoading) {
