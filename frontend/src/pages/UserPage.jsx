@@ -1,6 +1,8 @@
 import { useParams } from "react-router-dom";
-import { useGetSelectedUserInfoQuery } from "../slices/usersApiSlice";
+import { useGetSelectedUserInfoQuery, useCheckUsernameQuery } from "../slices/usersApiSlice";
 import Loader from "../components/Loader";
+import { useNavigate } from "react-router-dom";
+import NotFoundPage from "../pages/NotFoundPage";
 
 // Will consist of two components - A header and a gallery
 
@@ -23,34 +25,39 @@ import Loader from "../components/Loader";
 
 
 const UserPage = () => {
+  const navigate = useNavigate();
   const { username } = useParams();
-  const { data, error, isLoading} = useGetSelectedUserInfoQuery(`${username}`);
+  const { data: userInfo, error: userError, isLoading: userInfoLoading } = useGetSelectedUserInfoQuery(`${username}`);
 
-  // const getUserData = async() => {
+  const { data: userExists } = useCheckUsernameQuery(`${username}`);
 
-  //   const res = await getData({ username: username }).unwrap();
-  
-  //   console.log(res);
-  // }
+  console.log(userInfo);
+  console.log(userExists);
 
-  if (isLoading) {
+  if (userExists !== true) {
+    return <NotFoundPage />
+  }
+
+  if (userInfoLoading) {
     return <Loader />;
   }
 
-  if (error) {
-    return <div>Error: {error.message}</div>;
+  if (userError) {
+    return <div>Error: {userError.message}</div>;
   }
 
-  console.log(data)
+  const handleNavigate = () => {
+    navigate('/feed')
+  }
 
   return (
     <div>
       <h1>{ username }</h1>
       <button>Update Profile Picture</button>
-      <img src={`${data.profilePicture}`} alt='Users personal profile picture' />
-      <p>{`${data.followers.length} Followers`}</p>
-      <p>{`${data.following.length} Following`}</p>
-
+      <img src={`${userInfo.profilePicture}`} alt='Users personal profile picture' />
+      <p>{`${userInfo.followers.length} Followers`}</p>
+      <p>{`${userInfo.following.length} Following`}</p>
+      <button onClick={ handleNavigate }>Home</button>
     </div>
   )
 }
