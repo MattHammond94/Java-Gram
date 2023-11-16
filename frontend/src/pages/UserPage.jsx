@@ -27,37 +27,57 @@ import NotFoundPage from "../pages/NotFoundPage";
 const UserPage = () => {
   const navigate = useNavigate();
   const { username } = useParams();
+  const { data: userExists, error: userExistsError, isLoading: userExistsLoading } = useCheckUsernameQuery(`${username}`);
   const { data: userInfo, error: userError, isLoading: userInfoLoading } = useGetSelectedUserInfoQuery(`${username}`);
 
-  const { data: userExists } = useCheckUsernameQuery(`${username}`);
-
-  console.log(userInfo);
-  console.log(userExists);
+  if (userExistsLoading || userInfoLoading) {
+    return <Loader />
+  }
 
   if (userExists !== true) {
     return <NotFoundPage />
   }
 
-  if (userInfoLoading) {
-    return <Loader />;
-  }
-
-  if (userError) {
-    return <div>Error: {userError.message}</div>;
+  if (userError || userExistsError) {
+    return <div>Error: {userError.message || userExists.error}</div>;
   }
 
   const handleNavigate = () => {
     navigate('/feed')
   }
+  
+  const total = 0
 
   return (
-    <div>
-      <h1>{ username }</h1>
-      <button>Update Profile Picture</button>
-      <img src={`${userInfo.profilePicture}`} alt='Users personal profile picture' />
-      <p>{`${userInfo.followers.length} Followers`}</p>
-      <p>{`${userInfo.following.length} Following`}</p>
-      <button onClick={ handleNavigate }>Home</button>
+    <div className='userHeader'>
+      <div className='leftSide'>
+        <button>Update</button>
+        <img src={`${userInfo.profilePicture}`} alt='Users personal profile picture' />
+      </div>
+      <div className='middle'>
+        <div className='middleTop'>
+          <h1>{ username }</h1>
+        </div>
+        <div className='middleMiddle'>
+          <div className='posts'>
+            <p>{`${total}`}</p>
+            <p>Posts</p>
+          </div>
+          <div className='followers'>
+            <p>{`${userInfo.followers.length}`}</p>
+            <p>Followers</p>
+          </div>
+          <div className='Following'>
+            <p>{`${userInfo.following.length}`}</p>
+            <p>Following</p>
+          </div>
+        </div>
+      </div>
+      <div className='rightSide'>
+        <button onClick={ handleNavigate }>Home</button>
+        <button>Settings</button>
+        <button>Create Post</button>
+      </div>
     </div>
   )
 }

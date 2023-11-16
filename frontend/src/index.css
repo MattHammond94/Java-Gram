@@ -278,8 +278,6 @@ input[type='password'] {
 
 }
 
-
-
 /* ================================================================ */
 /* FEED COMPONENT */
 
@@ -456,6 +454,70 @@ input::file-selector-button {
   background-color: var(--dark-purp);
   cursor: not-allowed; 
   pointer-events: none; 
+}
+
+
+
+
+
+
+
+
+
+
+/* USER PAGE HEADER */
+
+.userHeader {
+  display: flex;
+  flex-direction: row;
+  background-color: blue;
+}
+
+.leftSide {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  align-self: flex-start;
+  margin-left: 30px;
+  margin-top: 10px;
+}
+
+.leftSide img {
+  border-radius: 50%;
+  height: 300px;
+  width: 300px;
+}
+
+.leftSide button {
+  position: absolute;
+  top: 250px;
+  left: 240px;
+}
+
+.middle {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  background-color: green;
+  width: 700px;
+}
+
+.middleMiddle {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  background-color: grey;
+  gap: 50px;
+}
+
+.rightSide {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  background-color: red
 }
 
 
