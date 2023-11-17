@@ -50,6 +50,20 @@ export const usersApiSlice = apiSlice.injectEndpoints({
         url: `${USERS_URL}/checkUsername/${username}`
       }),
     }),
+    addProfilePictureToCloud: builder.mutation({
+      query: (data) => ({
+        url: `${USERS_URL}/cloud`,
+        method: 'POST',
+        body: data
+      }),
+    }),
+    removeProfilePictureFromCloud: builder.mutation({
+      query: (data) => ({
+        url: `${USERS_URL}/cloud`,
+        method: 'DELETE',
+        body: data
+      }),
+    }),
   }),
   onError: (error) => {
     if (error.data && error.data.message) {
@@ -68,5 +82,7 @@ export const {
   useDeleteUserMutation,
   useGetSelectedUserInfoQuery,
   useGetUserInfoQuery,
-  useCheckUsernameQuery
+  useCheckUsernameQuery,
+  useAddProfilePictureToCloudMutation,
+  useRemoveProfilePictureFromCloudMutation
 } = usersApiSlice;

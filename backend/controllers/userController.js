@@ -101,6 +101,7 @@ const getASelectedUser = asyncHandler(async (req, res) => {
     res.status(200).json({
       _id: selectedUser._id,
       profilePicture: selectedUser.profilePicture,
+      profilePictureCloudId : selectedUser.profilePictureCloudId,
       username: selectedUser.username,
       followers: selectedUser.followers,
       following: selectedUser.following,
@@ -199,6 +200,7 @@ const updateUser = asyncHandler(async (req, res) => {
     user.lastName = req.body.lastName || user.lastName
     user.dateOfBirth = req.body.dateOfBirth || user.dateOfBirth
     user.profilePicture = req.body.profilePicture || user.profilePicture
+    user.profilePictureCloudId = req.body.profilePictureCloudId || user.profilePictureCloudId,
     user.username = req.body.username || user.username
     user.email = req.body.email || user.email
     user.password = req.body.password || user.password
