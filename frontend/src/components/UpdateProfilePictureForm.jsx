@@ -35,16 +35,15 @@ const UpdateProfilePictureForm = () => {
       return setFileError('Please select a file to upload');
     }
 
-    const previousProfilePictureId = selectedUserInfo.profilePictureCloudId;
+    const previousProfilePictureId = await selectedUserInfo.profilePictureCloudId;
     const storedProfilePicture = await addProfilePicture({ image: image }).unwrap();
     const update = await updatedUser({ profilePicture: storedProfilePicture.url, profilePictureCloudId: storedProfilePicture.id }).unwrap();
+    
+    if (previousProfilePictureId !== '/Placeholder.jpg') {
+      await removeProfilePictureFromCloud({ image: previousProfilePictureId })
+    }
 
-    console.log(previousProfilePictureId);
-
-    const deletePreviousFromCloud = await removeProfilePictureFromCloud({ image: previousProfilePictureId })
-
-
-    if (update && deletePreviousFromCloud) {
+    if (update) {
       setImageUploaded(true);
     } else {
       setFileError('Unable to update profile picture at this time.');
