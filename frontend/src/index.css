@@ -484,14 +484,14 @@ input::file-selector-button {
 
 .leftSide img {
   border-radius: 50%;
-  height: 300px;
-  width: 300px;
+  height: 250px;
+  width: 250px;
 }
 
 .leftSide button {
   position: absolute;
-  top: 250px;
-  left: 240px;
+  top: 210px;
+  left: 200px;
 }
 
 .middle {
@@ -510,6 +510,11 @@ input::file-selector-button {
   flex-direction: row;
   background-color: grey;
   gap: 50px;
+}
+
+.middleTop h1 {
+  font-size: 45px;
+  margin-bottom: 10px;
 }
 
 .rightSide {

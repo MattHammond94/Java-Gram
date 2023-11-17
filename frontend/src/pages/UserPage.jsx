@@ -33,7 +33,9 @@ const UserPage = () => {
   }
 
   return (
-    <UserPageHeader username={ username }/>
+    <div>
+      <UserPageHeader username={ username }/>
+    </div>
   )
 }
 

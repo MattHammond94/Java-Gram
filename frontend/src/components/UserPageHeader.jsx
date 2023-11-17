@@ -1,21 +1,24 @@
 import { useNavigate } from "react-router-dom";
 import { useGetSelectedUserInfoQuery } from "../slices/usersApiSlice";
 import Loader from "./Loader";
+import UpdateProfilePictureButton from "./UpdateProfilePictureButton";
+import { useSelector } from "react-redux";
 
 const UserPageHeader = ({ username }) => {
   const navigate = useNavigate();
-  const { data: userInfo, error: userError, isLoading: userInfoLoading } = useGetSelectedUserInfoQuery(`${username}`);
+  const { userInfo } = useSelector((state) => state.auth);
+  const { data: selectedUserInfo, error: selectedUserError, isLoading: selectedUserInfoLoading } = useGetSelectedUserInfoQuery(`${username}`);
 
   const handleNavigate = () => {
     navigate('/feed')
   }
 
-  if (userInfoLoading) {
+  if (selectedUserInfoLoading) {
     return <Loader />
   }
 
-  if (userError) {
-    return <div>Error: {userError.message}</div>;
+  if (selectedUserError) {
+    return <div>Error: {selectedUserError.message}</div>;
   }
 
   const total = 0
@@ -23,12 +26,13 @@ const UserPageHeader = ({ username }) => {
   return (
     <div className='userHeader'>
       <div className='leftSide'>
-        <button>Update</button>
-        <img src={`${userInfo.profilePicture}`} alt='Users personal profile picture' />
+        { userInfo.username === username ? <UpdateProfilePictureButton /> : null }
+        <img src={`${selectedUserInfo.profilePicture}`} alt='Users personal profile picture' />
       </div>
       <div className='middle'>
         <div className='middleTop'>
           <h1>{ username }</h1>
+          {/* Follow button goes here */}
         </div>
         <div className='middleMiddle'>
           <div className='posts'>
@@ -36,11 +40,11 @@ const UserPageHeader = ({ username }) => {
             <p>Posts</p>
           </div>
           <div className='followers'>
-            <p>{`${userInfo.followers.length}`}</p>
+            <p>{`${selectedUserInfo.followers.length}`}</p>
             <p>Followers</p>
           </div>
           <div className='Following'>
-            <p>{`${userInfo.following.length}`}</p>
+            <p>{`${selectedUserInfo.following.length}`}</p>
             <p>Following</p>
           </div>
         </div>
