@@ -18,7 +18,7 @@ const signUpValidator = (values) => {
     errors.username = 'Username must contain more than 3 characters'
   }
 
-  if (values.username.length > 20) {
+  if (values.username.length > 18) {
     errors.username = 'Username cannot exceed 20 characters.'
   }
 

@@ -14,7 +14,6 @@ const Post = ({ post }) => {
   const navigate = useNavigate();
 
   const handleNavigate = () => {
-    console.log(post.user.username);
     navigate(`/user/${post.user.username}`)
   }
 
@@ -26,17 +25,18 @@ const Post = ({ post }) => {
   return (
     <div className="postContainer" key={post._id}>
       <div className="postHeaderContainer">
-        <img onClick={ handleNavigate } className="profilePicture" src="/Placeholder.jpg" alt="Users personal profile picture" />
-        <p onClick={ handleNavigate }>{ post.user.username }</p>
-        <p>{ formatDistanceToNow(new Date(post.createdAt), { addSuffix: true }) }</p>
+        <img onClick={ handleNavigate } className="profilePicture" src={ post.user.profilePicture } alt="Users personal profile picture" />
+        <p className='postUsername' onClick={ handleNavigate }>{ post.user.username }</p>
+        <p className='postDate'>{ formatDistanceToNow(new Date(post.createdAt), { addSuffix: true }) }</p>
       </div>
       <div className="postImgContainer">
         <img src={post.image} alt={post.caption}/>
       </div>
       <div className="postFooterContainer">
-        <p>{ `${likeCount} likes` }</p>
-        <p  onClick={ handleNavigate }>{ post.user.username }</p>
-        <p>{ post.caption }</p>
+        <p className='postLikeCount'>{ `${likeCount} likes` }</p>
+        <p className='postUsernameLink' onClick={ handleNavigate }>{ post.user.username }</p>
+        <div className='postLine'></div>
+        <p className='postCaption'>{ post.caption }</p>
       </div>
       <div className='likeIconContainer' onClick={ handleLike }>
         <FontAwesomeIcon icon={faHeart} className="heartIcon" />

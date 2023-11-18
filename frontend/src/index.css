@@ -302,9 +302,11 @@ input[type='password'] {
 .feedNavBar {
   width: 100vw;
   height: 125px;
-  background-image: linear-gradient(to right, rgb(70, 47, 99, 0.9), rgb(214, 186, 248, 0.8));;
+  background-image: linear-gradient(to right, rgb(70, 47, 99, 0.9), rgb(214, 186, 248, 0.8));
   position: sticky;
   top: 0;
+
+  z-index: 1;
 }
 
 .feedNavBar h1 {
@@ -332,47 +334,61 @@ input[type='password'] {
   color: var(--mid-purp);
 }
 
-/* FEED FOOTER COMPONENT */
 
-.feedFooter {
-  
-}
+/* === POST COMPONENT ==== */
 
-/* POST COMPONENT */
-
+/* Post container */
 .postContainer {
   margin-bottom: 20px;
-  background-color: red;
+  background-color: white;
+  position: relative;
+  z-index: 0;
 }
 
+.postContainer:first-child {
+  margin-top: 15px;
+}
+
+/* Post Header */
 .postHeaderContainer {
   display: flex;
+  align-items: center;
   width: 100%;
 }
 
 .postHeaderContainer .profilePicture {
   height: 50px;
   width: 50px;
-  margin-left: 8px;
-  margin-top: 5px;
-  margin-bottom: 6px;
-  margin-right: 4px;
+  margin: 7px;
   border-radius: 50%;
+  cursor: pointer;
 }
 
-.postHeaderContainer a {
-  margin-top: 17px;
-  font-size: 18px;
+.postHeaderContainer .postUsername {
+  text-decoration: underline;
+  cursor: pointer;
+  font-size: 22px;
+  color: var(--semi-dark-purp);
+  margin-right: 200px;
+
+  position: absolute;
+  left: 65px;
+  top: 16px;
 }
 
-.postHeaderContainer :last-child {
-  margin-top: 19px;
-  margin-left: 120px;
-  font-size: 14px;
+.postHeaderContainer .postUsername:hover {
+ color: var(--nice-purp);
 }
 
+.postHeaderContainer .postDate {
+  font-size: 15px;
+  margin-right: 10px;
+  color: var(--semi-dark-purp);
 
+  margin-left: auto;
+}
 
+/*  Post img */
 .postImgContainer {
   height: 550px;
   width: 430px;
@@ -386,9 +402,7 @@ input[type='password'] {
   margin-bottom: 3px;
 }
 
-
-
-
+/* Post footer */
 .postFooterContainer {
   display: flex;
   justify-content: flex-start;
@@ -398,22 +412,46 @@ input[type='password'] {
 
 .postFooterContainer p, a {
   margin-left: 10px;
-
 }
 
-.postFooterContainer a {
-  font-size: 20px;
+.postLikeCount {
+  font-size: 19px;
+  color: var(--nice-purp);
 }
 
-.likeIconContainer {
-  width: 100%;
+.postUsernameLink {
+  font-size: 21px;
+  cursor: pointer;
+  color: var(--semi-dark-purp);
+}
+
+.postUsernameLink:hover {
+  color: var(--nice-purp);
+  text-decoration: underline;
+}
+
+.postFooterContainer .postLine {
+  width: 98%;
+  height: 1px;
+  background-image: linear-gradient(to right, rgba(70, 47, 99, 0.9), rgba(214, 186, 248, 0.9));
+  align-self: center;
+  margin-top: 2px;
+}
+
+.postCaption {
+  color: var(--semi-dark-purp);
+  margin-bottom: 5px;
+  margin-top: 5px;
 }
 
 .heartIcon {
-  height: 55px;
-  width: 40px;
+  height: 60px;
+  width: 45px;
   cursor: pointer;
-  color: var(--dark-purp);
+  color: var(--semi-dark-purp);
+  position: absolute;
+  bottom: 42px;
+  right: 18px
 }
 
 
