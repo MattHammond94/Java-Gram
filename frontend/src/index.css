@@ -39,7 +39,7 @@ body {
 }
 
 .layer1 {
-  background-image: url('960x540.svg');
+  background-image: url('/960x540.svg');
   position: absolute;
   bottom: 0px;
   z-index: -1;
@@ -51,7 +51,7 @@ body {
   }
 
   .layer1 {
-    background-image: url('900x675.svg');
+    background-image: url('/900x675.svg');
   }
 }
 
@@ -61,7 +61,7 @@ body {
   }
 
   .layer1 {
-    background-image: url('675x900.svg');
+    background-image: url('/675x900.svg');
   }
 }
 
@@ -565,6 +565,56 @@ input::file-selector-button {
 
 
 
+
+
+/* ==============================  PAGES  =============================== */
+/* Not Found Page (404) */
+
+.notFoundPageContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  top: 35%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.iconContainer {
+  height: 175px;
+  width: 150px;
+  margin-right: 30px;
+}
+
+.ghostIcon {
+  height: 100%;
+  width: 100%;
+  color: var(--semi-dark-purp);
+}
+
+.notFoundContentContainer {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  flex-direction: column;
+}
+
+.notFoundContentContainer h1 {
+  font-size: 50px;
+}
+
+.notFoundContentContainer p {
+  margin-left: 5px;
+  color: var(--semi-dark-purp);
+}
+
+.notFoundContentContainer a {
+  margin-left: 5px;
+  color: var(--semi-dark-purp);
+}
+
+
+/* Private Page (Not logged in) */
 
 
 

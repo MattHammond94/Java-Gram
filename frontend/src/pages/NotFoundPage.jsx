@@ -1,13 +1,20 @@
+import { FaGhost } from "react-icons/fa6";
 
 const NotFoundPage = () => {
   return (
-    <div className='notFoundPage'>
-      <h1>404</h1>
-      <h1>Nothing exists here!</h1>
-      <a href="/">Return home...</a>
-      <img src="/circ-bnw-cam-purp.png" alt="Illustration of a leica camera" />
+    <>
+      <div className='notFoundPageContainer'>
+        <div className="iconContainer">
+          <FaGhost className="ghostIcon"/>
+        </div>
+        <div className="notFoundContentContainer">
+          <h1>404</h1>
+          <p>Nothing exists here!</p>
+          <a href="/">Return home...</a>
+        </div>
+      </div>
       <div className="waves layer1"></div>
-    </div>
+    </>
   )
 }
 
