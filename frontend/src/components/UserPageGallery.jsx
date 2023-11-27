@@ -1,23 +1,25 @@
+import { useParams } from "react-router-dom";
+import { useGetAllUsersPostsQuery } from "../slices/postApiSlice";
+import { useGetSelectedUserInfoQuery } from "../slices/usersApiSlice";
+
+// Icons
 import { HiHeart  } from "react-icons/hi";
 import { SlSpeech } from "react-icons/sl";
 
 const UserPageGallery = () => {
-  const usersPosts = [
-    { user: "user1", likedBy: ["Somesome", "Somesomess"], comments: ["A comment", "Another Comment"], image: "/Dud.png" },
-    { user: "user2", likedBy: [], comments: ["A comment"], image: "/Placeholder.jpg" },
-    { user: "user2", likedBy: ["Some", "Some2"], comments: [], image: "/icon-uncropped.png" },
-    { user: "user2", likedBy: [], comments: [] },
-    { user: "user2", likedBy: [], comments: [] },
-    { user: "user2", likedBy: [], comments: [] },
-    { user: "user2", likedBy: [], comments: [] },
-    { user: "user2", likedBy: [], comments: [] },
-    { user: "user2", likedBy: ["Someone"], comments: [] },
-    { user: "user2", likedBy: [], comments: ["Comments", "Comment2"] }
-  ]
+  const { username } = useParams();
+
+  console.log(username)
+
+  const { data: selectedUserInfo, error: selectedUserError, isLoading: selectedUserInfoLoading } = useGetSelectedUserInfoQuery(`${username}`);
+
+  console.log(selectedUserInfo)
+
+  const { data: usersPosts } = useGetAllUsersPostsQuery(`${selectedUserInfo?._id}`)
 
   return (
     <div className="userPageGallery">
-      {usersPosts.map((post, index) => (
+      {usersPosts && usersPosts.map((post, index) => (
         <div key={index} className="galleryPostContainer">
           <img src={ post.image } />
           <div className="galleryIconsContainer">
