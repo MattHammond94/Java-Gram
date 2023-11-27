@@ -1,8 +1,14 @@
 import { useNavigate } from "react-router-dom";
 import { useGetSelectedUserInfoQuery } from "../slices/usersApiSlice";
 import Loader from "./Loader";
+import LogOutButton from "./LogOutButton";
+import CreatePostButton from "./CreatePostButton";
 import UpdateProfilePictureButton from "./UpdateProfilePictureButton";
 import { useSelector } from "react-redux";
+
+// Icons
+import { IoHome } from "react-icons/io5";
+import { FaCog } from "react-icons/fa";
 
 const UserPageHeader = ({ username }) => {
   const navigate = useNavigate();
@@ -50,9 +56,10 @@ const UserPageHeader = ({ username }) => {
         </div>
       </div>
       <div className='rightSide'>
-        <button onClick={ handleNavigate }>Home</button>
-        <button>Settings</button>
-        <button>Create Post</button>
+        <button onClick={ handleNavigate }><IoHome /></button>
+        <button><FaCog /></button>
+        <CreatePostButton />
+        <LogOutButton />
       </div>
     </div>
   )

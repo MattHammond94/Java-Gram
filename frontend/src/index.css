@@ -218,6 +218,7 @@ input[type='password'] {
   right: 0;
   bottom: 0;
   background-color: rgba(45, 30, 74, .7);
+  z-index: 2;
 }
 
 .modalContentContainer {
@@ -316,22 +317,35 @@ input[type='password'] {
   left: 130px
 }
 
-.feedNavBar img {
+.navbarProfilePicture {
   height: 100px;
   width: 100px;
   border-radius: 50%;
   position: absolute;
   top: 13px;
-  left: 20px;
+  right: 20px;
   cursor: pointer;
 }
 
 .feedNavBar button {
   position: absolute;
-  right: 30px;
-  top: 30px;
-  background-color: var(--semi-dark-purp);
-  color: var(--mid-purp);
+  /* right: 20px;
+  top: 130px; */
+  /* background-image: linear-gradient(to right, rgb(70, 47, 99), rgb(214, 186, 248)); */
+  /* background-color: var(--semi-dark-purp); */
+  left: 10px;
+  top: 10px;
+  background-color: var(--mid-purp);
+}
+
+.feedNavBar button:hover  {
+  filter: drop-shadow(0 0 2em var(--grey-purp));
+}
+
+/* CREATE POST BUTTON COMPONENT */
+.createPostBtnImg {
+  height: 60px;
+  width: 75px;
 }
 
 
@@ -457,12 +471,6 @@ input[type='password'] {
 
 
 /* ================================================================ */
-/* CREATE POST BUTTON COMPONENT */
-.createPostBtnImg {
-  height: 60px;
-  width: 80px;
-}
-
 
 /* CREATE POST FORM */
 

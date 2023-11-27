@@ -38,7 +38,9 @@ const Post = ({ post }) => {
         <p className='postCaption'>{ post.caption }</p>
       </div>
       <div className='likeIconContainer' onClick={ handleLike }>
-        {/* liked ? <HiOutlineHeart className="heartIcon" /> : <HiHeart className="heartIcon"/> */}
+        {/* liked ?  */}
+        <HiOutlineHeart className="heartIcon" /> 
+        {/* : <HiHeart className="heartIcon"/> */}
       </div>
     </div>
   )

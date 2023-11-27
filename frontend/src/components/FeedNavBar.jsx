@@ -1,8 +1,8 @@
 import { useSelector } from "react-redux";
-import LogOutButton from "./LogOutButton";
 import { useNavigate } from "react-router-dom";
 import { useGetSelectedUserInfoQuery } from "../slices/usersApiSlice";
 import Loader from "./Loader";
+import CreatePostButton from "./CreatePostButton";
 
 const FeedNavBar = () => {
   const navigate = useNavigate();
@@ -19,9 +19,14 @@ const FeedNavBar = () => {
 
   return (
     <div className='feedNavBar'>
-      <img  onClick={ handleNavigate } src={`${selectedUserInfo.profilePicture}`} alt="Users profile picture" />
+      <img 
+        onClick={ handleNavigate } 
+        src={`${selectedUserInfo.profilePicture}`} 
+        alt="Users profile picture" 
+        className="navbarProfilePicture"
+      />
       <h1>{ selectedUserInfo.username }</h1>
-      <LogOutButton />
+      <CreatePostButton />
     </div>
   )
 }

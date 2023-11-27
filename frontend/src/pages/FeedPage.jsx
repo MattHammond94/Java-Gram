@@ -1,6 +1,5 @@
-import CreatePostButton from "../components/CreatePostButton";
-import Feed from "../components/Feed";
 import FeedNavBar from "../components/FeedNavBar";
+import Feed from "../components/Feed";
 
 const FeedPage = () => {
 
@@ -8,7 +7,6 @@ const FeedPage = () => {
     <div className="feedPage">
       <FeedNavBar />
       <Feed />
-      <CreatePostButton />
     </div>
   )
 }
