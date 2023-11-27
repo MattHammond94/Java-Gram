@@ -38,8 +38,8 @@ const UpdateProfilePictureForm = () => {
     const previousProfilePictureId = await selectedUserInfo.profilePictureCloudId;
     const storedProfilePicture = await addProfilePicture({ image: image }).unwrap();
     const update = await updatedUser({ profilePicture: storedProfilePicture.url, profilePictureCloudId: storedProfilePicture.id }).unwrap();
-    
-    if (previousProfilePictureId !== '/Placeholder.jpg') {
+
+    if (previousProfilePictureId) {
       await removeProfilePictureFromCloud({ image: previousProfilePictureId })
     }
 
