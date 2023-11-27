@@ -4,7 +4,7 @@ import { useAddLikeToPostMutation } from "../slices/postApiSlice";
 import { useNavigate } from 'react-router-dom';
 
 // Icons:
-
+import { HiOutlineHeart, HiHeart  } from "react-icons/hi";
 
 const Post = ({ post }) => {
   const[likeCount, setLikeCount] = useState(post.likedBy.length);
@@ -38,7 +38,7 @@ const Post = ({ post }) => {
         <p className='postCaption'>{ post.caption }</p>
       </div>
       <div className='likeIconContainer' onClick={ handleLike }>
-        {/* <FontAwesomeIcon icon={faHeart} className="heartIcon" /> */}
+        {/* liked ? <HiOutlineHeart className="heartIcon" /> : <HiHeart className="heartIcon"/> */}
       </div>
     </div>
   )
