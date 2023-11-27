@@ -8,13 +8,6 @@ import cloudinary from "../config/cloudinaryConfig.js";
 const createPost = asyncHandler(async (req, res) => {
   const { image, imageCloudId, caption, user } = req.body;
 
-  // const existingPost = Post.findOne({ image: image });
-
-  // if (existingPost) {
-  //   res.status(400)
-  //   throw new Error('This post already exists.')
-  // }
-
   const post = await Post.create({
     image,
     imageCloudId,

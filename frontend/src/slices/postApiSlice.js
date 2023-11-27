@@ -17,6 +17,9 @@ export const postsApiSlice = apiSlice.injectEndpoints({
     getAllPosts: builder.query({
       query: () => `${POST_URL}/all`,
     }),
+    getAllUsersPosts: builder.query({
+      query: (id) => `${POST_URL}/allUsersPosts/${id}`
+    }),
     deletePost: builder.mutation({
       query: () => ({
         url: `${POST_URL}/:id`,
@@ -65,6 +68,7 @@ export const {
   useCreatePostMutation,
   useGetAPostQuery,
   useGetAllPostsQuery,
+  useGetAllUsersPostsQuery,
   useDeletePostMutation,
   useUpdatePostCaptionMutation,
   useAddLikeToPostMutation,  

@@ -3,6 +3,7 @@ import { useCheckUsernameQuery } from "../slices/usersApiSlice";
 import Loader from "../components/Loader";
 import NotFoundPage from "../pages/NotFoundPage";
 import UserPageHeader from "../components/UserPageHeader";
+import UserPageGallery from "../components/UserPageGallery";
 
 // Will consist of two components - A header and a gallery
 
@@ -35,6 +36,7 @@ const UserPage = () => {
   return (
     <div>
       <UserPageHeader username={ username }/>
+      <UserPageGallery />
     </div>
   )
 }
