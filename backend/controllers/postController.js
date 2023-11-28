@@ -64,7 +64,7 @@ const getAllPosts = asyncHandler(async (req, res) => {
     
     await Promise.all(arrayOfPromises);
 
-    status.json(allPosts.reverse())
+    status.json(allPosts.reverse());
     
   } else {
     res.status(400);
@@ -89,7 +89,11 @@ const getAllUsersPosts = asyncHandler(async (req, res) => {
       return res.status(204).json({ message: 'This user currently has no posts' });
     }
 
-    res.status(200).json(allUsersPosts.reverse())
+    const arrayOfPromises = allUsersPosts.map((post) => post.populate("user"));
+    
+    await Promise.all(arrayOfPromises);
+
+    res.status(200).json(allUsersPosts.reverse());
     
   } else {
     res.status(400);

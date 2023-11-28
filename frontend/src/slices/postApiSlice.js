@@ -12,7 +12,9 @@ export const postsApiSlice = apiSlice.injectEndpoints({
       }),
     }),
     getAPost: builder.query({
-      query: () => `${POST_URL}/:id`,
+      query: (id) => ({
+        url: `${POST_URL}/${id}`
+      }),
     }),
     getAllPosts: builder.query({
       query: () => `${POST_URL}/all`,

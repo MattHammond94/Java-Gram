@@ -849,6 +849,87 @@ input::file-selector-button {
 }
 
 
+
+
+
+
+
+
+
+/*  User Page Modal Component  */
+
+.selectedPostModal {
+  position: relative;
+  height: 600px;
+  width: 800px;
+  background-color: red;
+}
+
+.selectedPostImageContainer {
+  height: 100%;
+  width: 60%;
+  position: absolute;
+  left: 0;
+}
+
+.selectedPostImageContainer img {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+}
+
+.selectedPostcontentContainer {
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+  position: absolute;
+  right: 0;
+  background-color: green;
+  height: 100%;
+  width: 40%
+}
+
+.selectedPostcontentContainer p {
+  margin-left: 10px;
+}
+
+.selectedPostcontentContainer p:nth-child(1) {
+  margin-left: 10px;
+  margin-top: 10px;
+  font-size: 22px;
+  text-decoration: underline;
+  color: var(--semi-dark-purp);
+}
+
+.selectedPostLine {
+  width: 98%;
+  height: 1px;
+  background-image: linear-gradient(to right, rgba(70, 47, 99, 0.9), rgba(214, 186, 248, 0.9));
+  align-self: center;
+  margin-top: 2px;
+}
+
+.commentsContainer {
+  margin-top: 5px;
+  background-color: pink;
+  height: 450px;
+  width: 100%;
+}
+
+.selectedPostcontentContainer button {
+  position: absolute;
+  bottom: 0;
+  margin: 0px;
+}
+
+
+
+
+
+
+
+
+
 /*  Styles for logout button if return to button over anchor */
 
 /* .feedNavBar button {
