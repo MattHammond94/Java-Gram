@@ -58,7 +58,7 @@ const UserPageHeader = ({ username }) => {
       <div className='rightSide'>
         <button onClick={ handleNavigate }><IoHome /></button>
         <button><FaCog /></button>
-        <CreatePostButton />
+        { userInfo.username === username ? <CreatePostButton /> : null }
         <LogOutButton />
       </div>
     </div>

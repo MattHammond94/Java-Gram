@@ -1,21 +1,24 @@
-import { useParams } from "react-router-dom";
 import { useGetAllUsersPostsQuery } from "../slices/postApiSlice";
 import { useGetSelectedUserInfoQuery } from "../slices/usersApiSlice";
+import Loader from "./Loader";
 
 // Icons
 import { HiHeart  } from "react-icons/hi";
 import { SlSpeech } from "react-icons/sl";
 
-const UserPageGallery = () => {
-  const { username } = useParams();
-
-  console.log(username)
-
+const UserPageGallery = ({ username }) => {
   const { data: selectedUserInfo, error: selectedUserError, isLoading: selectedUserInfoLoading } = useGetSelectedUserInfoQuery(`${username}`);
+  const { data: usersPosts, error: usersPostsError } = useGetAllUsersPostsQuery(selectedUserInfo?._id, {
+    skip: !selectedUserInfo
+  });
 
-  console.log(selectedUserInfo)
+  if (selectedUserInfoLoading) {
+    return <Loader />
+  }
 
-  const { data: usersPosts } = useGetAllUsersPostsQuery(`${selectedUserInfo?._id}`)
+  if (selectedUserError || usersPostsError) {
+    return <div>Error: {selectedUserError.message || usersPostsError.message}</div>;
+  }
 
   return (
     <div className="userPageGallery">
