@@ -49,7 +49,7 @@ const UserPageHeader = ({ username }) => {
             <p>{`${selectedUserInfo.followers.length}`}</p>
             <p>Followers</p>
           </div>
-          <div className='Following'>
+          <div className='following'>
             <p>{`${selectedUserInfo.following.length}`}</p>
             <p>Following</p>
           </div>
@@ -57,9 +57,9 @@ const UserPageHeader = ({ username }) => {
       </div>
       <div className='rightSide'>
         <button onClick={ handleNavigate }><IoHome /></button>
-        <button><FaCog /></button>
+        { userInfo.username === username ?  <button><FaCog /></button> : null }
         { userInfo.username === username ? <CreatePostButton /> : null }
-        <LogOutButton />
+        { userInfo.username === username ?  <LogOutButton /> : null }
       </div>
     </div>
   )

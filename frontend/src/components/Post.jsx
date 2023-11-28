@@ -2,12 +2,15 @@ import formatDistanceToNow from 'date-fns/formatDistanceToNow';
 import { useState } from 'react';
 import { useAddLikeToPostMutation } from "../slices/postApiSlice";
 import { useNavigate } from 'react-router-dom';
+import { useSelector } from "react-redux";
 
 // Icons:
-import { HiOutlineHeart, HiHeart  } from "react-icons/hi";
+import { HiOutlineHeart, HiHeart } from "react-icons/hi";
 
 const Post = ({ post }) => {
+  const { userInfo } = useSelector((state) => state.auth);
   const[likeCount, setLikeCount] = useState(post.likedBy.length);
+
   const [like] = useAddLikeToPostMutation();
 
   const navigate = useNavigate();
@@ -19,6 +22,18 @@ const Post = ({ post }) => {
   const handleLike = async () => {
     const updatedPost = await like({ id: post._id });
     setLikeCount(updatedPost.data.likedBy.length);
+
+    console.log(post.likedBy)
+    console.log(userInfo._id)
+
+    console.log(post.likedBy[0] === userInfo._id)
+
+    // console.log(post.likedBy)
+    // console.log(userInfo._id) 
+
+    // console.log(post.likedBy.some((user) => {
+    //   user._id === userInfo._id.toString()
+    // }))
   }
 
   return (
