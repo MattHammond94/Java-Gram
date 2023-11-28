@@ -3,16 +3,12 @@ import Loader from './Loader';
 import Post from './Post';
 
 const Feed = () => {
-  const { data, error, isLoading } = useGetAllPostsQuery();
-
-  if (!Array.isArray(data)) {
-    return <Loader />
-  }
+  const { data, error, isLoading, refetch } = useGetAllPostsQuery();
 
   if (isLoading) {
     return <Loader />;
   }
-
+  
   if (error) {
     return <div>Error: {error.message}</div>;
   }

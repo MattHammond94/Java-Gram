@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useAddImageToCloudMutation, useCreatePostMutation } from '../slices/postApiSlice';
+import { useAddImageToCloudMutation, useCreatePostMutation, useGetAllPostsQuery } from '../slices/postApiSlice';
 import Loader from './Loader';
 import { useSelector } from "react-redux";
 
@@ -15,6 +15,8 @@ const CreatePostForm = () => {
   const [newPost, { isLoading: newPostLoading }] = useCreatePostMutation();
   const [addToCloud, { isLoading: addToCloudLoading }] = useAddImageToCloudMutation();
 
+  const { refetch } = useGetAllPostsQuery();
+
   const handleChange = (e) => {
     const file = e.target.files[0]
     setFile(file)
@@ -29,7 +31,6 @@ const CreatePostForm = () => {
   }
 
   const handleSubmit = async (e) => {
-
     e.preventDefault();
 
     if (!file) {
@@ -38,8 +39,18 @@ const CreatePostForm = () => {
 
     const storedImage = await addToCloud({ image: image }).unwrap();
 
-    await newPost({ image: storedImage.url, imageCloudId: storedImage.id, caption: caption, user: userInfo._id });
+    if (!storedImage) {
+      return setFileError('Unable to connect to cloud at this moment in time.')
+    }
+
+    const postCreated = await newPost({ image: storedImage.url, imageCloudId: storedImage.id, caption: caption, user: userInfo._id });
+
+    if (!postCreated) {
+      return setFileError('Unable to create a post at this moment in time. Please try again.')
+    } 
+
     setImageUploaded(true);
+    await refetch();
   }
 
   return (
