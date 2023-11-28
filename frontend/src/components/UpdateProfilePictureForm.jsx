@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useAddProfilePictureToCloudMutation, useUpdateUserMutation, useGetSelectedUserInfoQuery, useRemoveProfilePictureFromCloudMutation } from "../slices/usersApiSlice";
 import { useSelector } from "react-redux";
 import Loader from "./Loader";
+import { useGetAllPostsQuery } from "../slices/postApiSlice";
 
 const UpdateProfilePictureForm = () => {
   const [fileError, setFileError] = useState('');
@@ -13,7 +14,8 @@ const UpdateProfilePictureForm = () => {
   const [addProfilePicture, { isLoading: addProfilePictureLoading }] = useAddProfilePictureToCloudMutation();
   const [updatedUser, { isLoading: updatedUserLoading }] = useUpdateUserMutation();
   const [removeProfilePictureFromCloud, { isLoading: removalFromCloudLoading }] = useRemoveProfilePictureFromCloudMutation();
-  const { data: selectedUserInfo } = useGetSelectedUserInfoQuery(userInfo.username);
+  const { data: selectedUserInfo, refetch: retchUserDetails } = useGetSelectedUserInfoQuery(userInfo.username);
+  const { refetch: refetchAllPosts } = useGetAllPostsQuery();
 
   const handleChange = (e) => {
     const file = e.target.files[0]
@@ -44,7 +46,9 @@ const UpdateProfilePictureForm = () => {
     }
 
     if (update) {
+      await retchUserDetails();
       setImageUploaded(true);
+      await refetchAllPosts();
     } else {
       setFileError('Unable to update profile picture at this time.');
     }
