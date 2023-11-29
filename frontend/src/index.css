@@ -535,6 +535,7 @@ input::file-selector-button {
   align-self: flex-start;
   margin-left: 30px;
   margin-top: 15px;
+  position: relative;
 }
 
 .leftSide img {
@@ -545,8 +546,8 @@ input::file-selector-button {
 
 .leftSide button {
   position: absolute;
-  top: 210px;
-  left: 200px;
+  right: 0;
+  bottom: -15px;
   padding: 7px;
   display: flex;
   justify-content: center;
@@ -612,6 +613,13 @@ input::file-selector-button {
   background-color: red;
 }
 
+.rightSide button {
+  margin: 3px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 /* USER PAGE GALLERY */
 .userPageGallery {
   display: flex;
@@ -629,7 +637,7 @@ input::file-selector-button {
   height: 300px;
   width: 300px;
   margin: 5px;
-  background-color: red;
+  background-color: var(--mid-purp);
   cursor: pointer;
 }
 
@@ -998,6 +1006,47 @@ input::file-selector-button {
 
 
 
+
+
+
+
+/*  Settings List Component */
+
+.settingsList {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  flex-direction: column;
+}
+
+.settingsList p {
+  font-size: 25px;
+  color: var(--semi-dark-purp);
+}
+
+.settingsFirstDiv {
+  margin-top: 30px;
+}
+
+.settingsList p:hover {
+  color: var(--mid-purp);
+  cursor: pointer;
+}
+
+.line {
+  height: 2px;
+  width: 95%;
+  background-image: linear-gradient(to right, rgba(70, 47, 99, 0.8), rgba(214, 186, 248, 0.8));
+}
+
+.settingsList button {
+  margin-top: 20px;
+}
+
+.settingsList button:hover {
+  color: var(--semi-dark-purp);
+  background-color: var(--mid-purp);
+}
 
 
 
