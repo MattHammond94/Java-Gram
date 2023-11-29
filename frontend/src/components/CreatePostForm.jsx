@@ -8,7 +8,7 @@ import {
 import Loader from './Loader';
 import { useSelector } from "react-redux";
 
-const CreatePostForm = ({ setModalOpenStatus }) => {
+const CreatePostForm = ({ setModalOpenStatus, setContentLoadingStatus }) => {
   const [file, setFile] = useState(null);
   const [image, setImage] = useState('');
   const [caption, setCaption] = useState('');
@@ -38,6 +38,8 @@ const CreatePostForm = ({ setModalOpenStatus }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    setContentLoadingStatus(true);
+
     if (!file) {
       return setFileError('Please select a file to upload')
     }
@@ -57,6 +59,7 @@ const CreatePostForm = ({ setModalOpenStatus }) => {
     setImageUploaded(true);
     await refetchAllPosts();
     await refetchUsersPosts();
+    setContentLoadingStatus(false)
 
     setTimeout(() => {
       setModalOpenStatus(false);

@@ -1,4 +1,4 @@
-const OpenModalButton = ({ buttonContent, modalContent, setModalContent, setModalOpenStatus  }) => {
+const OpenModalButton = ({ buttonContent, modalContent, setModalContent, setModalOpenStatus }) => {
 
   const handleClick = () => {
     setModalContent(modalContent);

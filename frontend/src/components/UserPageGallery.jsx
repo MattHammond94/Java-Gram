@@ -20,6 +20,7 @@ const UserPageGallery = ({ username }) => {
   const [selectedPost, setSelectedPost] = useState(null);
   const [modalOpenStatus, setModalOpenStatus] = useState(false);
   const [modalContent, setModalContent] = useState(null);
+  const [contentLoading, setContentLoading] = useState(false);
   const { data: selectedUserInfo, error: selectedUserError, isLoading: selectedUserInfoLoading } = useGetSelectedUserInfoQuery(`${username}`);
   const { data: usersPosts, error: usersPostsError, refetch } = useGetAllUsersPostsQuery(selectedUserInfo?._id, {
     skip: !selectedUserInfo
@@ -39,6 +40,8 @@ const UserPageGallery = ({ username }) => {
 
   const handleDeletePost = async (post) => {
     const deletedPost = await deletePost(`${post._id}`)
+
+    setContentLoading(true);
 
     if (!deletedPost) {
       return setModalContent(
@@ -69,6 +72,8 @@ const UserPageGallery = ({ username }) => {
     }
 
     await refetchAllPosts();
+
+    setContentLoading(false);
 
     setTimeout(() => {
       setModalOpenStatus(false);
@@ -119,7 +124,7 @@ const UserPageGallery = ({ username }) => {
           </div>
         ))}
       </div>
-      <Modal status={modalOpenStatus} setStatus={setModalOpenStatus}>
+      <Modal status={modalOpenStatus} setStatus={setModalOpenStatus} contentLoading={contentLoading}>
         {modalContent}
       </Modal>
     </>

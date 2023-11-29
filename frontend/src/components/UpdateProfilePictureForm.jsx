@@ -4,7 +4,7 @@ import { useSelector } from "react-redux";
 import Loader from "./Loader";
 import { useGetAllPostsQuery } from "../slices/postApiSlice";
 
-const UpdateProfilePictureForm = ({ setModalOpenStatus }) => {
+const UpdateProfilePictureForm = ({ setModalOpenStatus, setContentLoadingStatus }) => {
   const [fileError, setFileError] = useState('');
   const [file, setFile] = useState(null);
   const [image, setImage] = useState('');
@@ -32,6 +32,7 @@ const UpdateProfilePictureForm = ({ setModalOpenStatus }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setContentLoadingStatus(true);
 
     if (!file) {
       return setFileError('Please select a file to upload');
@@ -52,6 +53,8 @@ const UpdateProfilePictureForm = ({ setModalOpenStatus }) => {
     } else {
       setFileError('Unable to update profile picture at this time.');
     }
+
+    setContentLoadingStatus(false);
 
     setTimeout(() => {
       setModalOpenStatus(false)
