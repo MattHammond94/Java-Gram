@@ -1,5 +1,10 @@
 import { useState } from 'react';
-import { useAddImageToCloudMutation, useCreatePostMutation, useGetAllPostsQuery } from '../slices/postApiSlice';
+import { 
+  useAddImageToCloudMutation, 
+  useCreatePostMutation, 
+  useGetAllPostsQuery, 
+  useGetAllUsersPostsQuery
+} from '../slices/postApiSlice';
 import Loader from './Loader';
 import { useSelector } from "react-redux";
 
@@ -14,8 +19,8 @@ const CreatePostForm = () => {
   const { userInfo } = useSelector((state) => state.auth)
   const [newPost, { isLoading: newPostLoading }] = useCreatePostMutation();
   const [addToCloud, { isLoading: addToCloudLoading }] = useAddImageToCloudMutation();
-
-  const { refetch } = useGetAllPostsQuery();
+  const { refetch: refetchUsersPosts } = useGetAllUsersPostsQuery(userInfo._id);
+  const { refetch: refetchAllPosts } = useGetAllPostsQuery();
 
   const handleChange = (e) => {
     const file = e.target.files[0]
@@ -50,7 +55,8 @@ const CreatePostForm = () => {
     } 
 
     setImageUploaded(true);
-    await refetch();
+    await refetchAllPosts();
+    await refetchUsersPosts();
   }
 
   return (

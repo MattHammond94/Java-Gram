@@ -939,6 +939,7 @@ input::file-selector-button {
   background-color: #d6baf8;
   border-radius: 100%;
   padding: 5px;
+  cursor: pointer;
 }
 
 .selectedPostHeader p {
@@ -971,6 +972,22 @@ input::file-selector-button {
   bottom: 0;
   margin: 0px;
 }
+
+
+
+/*  On DELETE of a POST */
+.deletePostContent {
+  height: 600px;
+  width: 800px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: white;
+}
+
+/* .deletePostContent h1 {
+  color: var(--semi-dark-purp);
+} */
 
 
 

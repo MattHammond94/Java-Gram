@@ -25,8 +25,8 @@ export const postsApiSlice = apiSlice.injectEndpoints({
       }),
     }),
     deletePost: builder.mutation({
-      query: () => ({
-        url: `${POST_URL}/:id`,
+      query: (id) => ({
+        url: `${POST_URL}/${id}`,
         method: 'DELETE',
       }),
     }),
@@ -58,6 +58,13 @@ export const postsApiSlice = apiSlice.injectEndpoints({
         body: data
       }),
     }),
+    removePostImageFromCloud: builder.mutation({
+      query: (data) => ({
+        url: `${POST_URL}/cloud`,
+        method: 'DELETE',
+        body: data
+      }),
+    }),
   }),
   onError: (error) => {
     if (error.data && error.data.message) {
@@ -77,5 +84,6 @@ export const {
   useUpdatePostCaptionMutation,
   useAddLikeToPostMutation,  
   useAddCommentToPostMutation,
-  useAddImageToCloudMutation
+  useAddImageToCloudMutation,
+  useRemovePostImageFromCloudMutation
 } = postsApiSlice;

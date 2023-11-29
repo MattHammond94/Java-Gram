@@ -1,6 +1,11 @@
 import { useState } from "react";
 import { useSelector } from "react-redux";
-import { useGetAllUsersPostsQuery, useGetAPostQuery } from "../slices/postApiSlice";
+import { 
+  useGetAllUsersPostsQuery, 
+  useRemovePostImageFromCloudMutation, 
+  useDeletePostMutation, 
+  useGetAllPostsQuery
+} from "../slices/postApiSlice";
 import { useGetSelectedUserInfoQuery } from "../slices/usersApiSlice";
 import Loader from "./Loader";
 import Modal from "./Modal";
@@ -16,9 +21,13 @@ const UserPageGallery = ({ username }) => {
   const [modalOpenStatus, setModalOpenStatus] = useState(false);
   const [modalContent, setModalContent] = useState(null);
   const { data: selectedUserInfo, error: selectedUserError, isLoading: selectedUserInfoLoading } = useGetSelectedUserInfoQuery(`${username}`);
-  const { data: usersPosts, error: usersPostsError } = useGetAllUsersPostsQuery(selectedUserInfo?._id, {
+  const { data: usersPosts, error: usersPostsError, refetch } = useGetAllUsersPostsQuery(selectedUserInfo?._id, {
     skip: !selectedUserInfo
   });
+
+  const [deletePost, { isLoading: deletePostLoading }] = useDeletePostMutation();
+  const [deletePostImageFromCloud, { isLoading: deleteFromCloudLoading }] = useRemovePostImageFromCloudMutation();
+  const { refetch: refetchAllPosts } = useGetAllPostsQuery();
 
   if (selectedUserInfoLoading) {
     return <Loader />
@@ -26,6 +35,41 @@ const UserPageGallery = ({ username }) => {
 
   if (selectedUserError || usersPostsError) {
     return <div>Error: {selectedUserError.message || usersPostsError.message}</div>;
+  }
+
+  const handleDeletePost = async (post) => {
+    const deletedPost = await deletePost(`${post._id}`)
+
+    if (!deletedPost) {
+      return setModalContent(
+        <div className="modalError">
+          <h1>Error</h1>
+          <p>Unable to delete this post at this moment in time</p>
+          <p>Please try again later</p>
+        </div>
+      )
+    }
+
+    await deletePostImageFromCloud({ image: post.imageCloudId})
+
+    await refetch();
+
+    if(deletePostLoading || deleteFromCloudLoading) {
+      setModalContent(
+        <div className="deletePostContent">
+          <Loader />
+        </div>
+      )
+    } else {
+      setModalContent(
+        <div className="deletePostContent">
+          <h1>This post was successfully deleted</h1>
+        </div>
+      )
+    }
+    
+    await refetchAllPosts();
+    setModalOpenStatus(false);
   }
 
   const handleSelectedPost = async (post) => {
@@ -38,7 +82,7 @@ const UserPageGallery = ({ username }) => {
         </div>
         <div className="selectedPostcontentContainer">
           <div className="selectedPostHeader">
-            { userInfo.username === username ? <IoTrashSharp className="bin"/> : null }
+            { userInfo.username === username ? <IoTrashSharp className="bin" onClick={ () => handleDeletePost(post) }/> : null }
             <p>{ post.user.username }</p>
           </div>
           <p>{ post.caption }</p>
