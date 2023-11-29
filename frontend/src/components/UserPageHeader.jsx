@@ -66,7 +66,7 @@ const UserPageHeader = ({ username }) => {
           <button onClick={ handleNavigate }><IoHome /></button>
           { userInfo.username === username ?  <OpenModalButton 
             buttonContent={ <FaCog /> }  
-            modalContent={ <SettingsList /> } 
+            modalContent={ <SettingsList setModalContent={ setModalContent }/> } 
             setModalContent={ setModalContent }
             setModalOpenStatus={ setModalOpenStatus }
           /> : null }
