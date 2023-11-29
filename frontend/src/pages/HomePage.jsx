@@ -7,6 +7,7 @@ import OpenModalButton from "../components/OpenModalButton";
 const HomePage = () => {
   const [modalOpenStatus, setModalOpenStatus] = useState(false);
   const [modalContent, setModalContent] = useState(null);
+  const [contentLoading, setContentLoading] = useState(false);
 
   return (
     <>
@@ -15,20 +16,20 @@ const HomePage = () => {
           <h1>Java-Gram</h1>
           <OpenModalButton 
             buttonContent={ "Log In" }
-            modalContent={ <LogInForm /> }
+            modalContent={ <LogInForm setContentLoadingStatus={ setContentLoading }/> }
             setModalContent={ setModalContent }
             setModalOpenStatus={ setModalOpenStatus }
           />
           <OpenModalButton
             buttonContent={ "Sign Up" }
-            modalContent={ <SignUpForm /> }
+            modalContent={ <SignUpForm setContentLoadingStatus={ setContentLoading }/> }
             setModalContent={ setModalContent }
             setModalOpenStatus={ setModalOpenStatus }
           />
         </div>
         <div className="waves layer1"></div>
       </div>
-      <Modal status={modalOpenStatus} setStatus={setModalOpenStatus} >
+      <Modal status={modalOpenStatus} setStatus={setModalOpenStatus} contentLoading={contentLoading}>
         { modalContent }
       </Modal>
     </>

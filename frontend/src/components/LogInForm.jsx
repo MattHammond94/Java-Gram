@@ -5,7 +5,7 @@ import { useLoginMutation } from '../slices/usersApiSlice';
 import { setCredentials } from '../slices/authSlice';
 import Loader from '../components/Loader';
 
-const LogInForm = () => {
+const LogInForm = ({ setContentLoadingStatus }) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [apiError, setApiError] = useState('');
@@ -19,7 +19,6 @@ const LogInForm = () => {
 
   const submitHandler = async (e) => {
     e.preventDefault();
-
     setApiError('');
 
     if (username.length <= 0) {
@@ -35,10 +34,12 @@ const LogInForm = () => {
     }
 
     try {
+      setContentLoadingStatus(true);
       const res = await login({ username, password }).unwrap();
       dispatch(setCredentials({...res}))
       navigate('/feed')
     } catch (err) {
+      setContentLoadingStatus(false);
       setApiError(err?.data?.message || err.error)
     }
   }

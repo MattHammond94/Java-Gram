@@ -1,9 +1,6 @@
 import ReactDOM from "react-dom";
 
 const Modal = ({status, children, setStatus, contentLoading}) => {
-
-  console.log(contentLoading);
-
   if (!status) return null
 
   return ReactDOM.createPortal(

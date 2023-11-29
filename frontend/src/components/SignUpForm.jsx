@@ -6,7 +6,7 @@ import { useDispatch } from 'react-redux';
 import signUpValidator from '../inputValidators/SignUpValidator';
 import Loader from '../components/Loader';
 
-const SignUpForm = () => {
+const SignUpForm = ({ setContentLoadingStatus }) => {
   const initialState = { email: '', username: '', password: '', confirmPassword: '' }
   const [formValues, setFormValues] = useState(initialState);
   const [errorMessages, setErrorMessages] = useState({});
@@ -28,6 +28,8 @@ const SignUpForm = () => {
     setErrorMessages(errors);
 
     if (Object.keys(errors).length === 0) {
+      setContentLoadingStatus(true);
+
       try {
         const { email, username, password } = formValues;
         const response = await newUser({ email, username, password }).unwrap();

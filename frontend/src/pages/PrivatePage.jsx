@@ -8,6 +8,7 @@ import Modal from "../components/Modal";
 const PrivatePage = () => {
   const [modalOpenStatus, setModalOpenStatus] = useState(false);
   const [modalContent, setModalContent] = useState(null);
+  const [contentLoading, setContentLoading] = useState(false);
 
   return (
     <>
@@ -20,20 +21,20 @@ const PrivatePage = () => {
           <p>You must be logged in to access this content.</p>
           <OpenModalButton 
             buttonContent={ "Log In" }
-            modalContent={ <LogInForm /> }
+            modalContent={ <LogInForm setContentLoadingStatus={ setContentLoading }/> }
             setModalContent={ setModalContent }
             setModalOpenStatus={ setModalOpenStatus }
           />
           <OpenModalButton
             buttonContent={ "Sign Up" }
-            modalContent={ <SignUpForm /> }
+            modalContent={ <SignUpForm setContentLoadingStatus={ setContentLoading }/> }
             setModalContent={ setModalContent }
             setModalOpenStatus={ setModalOpenStatus }
           />
         </div>
       </div>
       <div className="waves layer1"></div>
-      <Modal status={modalOpenStatus} setStatus={setModalOpenStatus} >
+      <Modal status={modalOpenStatus} setStatus={setModalOpenStatus} contentLoading={contentLoading}>
         { modalContent }
       </Modal>
     </>
