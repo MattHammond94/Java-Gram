@@ -3,6 +3,9 @@ import UpdateProfilePictureForm from "./UpdateProfilePictureForm";
 import { useState } from "react";
 import Modal from "./Modal";
 
+// Icon:
+import { FaCirclePlus } from "react-icons/fa6";
+
 const UpdateProfilePictureButton = () => {
   const [modalOpenStatus, setModalOpenStatus] = useState(false);
   const [modalContent, setModalContent] = useState(null);
@@ -11,7 +14,7 @@ const UpdateProfilePictureButton = () => {
   return (
     <>
       <OpenModalButton 
-        buttonContent={'Update'} 
+        buttonContent={ <FaCirclePlus className="updateProfilePictureBtn"/> } 
         modalContent={ <UpdateProfilePictureForm setModalOpenStatus={ setModalOpenStatus } setContentLoadingStatus={ setContentLoading }/> }
         setModalContent={ setModalContent }
         setModalOpenStatus={ setModalOpenStatus }

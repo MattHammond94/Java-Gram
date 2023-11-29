@@ -547,6 +547,16 @@ input::file-selector-button {
   position: absolute;
   top: 210px;
   left: 200px;
+  padding: 7px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.updateProfilePictureBtn {
+  padding: 0px;
+  height: 40px;
+  width: 40px;
 }
 
 .middle {
@@ -560,7 +570,6 @@ input::file-selector-button {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%); */
-
 }
 
 .middleMiddle {
@@ -600,6 +609,7 @@ input::file-selector-button {
   align-items: center;
   flex-direction: column;
   height: 100%;
+  background-color: red;
 }
 
 /* USER PAGE GALLERY */
@@ -984,10 +994,6 @@ input::file-selector-button {
   align-items: center;
   background-color: white;
 }
-
-/* .deletePostContent h1 {
-  color: var(--semi-dark-purp);
-} */
 
 
 
