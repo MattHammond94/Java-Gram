@@ -4,7 +4,7 @@ import { useSelector } from "react-redux";
 import Loader from "./Loader";
 import { useGetAllPostsQuery } from "../slices/postApiSlice";
 
-const UpdateProfilePictureForm = () => {
+const UpdateProfilePictureForm = ({ setModalOpenStatus }) => {
   const [fileError, setFileError] = useState('');
   const [file, setFile] = useState(null);
   const [image, setImage] = useState('');
@@ -14,7 +14,7 @@ const UpdateProfilePictureForm = () => {
   const [addProfilePicture, { isLoading: addProfilePictureLoading }] = useAddProfilePictureToCloudMutation();
   const [updatedUser, { isLoading: updatedUserLoading }] = useUpdateUserMutation();
   const [removeProfilePictureFromCloud, { isLoading: removalFromCloudLoading }] = useRemoveProfilePictureFromCloudMutation();
-  const { data: selectedUserInfo, refetch: retchUserDetails } = useGetSelectedUserInfoQuery(userInfo.username);
+  const { data: selectedUserInfo, refetch: refetchUserDetails } = useGetSelectedUserInfoQuery(userInfo.username);
   const { refetch: refetchAllPosts } = useGetAllPostsQuery();
 
   const handleChange = (e) => {
@@ -46,12 +46,16 @@ const UpdateProfilePictureForm = () => {
     }
 
     if (update) {
-      await retchUserDetails();
       setImageUploaded(true);
+      await refetchUserDetails();
       await refetchAllPosts();
     } else {
       setFileError('Unable to update profile picture at this time.');
     }
+
+    setTimeout(() => {
+      setModalOpenStatus(false)
+    }, 1500);
   }
 
   return (
@@ -68,7 +72,7 @@ const UpdateProfilePictureForm = () => {
             style={{ width: '290px', height: '42px' }}
           ></input>
           { fileError && <p className='error'>{fileError}</p> }
-          { addProfilePictureLoading || updatedUserLoading ? <button className='disabledButton' disabled><Loader /></button> : <button>Submit</button> }
+          { addProfilePictureLoading || updatedUserLoading || removalFromCloudLoading ? <button className='disabledButton' disabled><Loader /></button> : <button>Submit</button> }
         </form>
       }
     </div>

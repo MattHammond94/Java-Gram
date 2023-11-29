@@ -8,7 +8,7 @@ import {
 import Loader from './Loader';
 import { useSelector } from "react-redux";
 
-const CreatePostForm = () => {
+const CreatePostForm = ({ setModalOpenStatus }) => {
   const [file, setFile] = useState(null);
   const [image, setImage] = useState('');
   const [caption, setCaption] = useState('');
@@ -57,10 +57,14 @@ const CreatePostForm = () => {
     setImageUploaded(true);
     await refetchAllPosts();
     await refetchUsersPosts();
+
+    setTimeout(() => {
+      setModalOpenStatus(false);
+    }, 1500);
   }
 
   return (
-    <div className="formTemplate"  style={{ height: '455px'}}>
+    <div className="formTemplate" style={{ height: '455px'}}>
       { imageUploaded ? <h1 style={{ marginTop: '150px', marginLeft: '105px' }}>Success!</h1>
        : <form onSubmit={e => {handleSubmit(e)}}  autoComplete='off'>
         <h1>Create A New Post</h1>

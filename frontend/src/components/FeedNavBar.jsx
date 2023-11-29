@@ -25,7 +25,6 @@ const FeedNavBar = () => {
         alt="Users profile picture" 
         className="navbarProfilePicture"
       />
-      <h1>{ selectedUserInfo.username }</h1>
       <CreatePostButton />
     </div>
   )

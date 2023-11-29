@@ -18,7 +18,7 @@ const CreatePostButton = () => {
       <div>
         <OpenModalButton 
           buttonContent={ <img src="/CreatePostButton.png" className="createPostBtnImg" /> }
-          modalContent={ <CreatePostForm /> }
+          modalContent={ <CreatePostForm setModalOpenStatus={ setModalOpenStatus } /> }
           setModalContent={ setModalContent }
           setModalOpenStatus={ setModalOpenStatus }
         />

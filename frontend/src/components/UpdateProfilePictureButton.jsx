@@ -11,7 +11,7 @@ const UpdateProfilePictureButton = () => {
     <>
       <OpenModalButton 
         buttonContent={'Update'} 
-        modalContent={ <UpdateProfilePictureForm /> }
+        modalContent={ <UpdateProfilePictureForm setModalOpenStatus={ setModalOpenStatus } /> }
         setModalContent={ setModalContent }
         setModalOpenStatus={ setModalOpenStatus }
       />

@@ -67,9 +67,12 @@ const UserPageGallery = ({ username }) => {
         </div>
       )
     }
-    
+
     await refetchAllPosts();
-    setModalOpenStatus(false);
+
+    setTimeout(() => {
+      setModalOpenStatus(false);
+    }, 1500);
   }
 
   const handleSelectedPost = async (post) => {
