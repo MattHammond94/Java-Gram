@@ -64,6 +64,10 @@ const getAllPosts = asyncHandler(async (req, res) => {
     
     await Promise.all(arrayOfPromises);
 
+    const secondArrayOfPromises = allPosts.map((post) => post.populate("likedBy"));
+
+    await Promise.all(secondArrayOfPromises);
+
     status.json(allPosts.reverse());
     
   } else {
@@ -92,6 +96,10 @@ const getAllUsersPosts = asyncHandler(async (req, res) => {
     const arrayOfPromises = allUsersPosts.map((post) => post.populate("user"));
     
     await Promise.all(arrayOfPromises);
+
+    const secondArrayOfPromises = allUsersPosts.map((post) => post.populate("likedBy"));
+
+    await Promise.all(secondArrayOfPromises);
 
     res.status(200).json(allUsersPosts.reverse());
     
@@ -137,6 +145,13 @@ const addLikeToPost = asyncHandler(async (req, res) => {
     res.status(400)
     throw new Error('Unable to update post')
   }
+
+
+
+
+
+
+
 });
 
 //Route:    PUT  /:id/updateCaption

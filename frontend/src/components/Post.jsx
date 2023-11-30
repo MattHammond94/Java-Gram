@@ -1,5 +1,5 @@
 import formatDistanceToNow from 'date-fns/formatDistanceToNow';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useAddLikeToPostMutation } from "../slices/postApiSlice";
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from "react-redux";
@@ -9,10 +9,24 @@ import { HiOutlineHeart, HiHeart } from "react-icons/hi";
 
 const Post = ({ post }) => {
   const { userInfo } = useSelector((state) => state.auth);
-  const[likeCount, setLikeCount] = useState(post.likedBy.length);
-
+  const[likeCount, setLikeCount] = useState(post.likedBy.length - 1);
+  const [likeContent, setLikeContent] = useState('')
   const [like] = useAddLikeToPostMutation();
 
+  useEffect(() => {
+    if (post.likedBy.length < 1) {
+      setLikeContent('0 likes');
+    } else if (post.likedBy.length === 1) {
+      setLikeContent(`${post.likedBy[0].username} likes this`);
+    } else if (post.likedBy.length === 2) {
+      setLikeContent(`${post.likedBy[0].username} and 1 other like this`);
+    } else {
+      setLikeContent(`${post.likedBy[0].username} and ${likeCount} others like this`);
+    }
+  }, [post.likedBy, likeCount]);
+
+  // const[userLiked, setUserLiked] = useState(false);
+  
   const navigate = useNavigate();
 
   const handleNavigate = () => {
@@ -21,18 +35,18 @@ const Post = ({ post }) => {
 
   const handleLike = async () => {
     const updatedPost = await like({ id: post._id });
-    setLikeCount(updatedPost.data.likedBy.length);
-
-    console.log(post.likedBy)
-    console.log(userInfo._id)
-
-    console.log(post.likedBy[0] === userInfo._id)
+    setLikeCount(updatedPost.data.likedBy.length - 1)
 
     // console.log(post.likedBy)
-    // console.log(userInfo._id) 
+    // console.log(userInfo._id)
+
+    // console.log(post.likedBy[0].username)
+    // console.log(post.likedBy[0]._id)
+
+    // console.log(post.likedBy[0] === userInfo._id)
 
     // console.log(post.likedBy.some((user) => {
-    //   user._id === userInfo._id.toString()
+    //   user._id === userInfo._id
     // }))
   }
 
@@ -47,7 +61,7 @@ const Post = ({ post }) => {
         <img src={post.image} alt={post.caption}/>
       </div>
       <div className="postFooterContainer">
-        <p className='postLikeCount'>{ `${likeCount} likes` }</p>
+        <p className='postLikeCount'>{ likeContent }</p>
         <p className='postUsernameLink' onClick={ handleNavigate }>{ post.user.username }</p>
         <div className='postLine'></div>
         <p className='postCaption'>{ post.caption }</p>
