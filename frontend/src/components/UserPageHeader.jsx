@@ -8,6 +8,7 @@ import UpdateProfilePictureButton from "./UpdateProfilePictureButton";
 import OpenModalButton from "./OpenModalButton";
 import Modal from "./Modal";
 import SettingsList from "./SettingsList";
+import FollowButton from "./FollowButton";
 
 // Icons
 import { IoHome } from "react-icons/io5";
@@ -25,6 +26,11 @@ const UserPageHeader = ({ username }) => {
     navigate('/feed')
   }
 
+  const usernameCheck = () => {
+    console.log(userInfo.username === username)
+    return userInfo.username === username
+  }
+
   if (selectedUserInfoLoading) {
     return <Loader />
   }
@@ -39,13 +45,13 @@ const UserPageHeader = ({ username }) => {
     <>
       <div className='userHeader'>
         <div className='leftSide'>
-          { userInfo.username === username ? <UpdateProfilePictureButton /> : null }
+          { usernameCheck() && <UpdateProfilePictureButton /> }
           <img src={`${selectedUserInfo.profilePicture}`} alt='Users personal profile picture' />
         </div>
         <div className='middle'>
           <div className='middleTop'>
             <h1>{ username }</h1>
-            {/* Follow button goes here */}
+            { usernameCheck() && <FollowButton /> }
           </div>
           <div className='middleMiddle'>
             <div className='posts'>
@@ -64,13 +70,13 @@ const UserPageHeader = ({ username }) => {
         </div>
         <div className='rightSide'>
           <button onClick={ handleNavigate }><IoHome /></button>
-          { userInfo.username === username ?  <OpenModalButton 
+          { usernameCheck() && <OpenModalButton 
             buttonContent={ <FaCog /> }  
-            modalContent={ <SettingsList setModalContent={ setModalContent }/> } 
+            modalContent={ <SettingsList setModalContent={ setModalContent }  setContentLoading={ setContentLoading }/> } 
             setModalContent={ setModalContent }
             setModalOpenStatus={ setModalOpenStatus }
-          /> : null }
-          { userInfo.username === username ? <CreatePostButton className="rightSideCreateBtn" /> : null }
+          /> }
+          { usernameCheck() && <CreatePostButton className="rightSideCreateBtn" /> }
         </div>
       </div>
       <Modal status={modalOpenStatus} setStatus={setModalOpenStatus} contentLoading={contentLoading}>
