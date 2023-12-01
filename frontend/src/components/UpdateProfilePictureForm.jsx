@@ -35,6 +35,7 @@ const UpdateProfilePictureForm = ({ setModalOpenStatus, setContentLoadingStatus 
     setContentLoadingStatus(true);
 
     if (!file) {
+      setContentLoadingStatus(false)
       return setFileError('Please select a file to upload');
     }
 
