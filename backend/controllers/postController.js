@@ -145,13 +145,6 @@ const addLikeToPost = asyncHandler(async (req, res) => {
     res.status(400)
     throw new Error('Unable to update post')
   }
-
-
-
-
-
-
-
 });
 
 //Route:    PUT  /:id/updateCaption

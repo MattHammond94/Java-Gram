@@ -1,7 +1,8 @@
 import mongoose from "mongoose";
 import bcrypt from "bcryptjs";
+const { Schema } = mongoose;
 
-const userSchema = mongoose.Schema({
+const userSchema = new Schema({
   firstName: {
     type: String
   },
@@ -32,14 +33,16 @@ const userSchema = mongoose.Schema({
     type: String,
     required: true
   },
-  followers: {
-    type: Array,
+  followers: [{
+    type: Schema.Types.ObjectId, 
+    ref: "User",
     default: []
-  },
-  following: {
-    type: Array,
+  }],
+  following: [{
+    type: Schema.Types.ObjectId, 
+    ref: "User",
     default: []
-  }
+  }]
 },
 {
   timestamps: true

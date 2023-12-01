@@ -8,6 +8,7 @@ import {
   getASelectedUser,
   addProfilePictureToCloudinary,
   removeProfilePictureFromCloudinary,
+  updateFollowers,
   updateUser,
   deleteUser,
   checkUsernameExists
@@ -22,6 +23,7 @@ router.get('/:username', protect, getASelectedUser);
 router.post('/cloud', protect, addProfilePictureToCloudinary);
 router.delete('/cloud', protect, removeProfilePictureFromCloudinary);
 router.put('/user', protect, updateUser);
+router.put('/follow', protect, updateFollowers)
 router.delete('/user', protect, deleteUser);
 router.get('/checkUsername/:username', protect, checkUsernameExists)
 
