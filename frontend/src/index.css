@@ -113,9 +113,6 @@ button {
   margin-bottom: 5px;
 }
 
-
-
-
 .formTemplate {
   margin: 20px;
   background-color: white;
@@ -201,6 +198,11 @@ input[type='password'] {
 
 
 
+
+.formTemplate.updateInfoForm input[type="text"],
+.formTemplate.updateInfoForm input[type="date"] {
+  width: 260px;
+}
 
 
 

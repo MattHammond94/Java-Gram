@@ -19,7 +19,7 @@ const signUpValidator = (values) => {
   }
 
   if (values.username.length > 18) {
-    errors.username = 'Username cannot exceed 20 characters.'
+    errors.username = 'Username cannot exceed 18 characters.'
   }
 
   if (/\s/g.test(values.username)) {
