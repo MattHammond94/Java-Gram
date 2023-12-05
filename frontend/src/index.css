@@ -577,6 +577,7 @@ input::file-selector-button {
   align-self: flex-start;
   margin-left: 30px;
   margin-top: 15px;
+  margin-right: 30px;
   position: relative;
 }
 
@@ -605,14 +606,10 @@ input::file-selector-button {
 .middle {
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
   flex-direction: column;
-  width: 700px;
-
-  /* position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%); */
+  width: 500px;
+  margin-right: 10px;
 }
 
 .middleMiddle {
@@ -639,11 +636,27 @@ input::file-selector-button {
 .middleMiddle p {
   color: var(--semi-dark-purp);
   font-size: 20px;
+  margin: 0px;
+}
+
+.middleTop {
+  display: flex;
+  flex-direction: column;
+  width: 370px;
 }
 
 .middleTop h1 {
   font-size: 45px;
   margin-bottom: 10px;
+  align-self: flex-start;
+}
+
+.middleTop p {
+  font-size: 20px;
+  color: var(--semi-dark-purp);
+  align-self: flex-start;
+  margin-top: 5px;
+  margin-bottom: 2px;
 }
 
 .rightSide {
@@ -652,15 +665,25 @@ input::file-selector-button {
   align-items: center;
   flex-direction: column;
   height: 100%;
-  background-color: red;
 }
 
 .rightSide button {
-  margin: 3px;
+  margin: 5px;
   display: flex;
   justify-content: center;
   align-items: center;
 }
+
+.cogIcon {
+  height: 40px;
+  width: 40px;
+}
+
+.homeIcon {
+  height: 40px;
+  width: 40px;
+}
+
 
 /* USER PAGE GALLERY */
 .userPageGallery {
