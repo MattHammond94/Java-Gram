@@ -98,20 +98,12 @@ const getASelectedUser = asyncHandler(async (req, res) => {
 
   const { username } = req.params
 
-  const selectedUser = await User.findOne({ username: username });
-
+  const selectedUser = await User.findOne({ username: username }).select({ password: 0, __v: 0, updatedAt: 0 });;
 
   // Will likely need to populate the following and followers arrays here as will need these on frontend.
 
   if(selectedUser) {
-    res.status(200).json({
-      _id: selectedUser._id,
-      profilePicture: selectedUser.profilePicture,
-      profilePictureCloudId : selectedUser.profilePictureCloudId,
-      username: selectedUser.username,
-      followers: selectedUser.followers,
-      following: selectedUser.following,
-    });
+    res.status(200).json(selectedUser);
   } else {
     res.status(400);
     throw new Error('This user does not exist.');
@@ -233,7 +225,7 @@ const updateUser = asyncHandler(async (req, res) => {
     const newUsername = req.body.username
     const existingUsername = await User.findOne({ username: newUsername });
 
-    if (existingUsername) {
+    if (existingUsername._id.toString() !== req.user._id.toString()) {
       res.status(401);
       throw new Error('This username is already in use.');
     }
@@ -243,7 +235,7 @@ const updateUser = asyncHandler(async (req, res) => {
     const newEmail = req.body.email 
     const existingEmail = await User.findOne({ email: newEmail });
 
-    if (existingEmail) {
+    if (existingEmail._id.toString() !== req.user._id.toString()) {
       res.status(401);
       throw new Error('This email address is already in use.')
     }

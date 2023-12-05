@@ -11,6 +11,9 @@ const DeleteAccountForm = () => {
   const [deleteUser, { isLoading: deleteUserLoading }] = useDeleteUserMutation();
 
   const handleAccountDeletion = async () => {
+
+    // Add a further req here to delete all users posts - New backend enpoint required first
+
     const response = await deleteUser();
 
     if (response) {

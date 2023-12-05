@@ -196,12 +196,19 @@ input[type='password'] {
   color: white;
 }
 
-
-
+.formTemplate.updateInfoForm {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 
 .formTemplate.updateInfoForm input[type="text"],
 .formTemplate.updateInfoForm input[type="date"] {
   width: 260px;
+}
+
+.formTemplate.updateInfoForm textarea {
+  height: 120px;
 }
 
 

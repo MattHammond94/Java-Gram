@@ -7,23 +7,23 @@ const updateValidator = (values) => {
   }
 
   if (/\s/g.test(values.firstName)) {
-    errors.firstName = 'First name cannot include any spaces.'
+    errors.firstName = 'Name cannot include any spaces.'
   }
 
   if (/\W/.test(values.firstName)) {
-    errors.firstName = 'First name cannot include any special characters.'
+    errors.firstName = 'Name cannot include any special characters.'
   }
 
   if(values.lastName.length > 16) {
-    errors.lastName = 'Last name cannot exceed sixteen charcaters.'
+    errors.lastName = 'Name cannot exceed sixteen charcaters.'
   }
 
   if (/\s/g.test(values.lastName)) {
-    errors.lastName = 'Last name cannot include any spaces.'
+    errors.lastName = 'Name cannot include any spaces.'
   }
 
   if (/\W/.test(values.lastName)) {
-    errors.lastName = 'Last name cannot include any special characters.'
+    errors.lastName = 'Name cannot include any special characters.'
   }
 
   if (!acceptedEmail.test(values.email)) {
