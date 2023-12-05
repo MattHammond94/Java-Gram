@@ -9,6 +9,7 @@ import OpenModalButton from "./OpenModalButton";
 import Modal from "./Modal";
 import SettingsList from "./SettingsList";
 import FollowButton from "./FollowButton";
+import UserList from "./UserList";
 
 // Icons
 import { IoHome } from "react-icons/io5";
@@ -39,6 +40,16 @@ const UserPageHeader = ({ username }) => {
     return <div>Error: {selectedUserError.message}</div>;
   }
 
+  const openFollowersModal = () => {
+    setModalOpenStatus(true)
+    setModalContent(<UserList variant={ 'followers' }/>)
+  }
+
+  const openFollowingModal = () => {
+    setModalOpenStatus(true)
+    setModalContent(<UserList variant={ 'following' }/>)
+  }
+
   const total = 0
 
   return (
@@ -51,18 +62,19 @@ const UserPageHeader = ({ username }) => {
         <div className='middle'>
           <div className='middleTop'>
             <h1>{ username }</h1>
-            { usernameCheck() && <FollowButton /> }
+            <p>{ selectedUserInfo.bio }</p>
+            { !usernameCheck() && <FollowButton username={ username }/> }
           </div>
           <div className='middleMiddle'>
             <div className='posts'>
               <p>{`${total}`}</p>
               <p>Posts</p>
             </div>
-            <div className='followers'>
+            <div className='followers' onClick={ openFollowersModal }>
               <p>{`${selectedUserInfo.followers.length}`}</p>
               <p>Followers</p>
             </div>
-            <div className='following'>
+            <div className='following' onClick={ openFollowingModal }>
               <p>{`${selectedUserInfo.following.length}`}</p>
               <p>Following</p>
             </div>
