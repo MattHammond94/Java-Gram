@@ -12,6 +12,9 @@ const userSchema = new Schema({
   dateOfBirth: {
     type: Date,
   },
+  bio: {
+    type: String
+  },
   profilePicture: {
     type: String,
     default: '/Placeholder.jpg'

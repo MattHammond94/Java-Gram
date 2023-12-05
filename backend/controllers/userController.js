@@ -100,6 +100,9 @@ const getASelectedUser = asyncHandler(async (req, res) => {
 
   const selectedUser = await User.findOne({ username: username });
 
+
+  // Will likely need to populate the following and followers arrays here as will need these on frontend.
+
   if(selectedUser) {
     res.status(200).json({
       _id: selectedUser._id,
@@ -245,7 +248,7 @@ const updateUser = asyncHandler(async (req, res) => {
       throw new Error('This email address is already in use.')
     }
   }
-  
+
   const user = await User.findById(req.user._id);
 
   if (user) {
@@ -259,6 +262,7 @@ const updateUser = asyncHandler(async (req, res) => {
     user.password = req.body.password || user.password
     user.followers = req.body.followers || user.followers
     user.following = req.body.following || user.following
+    user.bio = req.body.bio || user.bio
 
     const updatedUser = await user.save();
 
