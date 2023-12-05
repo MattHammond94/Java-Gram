@@ -205,6 +205,39 @@ input[type='password'] {
 }
 
 
+.formTemplate.deleteAccountForm {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  height: 330px;
+  width: 340px;
+}
+
+.formTemplate.deleteAccountForm h1 {
+  margin-top: 20px;
+}
+
+.formTemplate.deleteAccountForm span {
+  text-decoration: underline;
+  font-weight: bolder;
+
+}
+
+.formTemplate.deleteAccountForm p {
+  margin-top: 10px;
+  font-size: 18px;
+}
+
+.formTemplate.deleteAccountForm button {
+  margin-top: 25px;
+}
+
+.formTemplate.deleteAccountForm button:hover {
+  background-color: #CF453D;
+  border: #6B0B05;
+}
+
 
 
 /* ==== COMPONENTS ==== */
