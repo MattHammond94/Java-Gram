@@ -121,7 +121,30 @@ const deleteAllUsersPosts = asyncHandler(async (req, res) => {
 
   const allUsersPosts = await Post.find({ user: userId });
 
-  res.status(200).json(allUsersPosts);
+  if (allUsersPosts && allUsersPosts.length > 0) {
+    allUsersPosts.map((post) => 
+      cloudinary.uploader.destroy(post.imageCloudId,
+        (error) => {
+          if(error) {
+            res.status(400)
+            throw new Error(`Error: ${error}`)
+          }
+        }
+      )
+    )
+  } else {
+    res.status(400)
+    throw new Error('User has no posts to delete.');
+  }
+
+  const allDeletedPosts = await Post.deleteMany({ user: userId });
+
+  if (allDeletedPosts) {
+    res.status(200).json({ message: 'All posts deleted successfully' });
+  } else {
+    res.status(400)
+    throw new Error('Unable to delete all posts at this time.');
+  }
 })
 
 
