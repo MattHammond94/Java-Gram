@@ -1,20 +1,43 @@
-import { useState } from "react";
-import { useSelector } from "react-redux";
+import { useState, useEffect } from "react";
+import { useUpdateUserMutation } from "../slices/usersApiSlice";
+import { useGetUserInfoQuery } from "../slices/usersApiSlice";
 import UpdateValidator from "../inputValidators/UpdateValidator";
 import Loader from "./Loader"
-import { useUpdateUserMutation } from "../slices/usersApiSlice";
 
 const UpdateInformationForm = () => {
-  const initialState = { firstName: '', lastName: '', email: '', dateOfBirth: '', bio: '' }
-  const [formValues, setFormValues] = useState(initialState);
+  const [formValues, setFormValues] = useState({ firstName: '', lastName: '', email: '', dateOfBirth: '', bio: '' });
   const [completionStatus, setCompletionStatus] = useState(false);
   const [errorMessages, setErrorMessages] = useState({});
   const [apiError, setApiError] = useState('');
 
-  const { userInfo } = useSelector((state) => state.auth);
   const [updateUser, { isLoading }] = useUpdateUserMutation();
+  const { data: userInfo, error: getUserError, isLoading: getUserLoading } = useGetUserInfoQuery();
 
-  console.log(userInfo)
+  useEffect(() => {
+    if (userInfo) {
+      console.log(userInfo ? userInfo.dateOfBirth : 'log');
+
+      const formattedDate = userInfo.dateOfBirth ? new Date(userInfo.dateOfBirth).toISOString().split('T')[0] : '';
+
+      const initialState = {
+        firstName: userInfo.firstName || '',
+        lastName: userInfo.lastName || '',
+        email: userInfo.email || '',
+        dateOfBirth: formattedDate || '',
+        bio: userInfo.bio || '',
+      };
+
+      setFormValues(initialState);
+    }
+  }, [userInfo]);
+
+  if (getUserLoading) {
+    return <Loader />
+  }
+
+  if (getUserError) {
+    return <div>Error: {getUserError.message}</div>;
+  }
 
   const handleChange = (e) => {
     const { name, value  } = e.target
@@ -55,7 +78,7 @@ const UpdateInformationForm = () => {
         <input type="text" name="email" value={ formValues.email } onChange={ handleChange }/>
         <p className='error'>{ errorMessages.email }</p>
         <label>Date of Birth:</label>
-        <input type="date" name="dateOfBirth" value={ formValues.dateOfBirth } onChange={ handleChange }/>
+        <input type="date" max={new Date().toISOString().split('T')[0]} min="1904-01-01" name="dateOfBirth" value={ formValues.dateOfBirth } onChange={ handleChange }/>
         <p className='error'>{ errorMessages.dateOfBith }</p>
         <label>Bio:</label>
         <textarea name="bio" value={ formValues.bio } onChange={ handleChange }/>
