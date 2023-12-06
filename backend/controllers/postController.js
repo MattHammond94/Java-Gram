@@ -109,6 +109,21 @@ const getAllUsersPosts = asyncHandler(async (req, res) => {
   }
 })
 
+//ROUTE:     DELETE /allUsersPosts
+// Deletes all posts that belong to selected user and removes all from cloud.
+const deleteAllUsersPosts = asyncHandler(async (req, res) => {
+  const userId = req.user._id
+
+  if (!mongoose.Types.ObjectId.isValid(userId)) {
+    res.status(400)
+    throw new Error('Not a valid ID parameter')
+  }
+
+  const allUsersPosts = await Post.find({ user: userId });
+
+  res.status(200).json(allUsersPosts);
+})
+
 
 //Route:     PUT  /addLike
 //Adding a like 
@@ -285,6 +300,7 @@ export {
   getPost,
   getAllPosts,
   getAllUsersPosts,
+  deleteAllUsersPosts,
   addLikeToPost,
   updatePostCaption,
   addCommentToPost,

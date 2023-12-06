@@ -168,6 +168,7 @@ const removeProfilePictureFromCloudinary = asyncHandler(async(req, res) => {
 });
 
 //Route       Put /users/follow
+// UPDATE ROUTE TO USE REQ.USER instead of passing _id in body. 
 const updateFollowers = asyncHandler(async (req, res) => {
   const { loggedInUserId, selectedUserId } = req.body
 
@@ -218,6 +219,8 @@ const updateFollowers = asyncHandler(async (req, res) => {
   }
 });
 
+
+
 //Route       PUT /users/user
 const updateUser = asyncHandler(async (req, res) => {
 
@@ -225,7 +228,7 @@ const updateUser = asyncHandler(async (req, res) => {
     const newUsername = req.body.username
     const existingUsername = await User.findOne({ username: newUsername });
 
-    if (existingUsername._id.toString() !== req.user._id.toString()) {
+    if (existingUsername && existingUsername._id.toString() !== req.user._id.toString()) {
       res.status(401);
       throw new Error('This username is already in use.');
     }
@@ -235,7 +238,7 @@ const updateUser = asyncHandler(async (req, res) => {
     const newEmail = req.body.email 
     const existingEmail = await User.findOne({ email: newEmail });
 
-    if (existingEmail._id.toString() !== req.user._id.toString()) {
+    if (existingEmail && existingEmail._id.toString() !== req.user._id.toString()) {
       res.status(401);
       throw new Error('This email address is already in use.')
     }
