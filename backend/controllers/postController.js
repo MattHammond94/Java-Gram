@@ -126,6 +126,7 @@ const deleteAllUsersPosts = asyncHandler(async (req, res) => {
     throw new Error('Unable to fetch all posts at this time');
   }
 
+  // Double check the asynchronous nature of the map function in this scenario
   if (allUsersPosts.length > 0) {
     allUsersPosts.map(async (post) => 
       await cloudinary.uploader.destroy(post.imageCloudId,
@@ -150,7 +151,6 @@ const deleteAllUsersPosts = asyncHandler(async (req, res) => {
     throw new Error('Unable to delete all posts at this time.');
   }
 });
-
 
 //Route:     PUT  /addLike
 //Adding a like 

@@ -63,6 +63,7 @@ const UserPageHeader = ({ username }) => {
           <div className='middleTop'>
             <h1>{ username }</h1>
             <p>{ selectedUserInfo.bio }</p>
+            <div className="userHeaderLine"></div>
             { !usernameCheck() && <FollowButton username={ username }/> }
           </div>
           <div className='middleMiddle'>
@@ -81,10 +82,10 @@ const UserPageHeader = ({ username }) => {
           </div>
         </div>
         <div className='rightSide'>
-          <button onClick={ handleNavigate }><IoHome /></button>
-          { usernameCheck() && <OpenModalButton 
-            buttonContent={ <FaCog /> }  
-            modalContent={ <SettingsList setModalContent={ setModalContent }  setContentLoading={ setContentLoading }/> } 
+          <button className="firstButton" onClick={ handleNavigate }><IoHome className="homeIcon" /></button>
+          { usernameCheck() && <OpenModalButton
+            buttonContent={ <FaCog className="cogIcon" /> }  
+            modalContent={ <SettingsList setModalContent={ setModalContent } setContentLoading={ setContentLoading }/> } 
             setModalContent={ setModalContent }
             setModalOpenStatus={ setModalOpenStatus }
           /> }

@@ -6,17 +6,19 @@ import { logout } from "../slices/authSlice";
 import { useDispatch } from "react-redux";
 import Loader from "./Loader";
 
-const DeleteAccountForm = () => {
+const DeleteAccountForm = ({ setContentLoading }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [apiError, setApiError] = useState('');
-  const [deleteAllPosts, { isLoading: deleteAllPostsLoading }] = useDeleteAllUsersPostsMutation();
-  const [deleteUser, { isLoading: deleteUserLoading }] = useDeleteUserMutation();
-  const [removeCookie, { isLoading: cookieRemoverLoading }] = useLogoutMutation();
+  const [loadingStatus, setLoadingStatus] = useState(false);
+  const [deleteAllPosts] = useDeleteAllUsersPostsMutation();
+  const [deleteUser] = useDeleteUserMutation();
+  const [removeCookie] = useLogoutMutation();
 
   const handleAccountDeletion = async () => {
-    
     try {
+      setLoadingStatus(true);
+      setContentLoading(true);
       await deleteAllPosts();
       await deleteUser();
       await removeCookie();
@@ -32,7 +34,7 @@ const DeleteAccountForm = () => {
       <h1>Remove Account</h1>
       <p><span>WARNING:</span> Deleting your account will irreversibly remove all your current posts and data.</p>
       <p>Are you sure you want to delete your account?</p>
-      { deleteAllPostsLoading || deleteUserLoading || cookieRemoverLoading ? <button><Loader /></button> : <button onClick={ handleAccountDeletion }>Remove Account</button> }
+      { loadingStatus ? <button disabled><Loader /></button> : <button onClick={ handleAccountDeletion }>Remove Account</button> }
       { apiError && <p className="error">{ apiError }</p> }
     </div>
   )
