@@ -1,10 +1,9 @@
 import { useState, useEffect } from "react";
-import { useUpdateUserMutation } from "../slices/usersApiSlice";
-import { useGetUserInfoQuery } from "../slices/usersApiSlice";
+import { useUpdateUserMutation, useGetUserInfoQuery } from "../slices/usersApiSlice";
 import UpdateValidator from "../inputValidators/UpdateValidator";
 import Loader from "./Loader"
 
-const UpdateInformationForm = () => {
+const UpdateInformationForm = ({ setContentLoading, setModalOpenStatus, refetch }) => {
   const [formValues, setFormValues] = useState({ firstName: '', lastName: '', email: '', dateOfBirth: '', bio: '' });
   const [completionStatus, setCompletionStatus] = useState(false);
   const [errorMessages, setErrorMessages] = useState({});
@@ -15,8 +14,6 @@ const UpdateInformationForm = () => {
 
   useEffect(() => {
     if (userInfo) {
-      console.log(userInfo ? userInfo.dateOfBirth : 'log');
-
       const formattedDate = userInfo.dateOfBirth ? new Date(userInfo.dateOfBirth).toISOString().split('T')[0] : '';
 
       const initialState = {
@@ -50,15 +47,22 @@ const UpdateInformationForm = () => {
     setErrorMessages(errors);
     
     if (Object.keys(errors).length === 0) {
+      setContentLoading(true);
 
       try {
         const { firstName, lastName, email, dateOfBirth, bio } = formValues;
         const response = await updateUser({ firstName, lastName, email, dateOfBirth, bio }).unwrap();
         if (response) {
-          setCompletionStatus(true)
+          await refetch();
+          setCompletionStatus(true);
+          setContentLoading(false);
+          setTimeout(() => {
+            setModalOpenStatus(false);
+          }, 1500);
         }
       } catch(err) {
-        setApiError(err?.data?.message || err.error);
+        setContentLoading(false);
+        return setApiError(err?.data?.message || err.error);
       }
     }
   }
