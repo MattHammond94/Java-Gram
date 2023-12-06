@@ -121,20 +121,24 @@ const deleteAllUsersPosts = asyncHandler(async (req, res) => {
 
   const allUsersPosts = await Post.find({ user: userId });
 
-  if (allUsersPosts && allUsersPosts.length > 0) {
-    allUsersPosts.map((post) => 
-      cloudinary.uploader.destroy(post.imageCloudId,
+  if (!allUsersPosts) {
+    res.status(400)
+    throw new Error('Unable to fetch all posts at this time');
+  }
+
+  if (allUsersPosts.length > 0) {
+    allUsersPosts.map(async (post) => 
+      await cloudinary.uploader.destroy(post.imageCloudId,
         (error) => {
           if(error) {
             res.status(400)
-            throw new Error(`Error: ${error}`)
+            throw new Error(`Error deleting image from cloud: ${error}`);
           }
         }
       )
-    )
+    );
   } else {
-    res.status(400)
-    throw new Error('User has no posts to delete.');
+    return res.status(200).json({ message: 'User has no posts to delete.' });
   }
 
   const allDeletedPosts = await Post.deleteMany({ user: userId });
@@ -145,7 +149,7 @@ const deleteAllUsersPosts = asyncHandler(async (req, res) => {
     res.status(400)
     throw new Error('Unable to delete all posts at this time.');
   }
-})
+});
 
 
 //Route:     PUT  /addLike
