@@ -36,13 +36,14 @@ const SignUpForm = ({ setContentLoadingStatus }) => {
         dispatch(setCredentials({...response}));
         navigate('/feed')
       } catch(err) {
-        setApiError(err?.data?.message || err.error);
+        setContentLoadingStatus(false);
+        return setApiError(err?.data?.message || err.error);
       }
     }
   }
 
   return (
-    <div className="formTemplate" style={{ height: Object.keys(errorMessages).length > 2 ? '640px' : '550px'}}>
+    <div className="formTemplate" style={{ height: Object.keys(errorMessages).length > 2 ? '640px' : '580px'}}>
       <form autoComplete="off" onSubmit={ submitHandler } style={{ marginTop: '16px' }}>
         <h1>Sign Up</h1>
         <label>E-mail Address:</label>
