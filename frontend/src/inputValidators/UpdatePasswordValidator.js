@@ -1,10 +1,10 @@
 const updatePasswordValidator = (values) => {
   const errors = {}
 
-  // if (values.currentPassword) {
-  //   errors.currentPassword = 'Current password is incorrect'
-  // }
-  
+  if(values.currentPassword.length <= 0) {
+    errors.currentPassword = 'Please complete this field to continue.'
+  }
+
   if (values.newPassword.length <= 10) {
     errors.newPassword = 'Password must exceed 12 characters.'
   }
@@ -23,6 +23,10 @@ const updatePasswordValidator = (values) => {
   
   if (!/\W/.test(values.newPassword)) {
     errors.newPassword = 'Password must contain a special character.'
+  }
+
+  if (values.newPassword.length <= 0) {
+    errors.newPassword = 'Please complete this field to continue.'
   }
 
   if (values.confirmPassword <= 0) {

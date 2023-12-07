@@ -244,6 +244,18 @@ const updateUser = asyncHandler(async (req, res) => {
     }
   }
 
+  if(req.body.newPassword) {
+    const user = await User.findById(req.user._id);
+    console.log(req.body.currentPassword);
+
+    if(user) {
+      if (await user.matchPasswords(req.body.currentPassword) === false) {
+        res.status(401);
+        throw new Error('Current password is incorrect')
+      }
+    }
+  }
+
   const user = await User.findById(req.user._id);
 
   if (user) {
@@ -254,17 +266,23 @@ const updateUser = asyncHandler(async (req, res) => {
     user.profilePictureCloudId = req.body.profilePictureCloudId || user.profilePictureCloudId,
     user.username = req.body.username || user.username
     user.email = req.body.email || user.email
-    user.password = req.body.password || user.password
+    user.password = req.body.newPassword || user.password
     user.followers = req.body.followers || user.followers
     user.following = req.body.following || user.following
     user.bio = req.body.bio || user.bio
 
     const updatedUser = await user.save();
 
-    res.status(200).json(updatedUser);
+    if (updatedUser) {
+      res.status(200).json(updatedUser);
+    } else {
+      res.status(404);
+      throw new Error('Error - Unable to update user at this time.')
+    }
+
   } else {
     res.status(404);
-    throw new Error('User not found')
+    throw new Error('User not found - Unable to locate user for update.')
   }
 });
 

@@ -59,8 +59,6 @@ const CreatePostForm = ({ setModalOpenStatus, setContentLoadingStatus }) => {
 
     const postCreated = await newPost({ image: storedImage.url, imageCloudId: storedImage.id, caption: caption, user: userInfo._id });
 
-    console.log(postCreated)
-
     if (!postCreated) {
       return setFileError('Unable to create a post at this moment in time. Please try again.')
     } 
