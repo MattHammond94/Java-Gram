@@ -43,7 +43,7 @@ const SignUpForm = ({ setContentLoadingStatus }) => {
   }
 
   return (
-    <div className="formTemplate" style={{ height: Object.keys(errorMessages).length > 2 ? '640px' : '580px'}}>
+    <div className="formTemplate" style={{ height: Object.keys(errorMessages).length > 2 ? '650px' : '580px'}}>
       <form autoComplete="off" onSubmit={ submitHandler } style={{ marginTop: '16px' }}>
         <h1>Sign Up</h1>
         <label>E-mail Address:</label>

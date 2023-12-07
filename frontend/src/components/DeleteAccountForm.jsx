@@ -1,9 +1,10 @@
-import { useDeleteUserMutation, useLogoutMutation } from "../slices/usersApiSlice";
+import { useDeleteUserMutation, useLogoutMutation, useGetUserInfoQuery } from "../slices/usersApiSlice";
 import { useDeleteAllUsersPostsMutation } from "../slices/postApiSlice";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { logout } from "../slices/authSlice";
 import { useDispatch } from "react-redux";
+import formatDistanceToNow from 'date-fns/formatDistanceToNow';
 import Loader from "./Loader";
 
 const DeleteAccountForm = ({ setContentLoading }) => {
@@ -14,6 +15,15 @@ const DeleteAccountForm = ({ setContentLoading }) => {
   const [deleteAllPosts] = useDeleteAllUsersPostsMutation();
   const [deleteUser] = useDeleteUserMutation();
   const [removeCookie] = useLogoutMutation();
+  const { data: userInfo, isLoading: userInfoLoading, error: userInfoError } = useGetUserInfoQuery();
+
+  if (userInfoLoading) {
+    return <Loader />
+  }
+
+  if (userInfoError) {
+    return <div>Error: {userInfoError}</div>;
+  }
 
   const handleAccountDeletion = async () => {
     try {
@@ -32,8 +42,10 @@ const DeleteAccountForm = ({ setContentLoading }) => {
   return (
     <div className="formTemplate deleteAccountForm">
       <h1>Remove Account</h1>
-      <p><span>WARNING:</span> Deleting your account will irreversibly remove all your current posts and data.</p>
+      <p>You have been a user for {formatDistanceToNow(new Date(userInfo.createdAt))} now!</p>
       <p>Are you sure you want to delete your account?</p>
+      <h3>** WARNING **</h3>
+      <p> Deleting your account will irreversibly remove all your current posts and data.</p>
       { loadingStatus ? <button disabled><Loader /></button> : <button onClick={ handleAccountDeletion }>Remove Account</button> }
       { apiError && <p className="error">{ apiError }</p> }
     </div>

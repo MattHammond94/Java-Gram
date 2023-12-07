@@ -41,7 +41,7 @@ const UpdatePasswordForm = ({ setContentLoading }) => {
   }
 
   return (
-    <div className="formTemplate" style={{ height: Object.keys(errorMessages).length > 1 ? '550px' : '460px' }}>
+    <div className="formTemplate" style={{ height: Object.keys(errorMessages).length > 1 ? '550px' : '490px' }}>
       { passwordUpdated ? 
           (<div className="passwordSuccess">
             <h1>Success!</h1> 

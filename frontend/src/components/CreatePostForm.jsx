@@ -75,7 +75,7 @@ const CreatePostForm = ({ setModalOpenStatus, setContentLoadingStatus }) => {
 
   return (
     <div className="formTemplate" style={{ height: fileError || captionError ? '475px' : '455px'}}>
-      { imageUploaded ? <h1 style={{ marginTop: '150px', marginLeft: '105px' }}>Success!</h1>
+      { imageUploaded ? <h1>Success!</h1>
        : <form onSubmit={e => {handleSubmit(e)}}  autoComplete='off'>
         <h1>Create A New Post</h1>
           <label>Upload Image:</label>
