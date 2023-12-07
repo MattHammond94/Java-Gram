@@ -5,12 +5,11 @@ import updatePasswordValidator from "../inputValidators/UpdatePasswordValidator"
 import Loader from "./Loader";
 import LogOutButton from "./LogOutButton";
 
-const UpdatePasswordForm = ({ setContentLoading, setModalOpenStatus }) => {
+const UpdatePasswordForm = ({ setContentLoading }) => {
   const [formValues, setFormValues] = useState({ currentPassword: '', newPassword: '', confirmPassword: '' });
   const [errorMessages, setErrorMessages] = useState({});
   const [apiError, setApiError] = useState('');
   const [passwordUpdated, setPasswordUpdated] = useState(false);
-
   const [updateUser, { isLoading }] = useUpdateUserMutation();
 
   const handleChange = (e) => {
@@ -28,10 +27,6 @@ const UpdatePasswordForm = ({ setContentLoading, setModalOpenStatus }) => {
 
       try {
         const { currentPassword, newPassword } = formValues;
-
-        console.log(newPassword)
-        console.log(currentPassword)
-
         const response = await updateUser({ currentPassword, newPassword }).unwrap();
 
         if (response) {
