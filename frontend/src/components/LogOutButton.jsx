@@ -22,7 +22,7 @@ const LogOutButton = () => {
 
   return (
     <div>
-      { isLoading ? <button disabled><Loader /></button> : <button onClick={ logOutFunction }>Log Out</button> }
+      { isLoading ? <button disabled><Loader /></button> : <button className="logOutButton" onClick={ logOutFunction }>Log Out</button> }
     </div>
   )
 }

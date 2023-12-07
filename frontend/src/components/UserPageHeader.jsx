@@ -21,7 +21,7 @@ const UserPageHeader = ({ username }) => {
   const [contentLoading, setContentLoading] = useState(false);
   const navigate = useNavigate();
   const { userInfo } = useSelector((state) => state.auth);
-  const { data: selectedUserInfo, error: selectedUserError, isLoading: selectedUserInfoLoading } = useGetSelectedUserInfoQuery(`${username}`);
+  const { data: selectedUserInfo, error: selectedUserError, isLoading: selectedUserInfoLoading, refetch } = useGetSelectedUserInfoQuery(`${username}`);
 
   const handleNavigate = () => {
     navigate('/feed')
@@ -85,7 +85,7 @@ const UserPageHeader = ({ username }) => {
           <button className="firstButton" onClick={ handleNavigate }><IoHome className="homeIcon" /></button>
           { usernameCheck() && <OpenModalButton
             buttonContent={ <FaCog className="cogIcon" /> }  
-            modalContent={ <SettingsList setModalContent={ setModalContent } setContentLoading={ setContentLoading }/> } 
+            modalContent={ <SettingsList setModalContent={ setModalContent } setContentLoading={ setContentLoading } setModalOpenStatus={ setModalOpenStatus } refetch={ refetch } /> } 
             setModalContent={ setModalContent }
             setModalOpenStatus={ setModalOpenStatus }
           /> }

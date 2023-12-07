@@ -2,24 +2,24 @@ const signUpValidator = (values) => {
   const errors = {}
   const acceptedEmail = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
-  if (values.email.length <= 0) {
-    errors.email = 'Please complete this field to continue.'
-  }
-
   if (!acceptedEmail.test(values.email)) {
     errors.email = 'Please input a valid email address.'
   }
 
-  if (values.username.length <= 0) {
-    errors.username = 'Please complete this field to continue.'
+  if (values.email.length <= 0) {
+    errors.email = 'Please complete this field to continue.'
   }
-
+  
   if (values.username.length <= 3 ) {
     errors.username = 'Username must contain more than 3 characters'
   }
-
+  
   if (values.username.length > 18) {
     errors.username = 'Username cannot exceed 18 characters.'
+  }
+
+  if (values.username.length <= 0) {
+    errors.username = 'Please complete this field to continue.'
   }
 
   if (/\s/g.test(values.username)) {
@@ -48,6 +48,10 @@ const signUpValidator = (values) => {
   
   if (!/\W/.test(values.password)) {
     errors.password = 'Password must contain a special character.'
+  }
+
+  if (values.password.length <= 0) {
+    errors.password = 'Please complete this field to continue.'
   }
 
   if (values.confirmPassword <= 0) {

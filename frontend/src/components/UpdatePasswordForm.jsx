@@ -37,9 +37,6 @@ const UpdatePasswordForm = ({ setContentLoading, setModalOpenStatus }) => {
         if (response) {
           setPasswordUpdated(true);
           setContentLoading(false);
-          // setTimeout(() => {
-          //   setModalOpenStatus(false);
-          // }, 3000);
         }
       } catch(err) {
         setContentLoading(false);

@@ -117,10 +117,15 @@ button {
   margin: 20px;
   background-color: white;
   box-shadow: 0 4px 8px 0 rgba(57, 5, 72, 0.2), 0 6px 20px 0 rgba(55, 2, 61, 0.19);
-  width: 320px;
-  height: 400px;
+  width: 340px;
+  height: 420px;
   padding: 15px;
   border-radius: 25px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
 }
 
 .formTemplate form {
@@ -134,7 +139,7 @@ button {
 
 .formTemplate input {
   background-color: white;
-  width: 240px;
+  width: 260px;
   height: 25px;
   font-size: 1.03rem;
   border-radius: 10px;
@@ -194,6 +199,7 @@ input[type='password'] {
 .formTemplate button {
   background-color: var(--semi-dark-purp);
   color: white;
+  margin-top: 15px;
 }
 
 .formTemplate.updateInfoForm {
@@ -211,6 +217,9 @@ input[type='password'] {
   height: 120px;
 }
 
+.formTemplate.updateInfoForm button {
+  margin-top: 3px;
+}
 
 .formTemplate.deleteAccountForm {
   display: flex;
@@ -245,6 +254,16 @@ input[type='password'] {
   border: #6B0B05;
 }
 
+.passwordSuccess {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.passwordSuccess p {
+  margin-top: 10px;
+}
 
 
 /* ==== COMPONENTS ==== */
@@ -280,6 +299,10 @@ input[type='password'] {
   right: 2%;
   cursor: pointer;
   color: var(--dark-purp);
+}
+
+.modalCloseButton:hover {
+  color: var(--mid-purp);
 }
 
 /* ================================================================ */
@@ -562,12 +585,13 @@ input::file-selector-button {
 .userHeader {
   display: flex;
   flex-direction: row;
-  justify-content: space-evenly;
+  justify-content: space-around;
   background-image: linear-gradient(to left, rgb(70, 47, 99, 0.9), rgb(214, 186, 248, 0.8));
   position: absolute;
   top: 0px;
-  width: 100vw;
-  height: 280px
+  width: 100%;
+  height: 280px;
+  overflow: hidden;
 }
 
 .leftSide {
@@ -610,39 +634,22 @@ input::file-selector-button {
   flex-direction: column;
   width: 500px;
   margin-right: 10px;
-}
-
-.middleMiddle {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: row;
-  gap: 50px;
-  margin-top: 10px;
-}
-
-.posts, .followers, .following {
-  border: 2px solid #462f63;
-  border-radius: 7px;
-  padding: 5px;
-}
-
-.followers:hover, .following:hover {
-  background-color: var(--mid-purp);
-  cursor: pointer;
-  opacity: 0.7;
-}
-
-.middleMiddle p {
-  color: var(--semi-dark-purp);
-  font-size: 20px;
-  margin: 0px;
+  /* background-color: green; */
 }
 
 .middleTop {
   display: flex;
   flex-direction: column;
   width: 370px;
+  position: relative;
+  /* background-color: #6B0B05; */
+  width: 100%;
+  margin-bottom: 5px;
+
+  /* border: 2px solid #462f63;
+  border-radius: 7px;
+  padding: 10px;
+  margin-bottom: 5px; */
 }
 
 .middleTop h1 {
@@ -659,12 +666,57 @@ input::file-selector-button {
   margin-bottom: 2px;
 }
 
+.userHeaderLine {
+  height: 3px;
+  width: 100%;
+  background-image: linear-gradient(to right, rgba(70, 47, 99, 0.8), rgba(214, 186, 248, 0.8));
+  margin-top: 5px;
+}
+
+.middleTop button {
+  height: 50px;
+  width: 88px;
+  align-self: flex-end;
+  position: absolute;
+}
+
+.middleMiddle {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: row;
+  gap: 50px;
+  width: 100%;
+  margin-top: 10px;
+  /* background-color: blue; */
+}
+
+.posts, .followers, .following {
+  border: 2px solid #462f63;
+  border-radius: 7px;
+  padding: 10px;
+}
+
+.followers:hover, .following:hover {
+  background-color: var(--mid-purp);
+  cursor: pointer;
+  opacity: 0.7;
+}
+
+.middleMiddle p {
+  color: var(--semi-dark-purp);
+  font-size: 20px;
+  margin: 0px;
+}
+
 .rightSide {
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
   height: 100%;
+  margin-left: 20px;
+  margin-right: 5px;
 }
 
 .rightSide button {
@@ -693,7 +745,7 @@ input::file-selector-button {
   align-items: center;
   position: relative;
   width: 100vw;
-  top: 345px;
+  top: 310px;
   padding-bottom: 40px;
 }
 
@@ -1070,8 +1122,11 @@ input::file-selector-button {
 
 
 
-
-
+/* LOG OUT BUTTON COMPONENT */
+.logOutButton:hover {
+  color: var(--semi-dark-purp);
+  background-color: var(--mid-purp);
+}
 
 
 
@@ -1107,27 +1162,3 @@ input::file-selector-button {
 .settingsList button {
   margin-top: 20px;
 }
-
-.settingsList button:hover {
-  color: var(--semi-dark-purp);
-  background-color: var(--mid-purp);
-}
-
-
-
-
-
-/*  Styles for logout button if return to button over anchor */
-
-/* .feedNavBar button {
-  position: absolute;
-  right: 30px;
-  top: 30px;
-  background-color: var(--semi-dark-purp);
-  color: var(--mid-purp);
-}
-
-.feedNavBar button:hover {
-  background-color: var(--mid-purp);
-  color: var(--semi-dark-purp);
-} */

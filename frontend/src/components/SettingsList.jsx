@@ -14,11 +14,11 @@ const SettingsList = ({ setModalContent, setContentLoading, setModalOpenStatus, 
       </div>
       <div className="line"></div>
       <div>
-        <p onClick={ () => setModalContent(<UpdatePasswordForm setContentLoading={ setContentLoading }  setModalOpenStatus={ setModalOpenStatus } />) }>Change Password</p>
+        <p onClick={ () => setModalContent(<UpdatePasswordForm setContentLoading={ setContentLoading } setModalOpenStatus={ setModalOpenStatus }/>) }>Change Password</p>
       </div>
       <div className="line"></div>
       <div>
-        <p onClick={ () => setModalContent(<UpdateUsernameForm setContentLoading={ setContentLoading } setModalOpenStatus={ setModalOpenStatus } />) }>Change Username</p>
+        <p onClick={ () => setModalContent(<UpdateUsernameForm setContentLoading={ setContentLoading } setModalOpenStatus={ setModalOpenStatus }/>) }>Change Username</p>
       </div>
       <div className="line"></div>
       <div>

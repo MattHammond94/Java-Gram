@@ -57,6 +57,7 @@ const LogInForm = ({ setContentLoadingStatus }) => {
           { apiError && <p className='error'>{apiError}</p> }
           { isLoading ? <button disabled><Loader /></button> : <button>Sign In</button> }
         <p>New to Java-Gram?<a href='/'>Register here</a></p>
+        <p>Forgotten your password?<a href='/'>Click here</a></p>
       </form>
     </div>
   )
