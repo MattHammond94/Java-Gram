@@ -30,7 +30,7 @@ const updateValidator = (values) => {
     errors.email = 'Please input a valid email address.'
   }
 
-  if(values.bio.length > 100) {
+  if(values.bio.length > 120) {
     errors.bio = 'Bio cannot be longer than 100 characters.'
   }
 

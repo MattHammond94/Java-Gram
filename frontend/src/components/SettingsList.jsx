@@ -6,19 +6,19 @@ import DeleteAccountForm from "./DeleteAccountForm";
 
 // Add a useRef to store current modal content so can add a back button.
 
-const SettingsList = ({ setModalContent, setContentLoading }) => {
+const SettingsList = ({ setModalContent, setContentLoading, setModalOpenStatus, refetch }) => {
   return (
     <div className="formTemplate settingsList">
       <div className="settingsFirstDiv">
-        <p onClick={ () => setModalContent(<UpdateInformationForm setContentLoading={ setContentLoading } />) }>Update Information</p>
+        <p onClick={ () => setModalContent(<UpdateInformationForm setContentLoading={ setContentLoading } setModalOpenStatus={ setModalOpenStatus } refetch={ refetch }/>) }>Update Information</p>
       </div>
       <div className="line"></div>
       <div>
-        <p onClick={ () => setModalContent(<UpdatePasswordForm setContentLoading={ setContentLoading } />) }>Change Password</p>
+        <p onClick={ () => setModalContent(<UpdatePasswordForm setContentLoading={ setContentLoading }  setModalOpenStatus={ setModalOpenStatus } />) }>Change Password</p>
       </div>
       <div className="line"></div>
       <div>
-        <p onClick={ () => setModalContent(<UpdateUsernameForm setContentLoading={ setContentLoading } />) }>Change Username</p>
+        <p onClick={ () => setModalContent(<UpdateUsernameForm setContentLoading={ setContentLoading } setModalOpenStatus={ setModalOpenStatus } />) }>Change Username</p>
       </div>
       <div className="line"></div>
       <div>
