@@ -58,7 +58,7 @@ const UserPageHeader = ({ username }) => {
             <h1>{ username }</h1>
             <p>{ selectedUserInfo.bio }</p>
             <div className="userHeaderLine"></div>
-            { !usernameCheck() && <FollowButton username={ username }/> }
+            { !usernameCheck() && <FollowButton username={ username } selectedUserInfo={ selectedUserInfo } refetch={ refetch }/> }
           </div>
           <div className='middleMiddle'>
             <div className='posts'>
