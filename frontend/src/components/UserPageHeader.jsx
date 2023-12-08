@@ -40,14 +40,9 @@ const UserPageHeader = ({ username }) => {
     return <div>Error: {selectedUserError.message}</div>;
   }
 
-  const openFollowersModal = () => {
+  const openModal = (variant) => {
     setModalOpenStatus(true)
-    setModalContent(<UserList username={ username } variant={ 'followers' }/>)
-  }
-
-  const openFollowingModal = () => {
-    setModalOpenStatus(true)
-    setModalContent(<UserList username={ username } variant={ 'following' }/>)
+    setModalContent(<UserList username={ username } variant={ variant }/>)
   }
 
   const total = 0
@@ -71,11 +66,11 @@ const UserPageHeader = ({ username }) => {
               <p>{`${total}`}</p>
               <p>Posts</p>
             </div>
-            <div className='followers' onClick={ openFollowersModal }>
+            <div className='followers' onClick={ () => openModal('followers') }>
               <p>{`${selectedUserInfo.followers.length}`}</p>
               <p>Followers</p>
             </div>
-            <div className='following' onClick={ openFollowingModal }>
+            <div className='following' onClick={ () => openModal('following') }>
               <p>{`${selectedUserInfo.following.length}`}</p>
               <p>Following</p>
             </div>

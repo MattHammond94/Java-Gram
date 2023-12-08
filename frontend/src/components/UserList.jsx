@@ -1,5 +1,4 @@
 import { useGetSelectedUserInfoQuery } from "../slices/usersApiSlice";
-
 import Loader from "./Loader";
 
 const UserList = ({ username, variant }) => {
@@ -28,15 +27,17 @@ const UserList = ({ username, variant }) => {
     <div className="formTemplate">
       <h1>{ header }</h1>
       { dataSet && dataSet.length > 0 ? 
-          (dataSet.map((user, index) => (
-            <>
-              <div key={user._id} className="userListUser">
+        (<div>
+          {dataSet.map((user, index) => (
+            <div className="userListContainer" key={index}>
+              <div className="userListUser">
                 <img src={`${user.profilePicture}`} alt="Users profile picture" />
                 <a href={`/user/${user.username}`}>{ user.username }</a>
               </div>
-              <div key={index} className="userListLine"></div>
-            </>
-          )))
+              <div className="userListLine"></div>
+            </div>
+          ))}
+        </div>)
       :
         (<p>0 { header }</p>) 
       }
