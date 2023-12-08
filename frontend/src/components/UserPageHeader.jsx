@@ -15,7 +15,7 @@ import UserList from "./UserList";
 import { IoHome } from "react-icons/io5";
 import { FaCog } from "react-icons/fa";
 
-const UserPageHeader = ({ username }) => {
+const UserPageHeader = ({ username, totalPosts }) => {
   const [modalOpenStatus, setModalOpenStatus] = useState(false);
   const [modalContent, setModalContent] = useState(null);
   const [contentLoading, setContentLoading] = useState(false);
@@ -44,8 +44,6 @@ const UserPageHeader = ({ username }) => {
     setModalContent(<UserList username={ username } variant={ variant }/>)
   }
 
-  const total = 0
-
   return (
     <>
       <div className='userHeader'>
@@ -62,7 +60,7 @@ const UserPageHeader = ({ username }) => {
           </div>
           <div className='middleMiddle'>
             <div className='posts'>
-              <p>{`${total}`}</p>
+              <p>{`${totalPosts}`}</p>
               <p>Posts</p>
             </div>
             <div className='followers' onClick={ () => openModal('followers') }>

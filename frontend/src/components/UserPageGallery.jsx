@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useGetAllUsersPostsQuery } from "../slices/postApiSlice";
 import { useGetSelectedUserInfoQuery } from "../slices/usersApiSlice";
 import Loader from "./Loader";
@@ -9,7 +9,7 @@ import SelectedPost from "./SelectedPost";
 import { HiHeart  } from "react-icons/hi";
 import { SlSpeech } from "react-icons/sl";
 
-const UserPageGallery = ({ username }) => {
+const UserPageGallery = ({ username, updateTotalPosts }) => {
   const [modalOpenStatus, setModalOpenStatus] = useState(false);
   const [modalContent, setModalContent] = useState(null);
   const [contentLoading, setContentLoading] = useState(false);
@@ -17,6 +17,12 @@ const UserPageGallery = ({ username }) => {
   const { data: usersPosts, error: usersPostsError, refetch } = useGetAllUsersPostsQuery(selectedUserInfo?._id, {
     skip: !selectedUserInfo
   });
+
+  useEffect(() => {
+    if (usersPosts) {
+      updateTotalPosts(usersPosts.length);
+    }
+  }, [usersPosts, updateTotalPosts]);
 
   if (selectedUserInfoLoading) {
     return <Loader />

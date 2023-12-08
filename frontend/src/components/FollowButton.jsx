@@ -23,10 +23,15 @@ const FollowButton = ({ selectedUserInfo, refetch }) => {
 
   const handleFollowClick = async (e) => {
     e.preventDefault();
-    const updated = await handleFollow({ selectedUserId: selectedUserInfo._id }).unwrap();
 
-    if (updated) {
-      refetch();
+    try {
+      const updated = await handleFollow({ selectedUserId: selectedUserInfo._id }).unwrap();
+      
+      if (updated) {
+        refetch();
+      }
+    } catch (error) {
+      console.log(error)
     }
   }
 

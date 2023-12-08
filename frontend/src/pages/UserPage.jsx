@@ -1,4 +1,5 @@
 import { useParams } from "react-router-dom";
+import { useState } from "react";
 import { useCheckUsernameQuery } from "../slices/usersApiSlice";
 import Loader from "../components/Loader";
 import NotFoundPage from "../pages/NotFoundPage";
@@ -7,7 +8,12 @@ import UserPageGallery from "../components/UserPageGallery";
 
 const UserPage = () => {
   const { username } = useParams();
+  const [totalPosts, setTotalPosts] = useState(0);
   const { data: userExists, error: userExistsError, isLoading: userExistsLoading } = useCheckUsernameQuery(`${username}`);
+
+  const handleUpdateTotalPosts = (count) => {
+    setTotalPosts(count);
+  };
 
   if (userExistsLoading) {
     return <Loader />
@@ -23,8 +29,8 @@ const UserPage = () => {
 
   return (
     <div>
-      <UserPageHeader username={ username }/>
-      <UserPageGallery username={ username }/>
+      <UserPageHeader username={ username } totalPosts={ totalPosts }/>
+      <UserPageGallery username={ username } updateTotalPosts={ handleUpdateTotalPosts } />
     </div>
   )
 }
