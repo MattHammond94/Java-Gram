@@ -28,7 +28,6 @@ const UserPageHeader = ({ username }) => {
   }
 
   const usernameCheck = () => {
-    console.log(userInfo.username === username)
     return userInfo.username === username
   }
 
