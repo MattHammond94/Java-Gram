@@ -168,21 +168,22 @@ const removeProfilePictureFromCloudinary = asyncHandler(async(req, res) => {
 });
 
 //Route       Put /users/follow
-// UPDATE ROUTE TO USE REQ.USER instead of passing _id in body. 
+//Handles the following functionality - Will remove a follow if it exists and will add a follow 
 const updateFollowers = asyncHandler(async (req, res) => {
-  const { loggedInUserId, selectedUserId } = req.body
+  const { selectedUserId } = req.body
 
-  if (!mongoose.Types.ObjectId.isValid(loggedInUserId) || !mongoose.Types.ObjectId.isValid(selectedUserId)) {
+  if (!mongoose.Types.ObjectId.isValid(selectedUserId)) {
     res.status(400)
     throw new Error('Not a valid ID parameter');
   }
 
-  if (loggedInUserId === selectedUserId) {
+  const loggedInUser = await User.findById(req.user._id);
+
+  if (loggedInUser._id === selectedUserId) {
     res.status(400)
     throw new Error('User cannot follow themselves');
   }
 
-  const loggedInUser = await User.findById(loggedInUserId);
   const selectedUser = await User.findById(selectedUserId);
 
   if (!loggedInUser || !selectedUser) {
@@ -192,9 +193,6 @@ const updateFollowers = asyncHandler(async (req, res) => {
 
   const alreadyFollowingAsIndex = loggedInUser.following.findIndex(userId => userId.toString() === selectedUserId);
 
-  console.log(loggedInUser.following)
-  console.log(selectedUser.followers)
-
   if (alreadyFollowingAsIndex !== -1) {
     loggedInUser.following.splice(alreadyFollowingAsIndex, 1);
     const alreadyFollowedAsIndex = selectedUser.followers.findIndex(userId => userId.toString() === loggedInUser)
@@ -203,9 +201,6 @@ const updateFollowers = asyncHandler(async (req, res) => {
     loggedInUser.following.push(selectedUser);
     selectedUser.followers.push(loggedInUser);
   }
-
-  console.log(loggedInUser.following)
-  console.log(selectedUser.followers)
 
   const updatedLoggedInUser = await loggedInUser.save();
   const updatedSelectedUser = await selectedUser.save()
