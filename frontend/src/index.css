@@ -182,6 +182,7 @@ input[type='password'] {
 
 .formTemplate p {
   color: var(--nice-purp);
+  margin-top: 5px;
 }
 
 .formTemplate a {
@@ -194,6 +195,7 @@ input[type='password'] {
 
 .formTemplate h1 {
   margin-bottom: 16px;
+  text-decoration: underline;
 }
 
 .formTemplate button {
@@ -218,7 +220,7 @@ input[type='password'] {
 }
 
 .formTemplate.updateInfoForm button {
-  margin-top: 3px;
+  margin-top: -10px;
 }
 
 .formTemplate.deleteAccountForm {
@@ -226,7 +228,7 @@ input[type='password'] {
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  height: 330px;
+  height: 420px;
   width: 340px;
 }
 
@@ -234,15 +236,22 @@ input[type='password'] {
   margin-top: 20px;
 }
 
-.formTemplate.deleteAccountForm span {
+.formTemplate.deleteAccountForm h3 {
   text-decoration: underline;
   font-weight: bolder;
-
+  font-family: var(--text-font);
+  color: var(--semi-dark-purp);
+  margin-top: 13px;
+  font-size: 21px;
 }
 
 .formTemplate.deleteAccountForm p {
-  margin-top: 10px;
+  margin-top: 13px;
   font-size: 18px;
+}
+
+.formTemplate.deleteAccountForm p:last-of-type {
+  margin-top: 0px;
 }
 
 .formTemplate.deleteAccountForm button {
@@ -586,12 +595,13 @@ input::file-selector-button {
   display: flex;
   flex-direction: row;
   justify-content: space-around;
-  background-image: linear-gradient(to left, rgb(70, 47, 99, 0.9), rgb(214, 186, 248, 0.8));
-  position: absolute;
+  background-image: linear-gradient(to left, rgb(90, 61, 129), rgb(215, 192, 242));
+  position: sticky;
   top: 0px;
   width: 100%;
   height: 280px;
   overflow: hidden;
+  z-index: 1;
 }
 
 .leftSide {
@@ -642,14 +652,8 @@ input::file-selector-button {
   flex-direction: column;
   width: 370px;
   position: relative;
-  /* background-color: #6B0B05; */
   width: 100%;
   margin-bottom: 5px;
-
-  /* border: 2px solid #462f63;
-  border-radius: 7px;
-  padding: 10px;
-  margin-bottom: 5px; */
 }
 
 .middleTop h1 {
@@ -664,6 +668,10 @@ input::file-selector-button {
   align-self: flex-start;
   margin-top: 5px;
   margin-bottom: 2px;
+  max-width: 400px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 
 .userHeaderLine {
@@ -676,6 +684,10 @@ input::file-selector-button {
 .middleTop button {
   height: 50px;
   width: 88px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 15px;
   align-self: flex-end;
   position: absolute;
 }
@@ -726,15 +738,232 @@ input::file-selector-button {
   align-items: center;
 }
 
-.cogIcon {
-  height: 40px;
-  width: 40px;
+.cogIcon, .homeIcon {
+  height: 30px;
+  width: 30px;
 }
 
-.homeIcon {
-  height: 40px;
-  width: 40px;
+@media(max-width: 1000px) {
+  .userHeader {
+    height: 260px;
+  }
+
+  .middle {
+    width: 500px;
+    margin-right: 15px;
+  }
+
+  .leftSide {
+    margin-left: 20px;
+    margin-top: 15px;
+    margin-right: 20px;
+  }
+  
+  .leftSide img {
+    margin-top: 7px;
+    height: 225px;
+    width: 225px;
+  }
+  
+  .leftSide button {
+    right: 0;
+    bottom: -15px;
+    padding: 7px;
+  }
+
+  .middleTop h1 {
+    font-size: 35px;
+    margin-bottom: 7px;
+  }
+
+  .middleTop button {
+    height: 40px;
+    width: 68px;
+    font-size: 13px;
+  }
+
+  .middleTop p {
+    font-size: 18px;
+    max-width: 300px;
+  }
+
+  .middleMiddle {
+    gap: 30px;
+  }
+
+  .posts, .followers, .following {
+    padding: 5px;
+  }
+
+  .middleMiddle p {
+    font-size: 18px;
+  }
+
+  .rightSide {
+    margin-left: 7px;
+  }
+
+  .rightSide button:last-child {
+    margin-top: 20px;
+  }
+
+  .rightSide button:last-child img {
+    height: 50px;
+    width: 55px;
+  }
+
+  .cogIcon, .homeIcon {
+    height: 25px;
+    width: 25px;
+  }
 }
+
+@media(max-width: 780px) {
+  .userHeader {
+    height: 260px;
+  }
+
+  .middle {
+    width: 400px;
+    margin-right: 15px;
+  }
+
+  .leftSide {
+    margin-left: 30px;
+  }
+  
+  .leftSide img {
+    margin-top: 10px;
+    height: 200px;
+    width: 200px;
+  }
+  
+  .leftSide button {
+    right: 0;
+    bottom: -25px;
+    padding: 7px;
+  }
+
+  .updateProfilePictureBtn {
+    height: 35px;
+    width: 35px;
+  }
+
+  .middleTop h1 {
+    font-size: 32px;
+    margin-bottom: 4px;
+  }
+
+  .middleTop p {
+    font-size: 17px;
+    max-width: 290px;
+  }
+
+  .middleMiddle {
+    gap: 5px;
+  }
+
+  .posts, .followers, .following {
+    padding: 4px;
+  }
+
+  .middleMiddle p {
+    font-size: 17px;
+  }
+
+  .rightSide {
+    margin-left: 7px;
+    margin-right: 10px;
+  }
+
+  .rightSide button:last-child {
+    margin-top: 25px;
+  }
+
+  .rightSide button:last-child img {
+    height: 35px;
+    width: 40px;
+  }
+
+  .cogIcon, .homeIcon {
+    height: 20px;
+    width: 20px;
+  }
+}
+
+@media(max-width: 570px) {
+  .userHeader {
+    height: 220px;
+    overflow:visible
+  }
+
+  .middle {
+    width: 350px;
+    margin-right: 15px;
+  }
+
+  .leftSide {
+    margin-left: 20px;
+  }
+  
+  .leftSide img {
+    margin-top: 10px;
+    height: 170px;
+    width: 170px;
+  }
+  
+  .leftSide button {
+    right: 0;
+    bottom: -25px;
+    padding: 7px;
+  }
+
+  .updateProfilePictureBtn {
+    height: 35px;
+    width: 35px;
+  }
+
+  .posts, .followers, .following {
+    padding: 3px;
+  }
+
+  .rightSide {
+    position: absolute;
+    top: 205px;
+    left: 0;
+  }
+
+  .rightSide button:last-child {
+    order: 1;
+    width: 50px;
+    height: 50px;
+  }
+
+  .rightSide button:first-child {
+    order: 3;
+    align-self: flex-start;
+    margin-top: 2px;
+  }
+
+  .rightSide button:nth-child(2) {
+    order: 2;
+    align-self: flex-start;
+    margin-top: 2px;
+  }
+
+  .rightSide button:last-child img {
+    height: 30px;
+    width: 35px;
+  }
+
+  .cogIcon, .homeIcon {
+    height: 20px;
+    width: 20px;
+  }
+}
+
+/* final query 460px */
+
 
 
 /* USER PAGE GALLERY */
@@ -745,13 +974,13 @@ input::file-selector-button {
   align-items: center;
   position: relative;
   width: 100vw;
-  top: 310px;
+  top: 10px;
   padding-bottom: 40px;
 }
 
 .galleryPostContainer {
   position: relative;
-  height: 300px;
+  height: 400px;
   width: 300px;
   margin: 5px;
   background-color: var(--mid-purp);
@@ -772,7 +1001,7 @@ input::file-selector-button {
   background-color: rgba(214, 186, 248, 0.4);
   transform: translate(-50%, -50%);
   width: 300px;
-  height: 300px;
+  height: 400px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -805,6 +1034,34 @@ input::file-selector-button {
   margin-bottom: 2px;
 }
 
+@media(max-width: 930px) {
+  .galleryPostContainer {
+    width: 250px;
+  }
+
+  .galleryIconsContainer {
+    width: 250px;
+  }
+}
+
+@media(max-width: 570px) {
+  .galleryPostContainer {
+    width: 340px;
+    height: 490px;
+    margin-bottom: 15px;
+  }
+
+  .galleryIconsContainer {
+    width: 340px;
+    height: 490px;
+  }
+}
+
+@media(max-width: 800px) {
+  .userPageGallery {
+    top: 10px;
+  }
+}
 
 
 
@@ -1025,7 +1282,7 @@ input::file-selector-button {
   position: relative;
   height: 600px;
   width: 800px;
-  background-color: red;
+  background-color: white;
 }
 
 .selectedPostImageContainer {
@@ -1047,34 +1304,39 @@ input::file-selector-button {
   flex-direction: column;
   position: absolute;
   right: 0;
-  background-color: green;
+  /* background-color: green; */
   height: 100%;
   width: 40%;
 }
 
 .selectedPostcontentContainer p {
   margin-left: 10px;
+  color: var(--semi-dark-purp);
 }
 
 .selectedPostHeader {
   width: 100%;
-  position: relative;
   display: flex;
+  justify-content: space-between;
   align-items: center;
-  justify-content: end;
   margin-bottom: 10px;
 }
 
 .selectedPostHeader .bin {
-  margin-top: 7px;
-  margin-right: 7px;
+  margin-right: 10px;
+  margin-top: 10px;
   height: 30px;
   width: 30px;
   color: var(--semi-dark-purp);
   background-color: #d6baf8;
   border-radius: 100%;
+  opacity: 0.9;
   padding: 5px;
   cursor: pointer;
+}
+
+.selectedPostHeader .bin:hover {
+  filter: drop-shadow(0 0 1em var(--semi-dark-purp));
 }
 
 .selectedPostHeader p {
@@ -1083,13 +1345,11 @@ input::file-selector-button {
   font-size: 22px;
   text-decoration: underline;
   color: var(--semi-dark-purp);
-  position: absolute;
-  left: 0px;
 }
 
 .selectedPostLine {
   width: 98%;
-  height: 1px;
+  height: 1.5px;
   background-image: linear-gradient(to right, rgba(70, 47, 99, 0.9), rgba(214, 186, 248, 0.9));
   align-self: center;
   margin-top: 2px;
@@ -1099,13 +1359,54 @@ input::file-selector-button {
   margin-top: 5px;
   background-color: pink;
   height: 450px;
-  width: 100%;
+  width: 99%;
+  margin-left: 2px;
+}
+
+.selectedPostForm {
+ display: flex;
+ justify-content: center;
+ align-items: center;
+ position: relative;
+}
+
+.selectedPostForm textarea {
+  resize: none;
+  height: 100px;
+  width: 230px;
+  font-family: var(--text-font);
+  color: var(--semi-dark-purp);
+  font-size: 1rem;
+  border: solid 2px var(--grey-purp);
+  caret-color: var(--semi-dark-purp);
+  border-radius: 7px;
+  margin: 3px;
+  margin-top: 2px;
+}
+
+.selectedPostForm textarea::selection {
+  background: var(--mid-purp);
+}
+
+.selectedPostForm :focus {
+  outline: 1px solid var(--grey-purp);
 }
 
 .commentButton {
-  position: absolute;
-  bottom: 0;
+  height: 50px;
+  width: 75px;
+  font-size: 12px;
   margin: 0px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: 2px;
+  margin-top: 5px;
+}
+
+.commentButton:hover {
+  background-color: var(--semi-dark-purp);
+  color: var(--mid-purp);
 }
 
 
@@ -1161,4 +1462,57 @@ input::file-selector-button {
 
 .settingsList button {
   margin-top: 20px;
+}
+
+
+
+
+
+
+/* ==== FOLLOW BUTTON COMPONENT ==== */
+
+.unfollowButton {
+  background-color: var(--semi-dark-purp);
+  color: var(--mid-purp);
+}
+
+.followButton:hover {
+  filter: drop-shadow(0 0 2em var(--mid-purp));
+  background-color: var(--semi-dark-purp);
+  color: var(--mid-purp);
+}
+
+.unfollowButton:hover {
+  filter: drop-shadow(0 0 2em var(--mid-purp));
+  background-color: var(--mid-purp);
+  color: var(--semi-dark-purp);
+}
+
+
+/* ==== USER LIST COMPONET ==== */
+
+.userListUser {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 5px;
+  overflow: scroll;
+}
+
+.userListUser a {
+  font-size: 20px;
+}
+
+.userListUser img {
+  height: 50px;
+  width: 50px;
+  border-radius: 50%;
+  margin-right: 7px;
+}
+
+.userListLine {
+  height: 1px;
+  width: 300px;
+  background-image: linear-gradient(to right, rgba(70, 47, 99, 0.8), rgba(214, 186, 248, 0.8));
+  margin-top: 10px;
 }

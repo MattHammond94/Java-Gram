@@ -5,7 +5,7 @@ const updateUsernameValidator = (values) => {
     errors.username = 'Username must contain more than 3 characters'
   }
   
-  if (values.username.length > 18) {
+  if (values.username.length > 15) {
     errors.username = 'Username cannot exceed 18 characters.'
   }
 

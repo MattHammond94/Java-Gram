@@ -61,8 +61,8 @@ const SelectedPost = ({ post, username, setModalContent, setModalOpenStatus, set
         </div>
         <div className="selectedPostcontentContainer">
           <div className="selectedPostHeader">
-            { userInfo.username === username ? <IoTrashSharp className="bin" onClick={ () => handleDeletePost(post) }/> : null }
             <p>{ post.user.username }</p>
+            { userInfo.username === username ? <IoTrashSharp className="bin" onClick={ () => handleDeletePost(post) }/> : null }
           </div>
           <p>{ post.caption }</p>
           <p>Comments:</p>
@@ -70,7 +70,12 @@ const SelectedPost = ({ post, username, setModalContent, setModalOpenStatus, set
           <div className="commentsContainer">
             {/* { comments.map((comment) => ) } */}
           </div>
-          <button className="commentButton">Add Comment</button>
+          <div className="selectedPostLine"></div>
+          <form className="selectedPostForm">
+            <textarea />
+            {/* <p>Error</p> */}
+            <button className="commentButton">Add Comment</button>
+          </form>
         </div>
       </div>
     </>
