@@ -99,8 +99,8 @@ const getASelectedUser = asyncHandler(async (req, res) => {
   const { username } = req.params
 
   const selectedUser = await User.findOne({ username: username }).select({ password: 0, __v: 0, updatedAt: 0 });;
-
-  // Will likely need to populate the following and followers arrays here as will need these on frontend.
+  await selectedUser.populate("followers");
+  await selectedUser.populate("following");
 
   if(selectedUser) {
     res.status(200).json(selectedUser);

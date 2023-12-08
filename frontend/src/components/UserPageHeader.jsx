@@ -42,12 +42,12 @@ const UserPageHeader = ({ username }) => {
 
   const openFollowersModal = () => {
     setModalOpenStatus(true)
-    setModalContent(<UserList variant={ 'followers' }/>)
+    setModalContent(<UserList username={ username } variant={ 'followers' }/>)
   }
 
   const openFollowingModal = () => {
     setModalOpenStatus(true)
-    setModalContent(<UserList variant={ 'following' }/>)
+    setModalContent(<UserList username={ username } variant={ 'following' }/>)
   }
 
   const total = 0
