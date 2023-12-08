@@ -1,13 +1,23 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 import LogInForm from "../components/LogInForm";
 import SignUpForm from "../components/SignUpForm";
 import Modal from "../components/Modal";
 import OpenModalButton from "../components/OpenModalButton";
 
 const HomePage = () => {
+  const navigate = useNavigate();
+  const { userInfo } = useSelector((state) => state.auth);
   const [modalOpenStatus, setModalOpenStatus] = useState(false);
   const [modalContent, setModalContent] = useState(null);
   const [contentLoading, setContentLoading] = useState(false);
+
+  useEffect(() => {
+    if (userInfo) {
+      navigate('/feed')
+    }
+  }, [navigate, userInfo])
 
   return (
     <>
