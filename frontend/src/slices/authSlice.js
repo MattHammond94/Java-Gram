@@ -11,6 +11,11 @@ const authSlice = createSlice({
     setCredentials: (state, action) => {
       state.userInfo = action.payload;
       localStorage.setItem('userInfo', JSON.stringify(action.payload));
+
+      setTimeout(() => {
+        localStorage.removeItem('userInfo');
+        state.userInfo = null
+      }, 60 * 60 * 24 * 1000);
     },
     logout: (state, action) => {
       state.userInfo = null;
