@@ -14,9 +14,7 @@ const Post = ({ post }) => {
   const [userLiked, setUserLiked] = useState(false);
 
   useEffect(() => {
-    console.log(post.likedBy.some(user => user._id === userInfo._id));
     setUserLiked(post.likedBy.some(user => user._id === userInfo._id));
-
     let likeStatement = null;
 
     if (post.likedBy.length < 1) {
@@ -28,7 +26,8 @@ const Post = ({ post }) => {
     } else {
       likeStatement = <p className='postLikeCount'>{post.likedBy[0].username} and {post.likedBy.length - 1} others like this</p>
     }
-      setLikeContent(likeStatement);
+
+    setLikeContent(likeStatement);
   }, [post.likedBy, userInfo._id]);
 
   const navigate = useNavigate();
@@ -39,14 +38,8 @@ const Post = ({ post }) => {
 
   const handleLike = async () => {
     const updatedPost = await like({ id: post._id });
-    console.log(updatedPost)
-    let likeStatement = null;
-
     setUserLiked(prevUserLiked => !prevUserLiked);
-
-    // if (updatedPost.likedBy) {
-    //   setUserLiked(updatedPost.likedBy.some(user => user._id === userInfo._id));
-    // }
+    let likeStatement = null;
 
     if (updatedPost.data.likedBy.length < 1) {
       likeStatement = <p className='postLikeCount'>0 likes</p>;

@@ -1,6 +1,7 @@
 import { useSelector } from "react-redux";
 import { useDeletePostMutation, useRemovePostImageFromCloudMutation, useGetAllPostsQuery } from "../slices/postApiSlice";
 import Loader from "./Loader";
+import AddCommentButton from "./AddCommentButton";
 
 // Icon:
 import { IoTrashSharp } from "react-icons/io5";
@@ -74,7 +75,7 @@ const SelectedPost = ({ post, username, setModalContent, setModalOpenStatus, set
           <form className="selectedPostForm">
             <textarea />
             {/* <p>Error</p> */}
-            <button className="commentButton">Add Comment</button>
+            <AddCommentButton />
           </form>
         </div>
       </div>
