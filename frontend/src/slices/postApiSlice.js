@@ -52,7 +52,7 @@ export const postsApiSlice = apiSlice.injectEndpoints({
     }),
     addCommentToPost: builder.mutation({
       query: (data) => ({
-        url: `${POST_URL}/:id/addComment`,
+        url: `${POST_URL}/addComment`,
         method: 'PUT',
         body: data
       }),
