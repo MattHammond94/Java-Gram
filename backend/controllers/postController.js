@@ -181,7 +181,8 @@ const addLikeToPost = asyncHandler(async (req, res) => {
   const update = await post.save();
 
   if (update) {
-    const updatedPost = await Post.findById(id)
+    const updatedPost = await Post.findById(id);
+    await updatedPost.populate('likedBy');
     res.status(200).json(updatedPost);
   } else {
     res.status(400)

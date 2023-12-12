@@ -9,23 +9,25 @@ import { HiOutlineHeart, HiHeart } from "react-icons/hi";
 
 const Post = ({ post }) => {
   const { userInfo } = useSelector((state) => state.auth);
-  const[likeCount, setLikeCount] = useState(post.likedBy.length - 1);
-  const [likeContent, setLikeContent] = useState('')
+  const [likeContent, setLikeContent] = useState(null);
   const [like] = useAddLikeToPostMutation();
-
+  //  const[userLiked, setUserLiked] = useState(false);
+  
   useEffect(() => {
-    if (post.likedBy.length < 1) {
-      setLikeContent('0 likes');
-    } else if (post.likedBy.length === 1) {
-      setLikeContent(`${post.likedBy[0].username} likes this`);
-    } else if (post.likedBy.length === 2) {
-      setLikeContent(`${post.likedBy[0].username} and 1 other like this`);
-    } else {
-      setLikeContent(`${post.likedBy[0].username} and ${likeCount} others like this`);
-    }
-  }, [post.likedBy, likeCount]);
+    let likeStatement = null;
 
-  // const[userLiked, setUserLiked] = useState(false);
+    if (post.likedBy.length < 1) {
+      likeStatement = <p className='postLikeCount'>0 likes</p>;
+    } else if (post.likedBy.length === 1) {
+      likeStatement = <p className='postLikeCount'>{post.likedBy[0].username} likes this</p>;
+    } else if (post.likedBy.length === 2) {
+      likeStatement = <p className='postLikeCount'>{post.likedBy[0].username} and {post.likedBy.length - 1} other like this</p>
+    } else {
+      likeStatement = <p className='postLikeCount'>{post.likedBy[0].username} and {post.likedBy.length - 1} others like this</p>
+    }
+      setLikeContent(likeStatement);
+  }, [post.likedBy]);
+
   
   const navigate = useNavigate();
 
@@ -35,7 +37,21 @@ const Post = ({ post }) => {
 
   const handleLike = async () => {
     const updatedPost = await like({ id: post._id });
-    setLikeCount(updatedPost.data.likedBy.length - 1)
+    console.log(updatedPost)
+    let likeStatement = null;
+
+
+    if (updatedPost.data.likedBy.length < 1) {
+      likeStatement = <p className='postLikeCount'>0 likes</p>;
+    } else if (updatedPost.data.likedBy.length === 1) {
+      likeStatement = <p className='postLikeCount'>{updatedPost.data.likedBy[0].username} likes this</p>
+    } else if (updatedPost.data.likedBy.length === 2) {
+      likeStatement = <p className='postLikeCount'>{updatedPost.data.likedBy[0].username} and 1 other likes this</p>
+    } else {
+      likeStatement = <p className='postLikeCount'>{updatedPost.data.likedBy[0].username} and {updatedPost.data.likedBy.length - 1} others like this</p>
+    }
+    
+    setLikeContent(likeStatement);
 
     // console.log(post.likedBy)
     // console.log(userInfo._id)
@@ -61,7 +77,7 @@ const Post = ({ post }) => {
         <img src={post.image} alt={post.caption}/>
       </div>
       <div className="postFooterContainer">
-        <p className='postLikeCount'>{ likeContent }</p>
+        { likeContent }
         <p className='postUsernameLink' onClick={ handleNavigate }>{ post.user.username }</p>
         <div className='postLine'></div>
         <p className='postCaption'>{ post.caption }</p>
