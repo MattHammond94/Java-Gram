@@ -1,5 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 
+let logoutTimer = null;
+
 const initialState = {
   userInfo: localStorage.getItem('userInfo') ? JSON.parse(localStorage.getItem('userInfo')) : null
 }
@@ -12,14 +14,18 @@ const authSlice = createSlice({
       state.userInfo = action.payload;
       localStorage.setItem('userInfo', JSON.stringify(action.payload));
 
-      setTimeout(() => {
-        localStorage.removeItem('userInfo');
-        state.userInfo = null
+      logoutTimer = setTimeout(() => {
+        authSlice.actions.logout();
       }, 60 * 60 * 24 * 1000);
     },
     logout: (state, action) => {
       state.userInfo = null;
       localStorage.removeItem('userInfo');
+
+      if (logoutTimer) {
+        clearTimeout(logoutTimer);
+        logoutTimer = null;
+      }
     },
   },
 });
