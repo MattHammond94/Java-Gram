@@ -214,29 +214,27 @@ const updatePostCaption = asyncHandler( async (req, res) => {
   }
 });
 
-//Route      PUT   /:id/addComment 
+//Route      PUT   /addComment 
 //Add a comment to post
 const addCommentToPost = asyncHandler(async (req, res) => {
-  const { id } = req.params
-  const { comment } = req.body
+  const { postId, commentId } = req.body
 
-  if (!mongoose.Types.ObjectId.isValid(id)) {
+  if (!mongoose.Types.ObjectId.isValid(postId) || !mongoose.Types.ObjectId.isValid(commentId)) {
     res.status(400)
     throw new Error('Not a valid ID parameter')
   }
   
-  const postCommentBelongsTo = await Post.findById({ _id: id });
+  const postCommentBelongsTo = await Post.findById({ _id: postId });
 
   console.log(postCommentBelongsTo);
 
-  postCommentBelongsTo.comments.push(comment)
+  postCommentBelongsTo.comments.push(commentId);
 
   const commentAddedToPost = await postCommentBelongsTo.save()
 
-  // updatedPost.populate('comments');
-
   if (commentAddedToPost) { 
     const updatedPost = await Post.findOne({ _id: commentAddedToPost._id })
+    await updatedPost.populate('comments');
     res.status(200).json(updatedPost)
   } else {
     res.status(400)

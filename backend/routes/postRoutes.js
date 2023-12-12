@@ -29,7 +29,7 @@ router.delete('/cloud', protect, removeImageFromCloudinary);
 router.delete('/:id', protect, deletePost);
 router.put('/addLike', protect, addLikeToPost);
 router.put('/:id/updateCaption', protect, updatePostCaption);
-router.put('/:id/addComment', protect, addCommentToPost);
+router.put('/addComment', protect, addCommentToPost);
 
 router.post('/cloud', protect, addImageToCloudinary);
 
