@@ -11,9 +11,12 @@ const Post = ({ post }) => {
   const { userInfo } = useSelector((state) => state.auth);
   const [likeContent, setLikeContent] = useState(null);
   const [like] = useAddLikeToPostMutation();
-  //  const[userLiked, setUserLiked] = useState(false);
-  
+  const [userLiked, setUserLiked] = useState(false);
+
   useEffect(() => {
+    console.log(post.likedBy.some(user => user._id === userInfo._id));
+    setUserLiked(post.likedBy.some(user => user._id === userInfo._id));
+
     let likeStatement = null;
 
     if (post.likedBy.length < 1) {
@@ -26,9 +29,8 @@ const Post = ({ post }) => {
       likeStatement = <p className='postLikeCount'>{post.likedBy[0].username} and {post.likedBy.length - 1} others like this</p>
     }
       setLikeContent(likeStatement);
-  }, [post.likedBy]);
+  }, [post.likedBy, userInfo._id]);
 
-  
   const navigate = useNavigate();
 
   const handleNavigate = () => {
@@ -40,6 +42,11 @@ const Post = ({ post }) => {
     console.log(updatedPost)
     let likeStatement = null;
 
+    setUserLiked(prevUserLiked => !prevUserLiked);
+
+    // if (updatedPost.likedBy) {
+    //   setUserLiked(updatedPost.likedBy.some(user => user._id === userInfo._id));
+    // }
 
     if (updatedPost.data.likedBy.length < 1) {
       likeStatement = <p className='postLikeCount'>0 likes</p>;
@@ -52,18 +59,6 @@ const Post = ({ post }) => {
     }
     
     setLikeContent(likeStatement);
-
-    // console.log(post.likedBy)
-    // console.log(userInfo._id)
-
-    // console.log(post.likedBy[0].username)
-    // console.log(post.likedBy[0]._id)
-
-    // console.log(post.likedBy[0] === userInfo._id)
-
-    // console.log(post.likedBy.some((user) => {
-    //   user._id === userInfo._id
-    // }))
   }
 
   return (
@@ -83,9 +78,7 @@ const Post = ({ post }) => {
         <p className='postCaption'>{ post.caption }</p>
       </div>
       <div className='likeIconContainer' onClick={ handleLike }>
-        {/* liked ?  */}
-        <HiOutlineHeart className="heartIcon" /> 
-        {/* : <HiHeart className="heartIcon"/> */}
+        { userLiked ? <HiHeart className="heartIcon"/> : <HiOutlineHeart className="heartIcon" /> }
       </div>
     </div>
   )
