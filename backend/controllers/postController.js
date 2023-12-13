@@ -93,6 +93,7 @@ const getAllUsersPosts = asyncHandler(async (req, res) => {
       return res.status(204).json({ message: 'This user currently has no posts' });
     }
 
+    // Refactor this!
     const arrayOfPromises = allUsersPosts.map((post) => post.populate("user"));
     
     await Promise.all(arrayOfPromises);
@@ -100,6 +101,23 @@ const getAllUsersPosts = asyncHandler(async (req, res) => {
     const secondArrayOfPromises = allUsersPosts.map((post) => post.populate("likedBy"));
 
     await Promise.all(secondArrayOfPromises);
+
+    // const thirdArrayOfPromises = allUsersPosts.map((post) => post.populate("comments"));
+
+    // await Promise.all(thirdArrayOfPromises);
+    // ^^ Refactor
+
+    await Promise.all(
+      allUsersPosts.map(async (post) => {
+        await post.populate({
+          path: 'comments',
+          populate: {
+            path: 'user',
+            model: 'User',
+          },
+        })
+      })
+    );
 
     res.status(200).json(allUsersPosts.reverse());
     

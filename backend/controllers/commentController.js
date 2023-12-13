@@ -13,9 +13,8 @@ const createComment = asyncHandler(async (req, res) => {
     user
   });
 
-  // comment.populate('user');
-
   if (comment) {
+    await comment.populate("user");
     res.status(201).json(comment);
   } else {
     res.status(400)
