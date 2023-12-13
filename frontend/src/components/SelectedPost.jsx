@@ -73,9 +73,17 @@ const SelectedPost = ({ post, username, setModalContent, setModalOpenStatus, set
           <p className="selectedPostComments">Comments:</p>
           <div className="selectedPostLine"></div>
           <div className="commentsContainer">
-            { post.comments && post.comments.map((comment) => (
+            { post.comments && post.comments.length > 0 ? (post.comments.map((comment) => (
               <Comment key={comment._id}  comment={ comment }/>
-            ))}
+              )))
+              :
+              (
+                <div className="noCommentsContainer">
+                  <p>0 comments</p>
+                  <p>Be the first to comment on this post!</p>
+                </div>
+              )
+            }
           </div>
           <div className="selectedPostLine"></div>
           <form className="selectedPostForm">

@@ -1327,7 +1327,7 @@ input::file-selector-button {
   height: 30px;
   width: 30px;
   color: var(--semi-dark-purp);
-  background-color: #d6baf8;
+  background-color: var(--mid-purp);
   border-radius: 100%;
   opacity: 0.9;
   padding: 5px;
@@ -1335,7 +1335,8 @@ input::file-selector-button {
 }
 
 .selectedPostHeader .bin:hover {
-  filter: drop-shadow(0 0 1em var(--semi-dark-purp));
+  color: var(--mid-purp);
+  background-color: var(--semi-dark-purp);
 }
 
 .selectedPostHeader p {
@@ -1423,6 +1424,15 @@ input::file-selector-button {
   background-color: var(--semi-dark-purp);
   color: var(--mid-purp);
 }
+
+.noCommentsContainer p {
+ color: var(--grey-purp);
+ font-size: 15px;
+}
+
+.noCommentsContainer p:first-child {
+  margin-top: 150px;
+ }
 
 .commentError {
   font-weight: bolder;
@@ -1568,7 +1578,7 @@ input::file-selector-button {
 @media (max-width: 635px) {
   .selectedPostModal {
     height: 645px;
-    width: 450px;
+    width: 440px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -1576,7 +1586,7 @@ input::file-selector-button {
   }
 
   .selectedPostImageContainer {
-    height: 68%;
+    height: 73%;
     width: 100%;
     top: 0;
   }
@@ -1587,7 +1597,7 @@ input::file-selector-button {
     align-items: center;
     flex-direction: column;
     bottom: 0;
-    height: 32%;
+    height: 27%;
     width: 100%;
   }
 
@@ -1611,10 +1621,18 @@ input::file-selector-button {
   .selectedPostCaption {
     margin-bottom: 2px;
     margin-top: 2px;
-    height: 120px;
+    height: 160px;
     align-self: flex-start;
   }
   
+  .noCommentsContainer p {
+    font-size: 12px;
+  }
+   
+  .noCommentsContainer p:first-child {
+    margin-top: 7px
+  }
+
   .selectedPostComments {
     font-size: 15px;
     font-weight: bolder;
@@ -1640,6 +1658,10 @@ input::file-selector-button {
   }
 
   .selectedPostLine {
+    height: 10px;
+  }
+
+  .selectedPostLine:last-of-type {
     display: none;
   }
 
