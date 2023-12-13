@@ -1290,6 +1290,7 @@ input::file-selector-button {
   width: 60%;
   position: absolute;
   left: 0;
+  background-color: var(--mid-purp);
 }
 
 .selectedPostImageContainer img {
@@ -1304,14 +1305,12 @@ input::file-selector-button {
   flex-direction: column;
   position: absolute;
   right: 0;
-  /* background-color: green; */
   height: 100%;
   width: 40%;
 }
 
 .selectedPostcontentContainer p {
   margin-left: 10px;
-  color: var(--semi-dark-purp);
 }
 
 .selectedPostHeader {
@@ -1347,9 +1346,24 @@ input::file-selector-button {
   color: var(--semi-dark-purp);
 }
 
+.selectedPostCaption {
+  text-align: left;
+  max-height: 100px;
+  overflow: scroll;
+  margin-right: 5px;
+  margin-bottom: 10px;
+  color: var(--nice-purp);
+}
+
+.selectedPostComments {
+  font-size: 18px;
+  font-weight: bolder;
+  color: var(--semi-dark-purp);
+}
+
 .selectedPostLine {
   width: 98%;
-  height: 1.5px;
+  height: 3px;
   background-image: linear-gradient(to right, rgba(70, 47, 99, 0.9), rgba(214, 186, 248, 0.9));
   align-self: center;
   margin-top: 2px;
@@ -1357,10 +1371,10 @@ input::file-selector-button {
 
 .commentsContainer {
   margin-top: 5px;
-  background-color: pink;
   height: 450px;
   width: 99%;
   margin-left: 2px;
+  overflow: scroll;
 }
 
 .selectedPostForm {
@@ -1372,7 +1386,7 @@ input::file-selector-button {
 
 .selectedPostForm textarea {
   resize: none;
-  height: 100px;
+  height: 50px;
   width: 230px;
   font-family: var(--text-font);
   color: var(--semi-dark-purp);
@@ -1381,7 +1395,7 @@ input::file-selector-button {
   caret-color: var(--semi-dark-purp);
   border-radius: 7px;
   margin: 3px;
-  margin-top: 2px;
+  margin-top: 5px;
 }
 
 .selectedPostForm textarea::selection {
@@ -1400,14 +1414,263 @@ input::file-selector-button {
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-left: 2px;
-  margin-top: 5px;
+  margin-left: 1px;
+  border-radius: 7px;
+  margin-top: 2px;
 }
 
 .commentButton:hover {
   background-color: var(--semi-dark-purp);
   color: var(--mid-purp);
 }
+
+.commentError {
+  font-weight: bolder;
+  color: var(--nice-purp);
+}
+
+/* === COMMENT COMPONENT ==== */
+
+.commentContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.commentHeaderContainer {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  width: 100%;
+}
+
+.commentHeaderContainer img {
+  height: 40px;
+  width: 40px;
+  border-radius: 50%;
+  margin-left: 5px;
+}
+
+.commentHeaderContainer a {
+  font-size: 18px;
+  color: var(--semi-dark-purp);
+}
+
+.commentHeaderContainer a:visited {
+  color: var(--semi-dark-purp);
+}
+
+.commentHeaderContainer a:hover{
+  color: var(--mid-purp);
+}
+
+.commentHeaderContainer p {
+  font-size: 11px;
+  margin-left: auto;
+  padding: 5px;
+  color: var(--grey-purp);
+}
+
+.commentCaptionContainer {
+  display: flex;
+  width: 100%;
+  margin-top: 7px;
+  margin-bottom: 3px;
+}
+
+.commentCaptionContainer p {
+  color: var(--nice-purp);
+  text-align: left;
+}
+
+.commentDivider {
+  height: 1px;
+  width: 99%;
+  background-image: linear-gradient(to right, rgba(70, 47, 99, 0.8), rgba(214, 186, 248, 0.8));
+  margin-bottom: 5px;
+}
+
+@media (max-width: 780px) {
+  .selectedPostModal {
+    height: 590px;
+    width: 680px;
+  }
+  
+  .selectedPostImageContainer {
+    width: 58%;
+  }
+  
+  .selectedPostcontentContainer {
+    width: 42%;
+  }
+  
+  .selectedPostHeader .bin {
+    height: 26px;
+    width: 26px;
+  }
+  
+  .selectedPostHeader p {
+    font-size: 21px;
+  }
+  
+  .selectedPostCaption {
+    max-height: 120px;
+    font-size: 15px
+  }
+  
+  .selectedPostComments {
+    font-size: 17px;
+  }
+  
+  .selectedPostForm {
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   position: relative;
+  }
+  
+  .selectedPostForm textarea {
+    height: 50px;
+    width: 200px;
+  }
+  
+  .commentButton {
+    height: 45px;
+    width: 70px;
+    font-size: 10px;
+    margin-left: 1px;
+  }
+
+  .commentHeaderContainer img {
+    height: 35px;
+    width: 35px;
+  }
+  
+  .commentHeaderContainer a {
+    font-size: 16px;
+    color: var(--semi-dark-purp);
+  }
+
+  .commentHeaderContainer p {
+    font-size: 10px;
+  }
+  
+  .commentCaptionContainer p {
+    font-size: 15px;
+  }
+
+  .commentError {
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 635px) {
+  .selectedPostModal {
+    height: 645px;
+    width: 450px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  }
+
+  .selectedPostImageContainer {
+    height: 68%;
+    width: 100%;
+    top: 0;
+  }
+
+  .selectedPostcontentContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    bottom: 0;
+    height: 32%;
+    width: 100%;
+  }
+
+  .selectedPostHeader {
+    width: 100%;
+    background-color: white;
+    margin-bottom: 0px;
+  }
+
+  .selectedPostHeader .bin {
+    height: 22px;
+    width: 22px;
+    margin-top: 4px;
+  }
+  
+  .selectedPostHeader p {
+    font-size: 19px;
+    margin-top: 0px;
+  }
+  
+  .selectedPostCaption {
+    margin-bottom: 2px;
+    margin-top: 2px;
+    height: 120px;
+    align-self: flex-start;
+  }
+  
+  .selectedPostComments {
+    font-size: 15px;
+    font-weight: bolder;
+    align-self: flex-start;
+  }
+
+  .commentHeaderContainer img {
+    height: 28px;
+    width: 28px;
+  }
+  
+  .commentHeaderContainer a {
+    font-size: 15px;
+    color: var(--semi-dark-purp);
+  }
+
+  .commentHeaderContainer p {
+    font-size: 11px;
+  }
+  
+  .commentCaptionContainer p {
+    font-size: 14px;
+  }
+
+  .selectedPostLine {
+    display: none;
+  }
+
+  .selectedPostForm {
+    width: 100%;
+    background-color: white;
+  }
+
+  .selectedPostForm textarea {
+    height: 25px;
+    width: 100%;
+    margin-bottom: 0px;
+    margin-top: 0px;
+  }
+  
+  .commentButton {
+    height: 30px;
+    width: 65px;
+    margin-left: 0px;
+    margin-bottom: 3px;
+    margin-right: 3px;
+    border-radius: 7px;
+  }
+
+  .commentError {
+    font-size: 13px;
+  }
+}
+
+
+
 
 
 
