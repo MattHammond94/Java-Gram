@@ -3,7 +3,7 @@ import { useAddCommentToPostMutation } from "../slices/postApiSlice";
 import { useState } from "react";
 import Loader from "./Loader";
 
-const AddCommentButton = ({ selectedPost, caption, setCommentError }) => {
+const AddCommentButton = ({ selectedPost, caption, setCommentError, refetch, handleUpdateComments, setCommentValue }) => {
   const [loadingStatus, setLoadingStatus] = useState(false);
   const [createComment] = useCreateCommentMutation();
   const [addCommentToPost] = useAddCommentToPostMutation();
@@ -22,6 +22,9 @@ const AddCommentButton = ({ selectedPost, caption, setCommentError }) => {
       const addComment = await addCommentToPost({ postId: selectedPost._id, commentId: comment.data._id });
       if (addComment) {
         setLoadingStatus(false);
+        refetch();
+        handleUpdateComments(comment.data);
+        setCommentValue('');
       }
     } catch(err) {
       setCommentError(err.message || err)

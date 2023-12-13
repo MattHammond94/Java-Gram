@@ -1,5 +1,5 @@
 import { useSelector } from "react-redux";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useDeletePostMutation, useRemovePostImageFromCloudMutation, useGetAllPostsQuery } from "../slices/postApiSlice";
 import Loader from "./Loader";
 import AddCommentButton from "./AddCommentButton";
@@ -8,13 +8,30 @@ import Comment from "./Comment";
 // Icon:
 import { IoTrashSharp } from "react-icons/io5";
 
-const SelectedPost = ({ post, username, setModalContent, setModalOpenStatus, setContentLoading, refetch }) => {
+const SelectedPost = ({ post: initialPost, username, setModalContent, setModalOpenStatus, setContentLoading, refetch }) => {
   const { userInfo } = useSelector((state) => state.auth);
   const [deletePost, { isLoading: deletePostLoading }] = useDeletePostMutation();
   const [deletePostImageFromCloud, { isLoading: deleteFromCloudLoading }] = useRemovePostImageFromCloudMutation();
   const { refetch: refetchAllPosts } = useGetAllPostsQuery();
   const [commentValue, setCommentValue] = useState('');
   const [commentError, setCommentError] = useState('');
+  const [post, setPost] = useState(initialPost);
+
+  useEffect(() => {
+    setPost(initialPost);
+  }, [initialPost]);
+
+  const handleUpdateComments = (newComment) => {
+    try {
+      const updatedPost = { ...post };
+      const updatedComments = [...updatedPost.comments];
+      updatedComments.push(newComment); 
+      updatedPost.comments = updatedComments;
+      setPost(updatedPost);
+    } catch(err) {
+      console.log(err);
+    }
+  }
 
   const handleDeletePost = async (post) => {
     const deletedPost = await deletePost(`${post._id}`)
@@ -88,7 +105,7 @@ const SelectedPost = ({ post, username, setModalContent, setModalOpenStatus, set
           <div className="selectedPostLine"></div>
           <form className="selectedPostForm">
             <textarea name="comment" value={commentValue} onChange={ (e) => setCommentValue(e.target.value) }/>
-            <AddCommentButton selectedPost={ post } caption={ commentValue } setCommentError={ setCommentError } />
+            <AddCommentButton selectedPost={ post } caption={ commentValue } setCommentError={ setCommentError } refetch={ refetch } handleUpdateComments={ handleUpdateComments } setCommentValue={ setCommentValue } />
           </form>
           { commentError && <p className='commentError'>{commentError}</p> }
         </div>
