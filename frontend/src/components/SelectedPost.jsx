@@ -3,6 +3,7 @@ import { useState } from "react";
 import { useDeletePostMutation, useRemovePostImageFromCloudMutation, useGetAllPostsQuery } from "../slices/postApiSlice";
 import Loader from "./Loader";
 import AddCommentButton from "./AddCommentButton";
+import Comment from "./Comment";
 
 // Icon:
 import { IoTrashSharp } from "react-icons/io5";
@@ -68,18 +69,20 @@ const SelectedPost = ({ post, username, setModalContent, setModalOpenStatus, set
             <p>{ post.user.username }</p>
             { userInfo.username === username ? <IoTrashSharp className="bin" onClick={ () => handleDeletePost(post) }/> : null }
           </div>
-          <p>{ post.caption }</p>
-          <p>Comments:</p>
+          <p className="selectedPostCaption">{ post.caption }</p>
+          <p className="selectedPostComments">Comments:</p>
           <div className="selectedPostLine"></div>
           <div className="commentsContainer">
-            {/* { comments.map((comment) => ) } */}
+            { post.comments && post.comments.map((comment) => (
+              <Comment key={comment._id}  comment={ comment }/>
+            ))}
           </div>
           <div className="selectedPostLine"></div>
           <form className="selectedPostForm">
             <textarea name="comment" value={commentValue} onChange={ (e) => setCommentValue(e.target.value) }/>
             <AddCommentButton selectedPost={ post } caption={ commentValue } setCommentError={ setCommentError } />
           </form>
-          { commentError && <p className='error'>{commentError}</p> }
+          { commentError && <p className='commentError'>{commentError}</p> }
         </div>
       </div>
     </>

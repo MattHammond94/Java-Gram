@@ -5,14 +5,13 @@ const Comment = ({ comment }) => {
     <div className="commentContainer">
       <div className="commentHeaderContainer">
         <img src={comment.user.profilePicture} alt="Users profile picture" />
-        <h1>{comment.user.username}</h1>
+        <a href={`/user/${comment.user.username}`}>{comment.user.username}</a>
+        <p>{ formatDistanceToNow(new Date(comment.createdAt), { addSuffix: true }) }</p>
       </div>
       <div className="commentCaptionContainer">
-        { comment.caption }
+        <p>{ comment.caption }</p>
       </div>
-      <div className="commentDateContainer">
-        { formatDistanceToNow(new Date(comment.createdAt), { addSuffix: true }) }
-      </div>
+      <div className="commentDivider"></div>
     </div>
   )
 }
