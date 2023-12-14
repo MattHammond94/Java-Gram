@@ -33,7 +33,7 @@ const AddCommentButton = ({ selectedPost, caption, setCommentError, refetch, han
 
   return (
     <>
-      { loadingStatus ? <button disabled><Loader /></button> : <button className="commentButton" onClick={ (e) => handleAddComment(e) }>Add Comment</button> }
+      { loadingStatus ? <button className="addCommentLoadingBtn" disabled><Loader /></button> : <button className="commentButton" onClick={ (e) => handleAddComment(e) }>Add Comment</button> }
     </>
   )
 }

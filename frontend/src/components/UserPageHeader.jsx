@@ -32,7 +32,7 @@ const UserPageHeader = ({ username, totalPosts }) => {
   }
 
   if (selectedUserInfoLoading) {
-    return <Loader />
+    return <Loader variant={ 'large' }/>
   }
 
   if (selectedUserError) {

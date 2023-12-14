@@ -5,7 +5,7 @@ const UserList = ({ username, variant }) => {
   const { data: selectedUserInfo, error: selectedUserError, isLoading: selectedUserInfoLoading } = useGetSelectedUserInfoQuery(`${username}`);
 
   if (selectedUserInfoLoading) {
-    return <Loader />
+    return <Loader variant={'large'}/>
   }
 
   if (selectedUserError) {

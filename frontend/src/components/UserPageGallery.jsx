@@ -25,7 +25,7 @@ const UserPageGallery = ({ username, updateTotalPosts }) => {
   }, [usersPosts, updateTotalPosts]);
 
   if (selectedUserInfoLoading) {
-    return <Loader />
+    return <Loader variant={ 'large' }/>
   }
 
   if (selectedUserError || usersPostsError) {

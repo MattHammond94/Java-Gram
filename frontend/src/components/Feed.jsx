@@ -3,10 +3,10 @@ import Loader from './Loader';
 import Post from './Post';
 
 const Feed = () => {
-  const { data, error, isLoading, refetch } = useGetAllPostsQuery();
+  const { data, error, isLoading } = useGetAllPostsQuery();
 
   if (isLoading) {
-    return <Loader />;
+    return <Loader variant={'large'}/>;
   }
   
   if (error) {

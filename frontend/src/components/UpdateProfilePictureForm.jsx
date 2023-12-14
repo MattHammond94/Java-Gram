@@ -63,7 +63,7 @@ const UpdateProfilePictureForm = ({ setModalOpenStatus, setContentLoadingStatus 
   }
 
   return (
-    <div className="formTemplate"  style={{ height: '310px'}}>
+    <div className="formTemplate" style={{ height: '310px'}}>
       { imageUploaded ? <h1>Success!</h1>
        : <form onSubmit={e => {handleSubmit(e)}}  autoComplete='off'>
         <h1>Update Profile Picture</h1>
@@ -76,7 +76,7 @@ const UpdateProfilePictureForm = ({ setModalOpenStatus, setContentLoadingStatus 
             style={{ width: '290px', height: '42px' }}
           ></input>
           { fileError && <p className='error'>{fileError}</p> }
-          { addProfilePictureLoading || updatedUserLoading || removalFromCloudLoading ? <button className='disabledButton' disabled><Loader /></button> : <button>Submit</button> }
+          { addProfilePictureLoading || updatedUserLoading || removalFromCloudLoading ? <button className="disabledButton" disabled><Loader /></button> : <button>Submit</button> }
         </form>
       }
     </div>
