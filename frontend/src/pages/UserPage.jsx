@@ -16,7 +16,7 @@ const UserPage = () => {
   };
 
   if (userExistsLoading) {
-    return <Loader />
+    return <Loader variant={'large'}/>
   }
 
   if (userExists !== true) {
@@ -28,7 +28,7 @@ const UserPage = () => {
   }
 
   return (
-    <div>
+    <div className="userPage">
       <UserPageHeader username={ username } totalPosts={ totalPosts }/>
       <UserPageGallery username={ username } updateTotalPosts={ handleUpdateTotalPosts } />
     </div>
