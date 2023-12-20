@@ -4,8 +4,6 @@ import UpdatePasswordForm from "./UpdatePasswordForm";
 import UpdateUsernameForm from "./UpdateUsernameForm";
 import DeleteAccountForm from "./DeleteAccountForm";
 
-// Add a useRef to store current modal content so can add a back button.
-
 const SettingsList = ({ setModalContent, setContentLoading, setModalOpenStatus, refetch }) => {
   return (
     <div className="formTemplate settingsList">

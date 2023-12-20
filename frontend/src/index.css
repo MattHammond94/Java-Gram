@@ -1,4 +1,3 @@
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Fjalla+One&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Heebo&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=PT+Sans+Narrow&display=swap');
@@ -10,20 +9,15 @@
 }
 
 :root {
-  --text-font-smart: 'Playfair Display', serif;
   --text-font: 'Heebo', sans-serif;
   --text-font-alternate: 'PT Sans Narrow', sans-serif;
   --headers-font: 'Fjalla One', sans-serif;
-
   --dark-purp: #2A0160;
   --semi-dark-purp: #462f63;
   --mid-purp: #d6baf8;
   --light-purp: #C59BFA;
   --nice-purp: #7474E3;
   --grey-purp: #887B9A;
-  --very-light-purp: #F1EAFA;
-  --dark-grey: #4B4256;
-  --vite-purple: #646cffaa;
 }
 
 body {
@@ -95,11 +89,35 @@ button {
   align-items: center;
 }
 
+/* === OPEN MODAL BUTTON === */ 
+.openModalButton {
+  will-change: filter;
+  transition: filter 300ms;
+}
 
+.openModalButton:hover {
+  filter: drop-shadow(0 0 2em #6e16d9);
+}
 
+/* === DISABLED BUTTON === */
+.disabledButton {
+  cursor: not-allowed; 
+  pointer-events: none; 
+}
 
+/* === FILE SELECTOR INPUT TYPES === */
+input::file-selector-button {
+  color: white;
+  background-color: var(--semi-dark-purp);
+  border: none;
+  padding: 10px;
+  border-radius: 7px;
+  cursor: pointer;
+  margin-right: 15px;
+}
 
-/* HOMEPAGE */
+/* ===================================== HOMEPAGE ===================================== */
+
 .homeContentContainer {
   display: flex;
   justify-content: center;
@@ -116,6 +134,8 @@ button {
 .homeContentContainer button {
   margin-bottom: 5px;
 }
+
+/* ===================================== FORMS ===================================== */
 
 .formTemplate {
   margin: 20px;
@@ -212,6 +232,7 @@ input[type='password'] {
   display: flex;
   justify-content: center;
   align-items: center;
+  width: 360px;
 }
 
 .formTemplate.updateInfoForm input[type="text"],
@@ -278,12 +299,37 @@ input[type='password'] {
   margin-top: 10px;
 }
 
+@media(max-width: 420px) {
+  .formTemplate {
+    width: 300px;
+  }
 
-/* ==== COMPONENTS ==== */
-/* ================================================================ */
+  .formTemplate.updateInfoForm {
+    width: 280px;
+  }
 
+  .formTemplate.updateInfoForm form {
+    gap: 1px;
+  }
 
-/* MODAL COMPONENT */
+  .formTemplate.updateInfoForm textarea {
+    width: 270px;
+  }
+
+  .formTemplate.updateInfoForm button {
+    margin-top: 4px;
+  }
+
+  .formTemplate.updateInfoForm h1 {
+    font-size: 25px;
+  }
+
+  .formTemplate.deleteAccountForm {
+    width: 290px;
+  }
+}
+
+/* ===================================== MODAL COMPONENT ===================================== */
 
 .modalContainer {
   position: fixed;
@@ -318,8 +364,13 @@ input[type='password'] {
   color: var(--mid-purp);
 }
 
-/* ================================================================ */
-/* LOADER COMPONENT */
+@media(max-width: 450px) {
+  .modalCloseButton {
+    color: var(--mid-purp);
+  }
+}
+
+/* ===================================== LOADER COMPONENT ===================================== */
 
 .loader {
   display: flex;
@@ -354,6 +405,8 @@ input[type='password'] {
   }
 }
 
+/* ===================================== LRG LOADER ===================================== */
+
 .largeLoader {
   display: flex;
   justify-content: center;
@@ -373,6 +426,11 @@ input[type='password'] {
   animation-delay: -0.5s;
 }
 
+.largeLoaderPTag {
+  margin-top: 20px;
+  font-size: 20px;
+}
+
 @keyframes largeRipple {
   0% {
     width: 0;
@@ -387,9 +445,7 @@ input[type='password'] {
   }
 }
 
-
-/* ================================================================ */
-/* FEED COMPONENT */
+/* ===================================== FEED PAGE ===================================== */
 
 .feedPage {
   display: flex;
@@ -404,26 +460,17 @@ input[type='password'] {
   align-items: center;
   flex-direction: column;
   text-align: center;
-  width: 450px;
 }
 
-/* FEED NAVBAR COMPONENT */
+/* ===================================== FEED NAVBAR COMPONENT ===================================== */
 
 .feedNavBar {
-  width: 100vw;
+  width: 100%;
   height: 125px;
   background-image: linear-gradient(to right, rgb(70, 47, 99, 0.9), rgb(214, 186, 248, 0.8));
   position: sticky;
   top: 0;
-
   z-index: 1;
-}
-
-.feedNavBar h1 {
-  color: var(--mid-purp);
-  position: absolute;
-  top: 42px;
-  left: 130px
 }
 
 .navbarProfilePicture {
@@ -447,14 +494,14 @@ input[type='password'] {
   filter: drop-shadow(0 0 2em var(--grey-purp));
 }
 
-/* CREATE POST BUTTON COMPONENT */
+/* ===================================== CREATE POST BUTTON COMPONENT ===================================== */
+
 .createPostBtnImg {
   height: 60px;
   width: 75px;
 }
 
-
-/* === POST COMPONENT ==== */
+/* ===================================== POST COMPONENT ===================================== */
 
 /* Post container */
 .postContainer {
@@ -503,7 +550,6 @@ input[type='password'] {
   font-size: 15px;
   margin-right: 10px;
   color: var(--semi-dark-purp);
-
   margin-left: auto;
 }
 
@@ -519,6 +565,7 @@ input[type='password'] {
   object-fit: cover;
   margin-top: 3px;
   margin-bottom: 3px;
+  background-color: var(--mid-purp);
 }
 
 /* Post footer */
@@ -561,7 +608,7 @@ input[type='password'] {
   color: var(--semi-dark-purp);
   margin-bottom: 5px;
   margin-top: 5px;
-  max-width: 410px;
+  max-width: 300px;
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
@@ -577,40 +624,69 @@ input[type='password'] {
   right: 18px
 }
 
+@media(max-width: 450px) {
+  .feedNavBar {
+    height: 110px;
+  }
+  
+  .navbarProfilePicture {
+    height: 85px;
+    width: 85px;
+    top: 11px;
+    right: 10px;
+  }
+  
+  .feedNavBar button {
+    top: 15px;
+  }
+  
+  .createPostBtnImg {
+    height: 45px;
+    width: 60px;
+  }
 
+  .postHeaderContainer .profilePicture {
+    height: 40px;
+    width: 40px;
+    margin: 7px;
+  }
 
-/* ================================================================ */
+  .postHeaderContainer .postUsername {
+    left: 58px;
+    top: 13px;
+    font-size: 20px;
+  }
 
-/* CREATE POST FORM */
+  .postHeaderContainer .postDate {
+    font-size: 13px;
+  }
 
-input::file-selector-button {
-  color: white;
-  background-color: var(--semi-dark-purp);
-  border: none;
-  padding: 10px;
-  border-radius: 7px;
-  cursor: pointer;
-  margin-right: 15px;
+  .postImgContainer {
+    height: 470px;
+    width: 350px;
+  }
+
+  .postLikeCount {
+    font-size: 16px;
+  }
+
+  .postUsernameLink {
+    font-size: 19px;
+  }
+
+  .heartIcon {
+    height: 53px;
+    width: 38px;
+    bottom: 48px;
+    right: 12px
+  }
+
+  .postCaption {
+    font-size: 16px;
+  }
 }
 
-/* OPEN MODAL BUTTON */ 
-
-.openModalButton {
-  will-change: filter;
-  transition: filter 300ms;
-}
-
-.openModalButton:hover {
-  filter: drop-shadow(0 0 2em #6e16d9);
-}
-
-/* DISABLED BUTTON */
-.disabledButton {
-  cursor: not-allowed; 
-  pointer-events: none; 
-}
-
-/* ======================= USER PAGE ============================ */
+/* ===================================== USER PAGE ===================================== */
 
 .userPage {
   display: flex;
@@ -619,7 +695,7 @@ input::file-selector-button {
   flex-direction: column;
 }
 
-/* USER PAGE HEADER */
+/* ===================================== USER PAGE HEADER COMPONENT ===================================== */
 
 .userHeader {
   display: flex;
@@ -703,13 +779,6 @@ input::file-selector-button {
   text-overflow: ellipsis;
 }
 
-.userHeaderLine {
-  height: 3px;
-  width: 100%;
-  background-image: linear-gradient(to right, rgba(70, 47, 99, 0.8), rgba(214, 186, 248, 0.8));
-  margin-top: 5px;
-}
-
 .middleTop button {
   height: 50px;
   width: 88px;
@@ -719,6 +788,13 @@ input::file-selector-button {
   font-size: 15px;
   align-self: flex-end;
   position: absolute;
+}
+
+.userHeaderLine {
+  height: 3px;
+  width: 100%;
+  background-image: linear-gradient(to right, rgba(70, 47, 99, 0.8), rgba(214, 186, 248, 0.8));
+  margin-top: 5px;
 }
 
 .middleMiddle {
@@ -759,11 +835,35 @@ input::file-selector-button {
   margin-right: 5px;
 }
 
+.rightSide a {
+  padding: 12px;
+  margin: 0;
+  margin-bottom: 5px;
+  border-radius: 20px;
+  background-color: var(--mid-purp);
+  color: var(--semi-dark-purp);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.rightSide a:visited {
+  color: var(--semi-dark-purp);
+}
+
 .rightSide button {
   margin: 5px;
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.rightSide button:last-child {
+  margin-top: 10px;
+}
+
+.rightSide button:hover {
+  filter: drop-shadow(0 0 2em var(--mid-purp));
 }
 
 .cogIcon, .homeIcon {
@@ -831,8 +931,13 @@ input::file-selector-button {
     margin-left: 7px;
   }
 
+  .rightSide a {
+    margin-bottom: 3px;
+  }
+
   .rightSide button:last-child {
     margin-top: 20px;
+    margin-top: 10px;
   }
 
   .rightSide button:last-child img {
@@ -887,6 +992,10 @@ input::file-selector-button {
     max-width: 290px;
   }
 
+  .middleTop button {
+    margin: 0;
+  }
+
   .middleMiddle {
     gap: 5px;
   }
@@ -909,20 +1018,20 @@ input::file-selector-button {
   }
 
   .rightSide button:last-child img {
-    height: 35px;
-    width: 40px;
+    height: 42px;
+    width: 47px;
   }
 
   .cogIcon, .homeIcon {
-    height: 20px;
-    width: 20px;
+    height: 22px;
+    width: 22px;
   }
 }
 
 @media(max-width: 570px) {
   .userHeader {
     height: 220px;
-    overflow:visible
+    overflow: visible;
   }
 
   .middle {
@@ -957,26 +1066,33 @@ input::file-selector-button {
 
   .rightSide {
     position: absolute;
-    top: 205px;
+    top: 225px;
     left: 0;
+    height: fit-content;
   }
 
-  .rightSide button:last-child {
-    order: 1;
-    width: 50px;
-    height: 50px;
+  .rightSide a {
+    order: 3;
+    align-self: flex-start;
+    margin-left: 5px;
   }
 
   .rightSide button:first-child {
-    order: 3;
+    order: 1;
     align-self: flex-start;
     margin-top: 2px;
+    width: 50px;
+    height: 50px;
+    margin: 2px;
   }
 
-  .rightSide button:nth-child(2) {
+  .rightSide button:first-of-type {
     order: 2;
     align-self: flex-start;
-    margin-top: 2px;
+  }
+
+  .rightSide button:hover {
+    filter: drop-shadow(0 0 2em #6e16d9);
   }
 
   .rightSide button:last-child img {
@@ -990,11 +1106,132 @@ input::file-selector-button {
   }
 }
 
-/* final query 460px */
+@media (max-width: 450px) {
+  .userHeader {
+    height: 200px;
+  }
 
+  .middle {
+    width: 300px;
+    margin-right: 15px;
+  }
 
+  .leftSide {
+    margin-left: 10px;
+  }
+  
+  .leftSide img {
+    height: 150px;
+    width: 150px;
+  }
 
-/* USER PAGE GALLERY */
+  .updateProfilePictureBtn {
+    height: 30px;
+    width: 30px;
+  }
+
+  .middleTop h1 {
+    font-size: 25px;
+    margin-bottom: 3px;
+  }
+
+  .middleTop p {
+    font-size: 14px;
+    max-width: 290px;
+  }
+
+  .middleTop button {
+    height: 32px;
+    width: 55px;
+    font-size: 11px;
+  }
+
+  .middleMiddle {
+    gap: 1px;
+  }
+
+  .posts, .followers, .following {
+    padding: 2px;
+  }
+
+  .middleMiddle p {
+    font-size: 11px;
+  }
+
+  .rightSide {
+    position: absolute;
+    top: 205px;
+    left: -3px;
+  }
+}
+
+@media(max-width: 380px) {
+  .middleTop h1 {
+    font-size: 23px;
+    margin-bottom: 3px;
+  }
+
+  .middleTop p {
+    font-size: 13px;
+    max-width: 270px;
+  }
+
+  .middleTop button {
+    height: 30px;
+    width: 52px;
+    font-size: 10px;
+  }
+}
+
+/* ==== FOLLOW BUTTON COMPONENT ==== */
+
+.unfollowButton {
+  background-color: var(--semi-dark-purp);
+  color: var(--mid-purp);
+}
+
+.followButton:hover {
+  filter: drop-shadow(0 0 2em var(--mid-purp));
+  background-color: var(--semi-dark-purp);
+  color: var(--mid-purp);
+}
+
+.unfollowButton:hover {
+  filter: drop-shadow(0 0 2em var(--mid-purp));
+  background-color: var(--mid-purp);
+  color: var(--semi-dark-purp);
+}
+
+/* ==== USER LIST COMPONENT ==== */
+
+.userListUser {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 5px;
+  overflow: scroll;
+}
+
+.userListUser a {
+  font-size: 20px;
+}
+
+.userListUser img {
+  height: 50px;
+  width: 50px;
+  border-radius: 50%;
+  margin-right: 7px;
+}
+
+.userListLine {
+  height: 1px;
+  width: 300px;
+  background-image: linear-gradient(to right, rgba(70, 47, 99, 0.8), rgba(214, 186, 248, 0.8));
+  margin-top: 10px;
+}
+
+/* ===================================== USER PAGE GALLERY COMPONENT ===================================== */
+
 .userPageGallery {
   display: flex;
   flex-wrap: wrap;
@@ -1085,228 +1322,66 @@ input::file-selector-button {
   }
 }
 
+@media(max-width: 450px) {
+  .galleryPostContainer {
+    width: 300px;
+    height: 460px;
+  }
+
+  .galleryIconsContainer {
+    width: 300px;
+    height: 460px;
+    opacity: 1;
+  }
+}
+
 @media(max-width: 800px) {
   .userPageGallery {
     top: 10px;
   }
 }
 
+/* ===================================== SETTINGS LIST COMPONENT ===================================== */
 
-
-
-/* ==============================  PAGES  =============================== */
-/* Not Found Page (404) */
-
-.notFoundPageContainer {
+.settingsList {
   display: flex;
-  justify-content: center;
+  justify-content: space-evenly;
   align-items: center;
-  position: fixed;
-  top: 35%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  flex-direction: column;
 }
 
-.iconContainer {
-  height: 200px;
-  width: 175px;
-  margin-right: 30px;
-}
-
-.ghostIcon {
-  height: 100%;
-  width: 100%;
+.settingsList p {
+  font-size: 25px;
   color: var(--semi-dark-purp);
 }
 
-.notFoundContentContainer {
-  display: flex;
-  align-items: flex-start;
-  flex-direction: column;
-  width: 200px
+.settingsFirstDiv {
+  margin-top: 30px;
 }
 
-.notFoundLine {
-  width: 3px;
-  height: 50vh;
-  background-image: linear-gradient(to bottom, rgba(70, 47, 99, 0.9), rgba(214, 186, 248, 0.9));
-  margin-right: 30px;
+.settingsList p:hover {
+  color: var(--mid-purp);
+  cursor: pointer;
 }
 
-.notFoundContentContainer h1 {
-  font-size: 65px;
+.line {
+  height: 2px;
+  width: 95%;
+  background-image: linear-gradient(to right, rgba(70, 47, 99, 0.8), rgba(214, 186, 248, 0.8));
 }
 
-.notFoundContentContainer p {
-  margin-left: 5px;
-  color: var(--nice-purp);
-  font-size: 20px;
+.settingsList button {
+  margin-top: 15px;
 }
 
-.notFoundContentContainer a {
-  margin-left: 5px;
-  font-size: 17px;
-  color: var(--nice-purp);
-}
+/* === LOG OUT BUTTON COMPONENT === */
 
-.notFoundContentContainer a:visited {
-  margin-left: 5px;
-  color: var(--dark-purp);
-  font-size: 17px;
-}
-
-@media(max-width: 800px) {
-  .iconContainer {
-    height: 175px;
-    width: 150px;
-  }
-
-  .notFoundContentContainer h1 {
-    font-size: 60px;
-  }
-
-  .notFoundContentContainer p {
-    font-size: 20px;
-  }
-}
-
-@media(max-width: 450px) {
-
-  .notFoundPageContainer {
-    flex-direction: column;
-  }
-
-  .notFoundContentContainer {
-    align-items: center;
-  }
-
-  .iconContainer {
-    height: 140px;
-    width: 125px;
-    margin-right: 0px;
-    margin-bottom: 20px;
-  }
-
-  .notFoundLine {
-    width: 85vw;
-    height: 3px;
-    background-image: linear-gradient(to right, rgba(70, 47, 99, 0.9), rgba(214, 186, 248, 0.9));
-    align-self: center;
-    margin-top: 5px;
-    margin-bottom: 10px;
-  }
-
-  .notFoundContentContainer h1 {
-    font-size: 50px;
-    margin-bottom: 3px;
-  }
-
-  .notFoundContentContainer p {
-    font-size: 19px;
-  }
-}
-
-
-
-
-
-/* Private Page (Not logged in) */
-
-.privatePageContainer {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  position: fixed;
-  top: 35%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-}
-
-.privateIconContainer {
-  height: 300px;
-  width: 250px;
-}
-
-.lockedIcon {
-  height: 100%;
-  width: 100%;
+.logOutButton:hover {
   color: var(--semi-dark-purp);
+  background-color: var(--mid-purp);
 }
 
-.privateContentContainer {
-  display: flex;
-  align-items: flex-start;
-  flex-direction: column;
-  width: 400px;
-}
-
-.privateContentContainer h1 {
-  font-size: 40px;
-}
-
-.privateContentContainer p {
-  margin-left: 5px;
-  color: var(--nice-purp);
-  font-size: 18px;
-}
-
-.privateContentContainer button {
-  margin: 0px;
-  margin-left: 5px;
-  background: none;
-  border: none;
-  padding: 0px;
-  text-decoration: underline;
-}
-
-@media(max-width: 800px) {
-  .privateIconContainer {
-    height: 225px;
-    width: 200px;
-  }
-
-  .privateContentContainer h1 {
-    font-size: 38px;
-  }
-
-  .privateContentContainer p {
-    font-size: 17px;
-  }
-}
-
-@media(max-width: 440px) {
-  .privatePageContainer {
-    flex-direction: column;
-  }
-
-  .privateContentContainer {
-    margin-top: 15px;
-    align-items: center;
-  }
-
- .privateIconContainer {
-    height: 175px;
-    width: 150px;
-  }
-
-  .privateContentContainer h1 {
-    font-size: 35px;
-  }
-
-  .privateContentContainer p {
-    font-size: 18px;
-  }
-}
-
-
-
-
-
-
-
-
-
-/*  User Page Modal Component  */
+/* ===================================== USER PAGE MODAL COMPONENT ===================================== */
 
 .selectedPostModal {
   position: relative;
@@ -1721,120 +1796,314 @@ input::file-selector-button {
   }
 }
 
+@media (max-width: 450px) {
+  .selectedPostModal {
+    height: 600px;
+    width: 350px;
+  }
 
+  .selectedPostHeader .bin {
+    height: 20px;
+    width: 20px;
+    margin-top: 3px;
+    margin-right: 3px;
+  }
+  
+  .selectedPostHeader p {
+    font-size: 17px;
+    margin-top: 0px;
+  }
+  
+  .selectedPostCaption {
+    margin-bottom: 2px;
+    height: 300px;
+    width: 340px;
+    margin-top: 0px;
+  }
 
+  .selectedPostComments {
+    margin-top: 1px;
+  }
 
+  .commentError {
+    font-size: 11px;
+  }
+}
 
+/* === CONFIRM DELETE POST MODAL === */ 
 
-/*  On DELETE of a POST */
+.confirmModalContentContainer {
+  width: 200px;
+  height: 180px;
+  border-radius: 25%;
+  background-color: var(--semi-dark-purp);
+  opacity: 0.95;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 50px;
+  z-index: 10;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.confirmModalContentContainer p {
+  color: white;
+  font-size: 20px;
+  margin-bottom: 18px;
+}
+
+.confirmModalContentContainer button {
+  margin: 2px;
+}
+
+.confirmModalContentContainer button:first-of-type {
+  margin-bottom: 10px;
+}
+
+.confirmDeleteModal .modalCloseButton {
+  display: none;
+}
+
+/*  === On DELETE of a POST === */
 .deletePostContent {
   height: 600px;
   width: 800px;
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-direction: column;
   background-color: white;
 }
 
-
-
-/* LOG OUT BUTTON COMPONENT */
-.logOutButton:hover {
-  color: var(--semi-dark-purp);
-  background-color: var(--mid-purp);
+@media (max-width: 780px) {
+  .deletePostContent {
+    height: 590px;
+    width: 680px;
+  }
 }
 
+@media (max-width: 635px) {
+  .deletePostContent {
+    height: 645px;
+    width: 440px;
+  }
 
-
-/*  Settings List Component */
-
-.settingsList {
-  display: flex;
-  justify-content: space-evenly;
-  align-items: center;
-  flex-direction: column;
+  .deletePostContent h1 {
+    font-size: 25px;
+  }
 }
 
-.settingsList p {
-  font-size: 25px;
-  color: var(--semi-dark-purp);
+@media (max-width: 450px) {
+  .deletePostContent {
+    height: 600px;
+    width: 350px;
+  }
+
+  .deletePostContent h1 {
+    font-size: 22px;
+  }
 }
 
-.settingsFirstDiv {
-  margin-top: 30px;
-}
+/* ===================================== Not Found Page (404) ===================================== */
 
-.settingsList p:hover {
-  color: var(--mid-purp);
-  cursor: pointer;
-}
-
-.line {
-  height: 2px;
-  width: 95%;
-  background-image: linear-gradient(to right, rgba(70, 47, 99, 0.8), rgba(214, 186, 248, 0.8));
-}
-
-.settingsList button {
-  margin-top: 20px;
-}
-
-
-
-
-
-
-/* ==== FOLLOW BUTTON COMPONENT ==== */
-
-.unfollowButton {
-  background-color: var(--semi-dark-purp);
-  color: var(--mid-purp);
-}
-
-.followButton:hover {
-  filter: drop-shadow(0 0 2em var(--mid-purp));
-  background-color: var(--semi-dark-purp);
-  color: var(--mid-purp);
-}
-
-.unfollowButton:hover {
-  filter: drop-shadow(0 0 2em var(--mid-purp));
-  background-color: var(--mid-purp);
-  color: var(--semi-dark-purp);
-}
-
-
-/* ==== USER LIST COMPONET ==== */
-
-.userListUser {
+.notFoundPageContainer {
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: 5px;
-  overflow: scroll;
+  position: fixed;
+  top: 35%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
-.userListUser a {
+.iconContainer {
+  height: 200px;
+  width: 175px;
+  margin-right: 30px;
+}
+
+.ghostIcon {
+  height: 100%;
+  width: 100%;
+  color: var(--semi-dark-purp);
+}
+
+.notFoundContentContainer {
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+  width: 200px
+}
+
+.notFoundLine {
+  width: 3px;
+  height: 50vh;
+  background-image: linear-gradient(to bottom, rgba(70, 47, 99, 0.9), rgba(214, 186, 248, 0.9));
+  margin-right: 30px;
+}
+
+.notFoundContentContainer h1 {
+  font-size: 65px;
+}
+
+.notFoundContentContainer p {
+  margin-left: 5px;
+  color: var(--nice-purp);
   font-size: 20px;
 }
 
-.userListUser img {
-  height: 50px;
-  width: 50px;
-  border-radius: 50%;
-  margin-right: 7px;
+.notFoundContentContainer a {
+  margin-left: 5px;
+  font-size: 17px;
+  color: var(--nice-purp);
 }
 
-.userListLine {
-  height: 1px;
-  width: 300px;
-  background-image: linear-gradient(to right, rgba(70, 47, 99, 0.8), rgba(214, 186, 248, 0.8));
-  margin-top: 10px;
+.notFoundContentContainer a:visited {
+  margin-left: 5px;
+  color: var(--dark-purp);
+  font-size: 17px;
 }
 
+@media(max-width: 800px) {
+  .iconContainer {
+    height: 175px;
+    width: 150px;
+  }
 
+  .notFoundContentContainer h1 {
+    font-size: 60px;
+  }
 
+  .notFoundContentContainer p {
+    font-size: 20px;
+  }
+}
 
-/* WHEN LOADING BUTTONS */
+@media(max-width: 450px) {
 
+  .notFoundPageContainer {
+    flex-direction: column;
+  }
 
+  .notFoundContentContainer {
+    align-items: center;
+  }
+
+  .iconContainer {
+    height: 140px;
+    width: 125px;
+    margin-right: 0px;
+    margin-bottom: 20px;
+  }
+
+  .notFoundLine {
+    width: 85vw;
+    height: 3px;
+    background-image: linear-gradient(to right, rgba(70, 47, 99, 0.9), rgba(214, 186, 248, 0.9));
+    align-self: center;
+    margin-top: 5px;
+    margin-bottom: 10px;
+  }
+
+  .notFoundContentContainer h1 {
+    font-size: 50px;
+    margin-bottom: 3px;
+  }
+
+  .notFoundContentContainer p {
+    font-size: 19px;
+  }
+}
+
+/* ===================================== PRIVATE PAGE (NOT LOGGED IN) ===================================== */
+
+.privatePageContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  top: 35%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.privateIconContainer {
+  height: 300px;
+  width: 250px;
+}
+
+.lockedIcon {
+  height: 100%;
+  width: 100%;
+  color: var(--semi-dark-purp);
+}
+
+.privateContentContainer {
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+  width: 400px;
+}
+
+.privateContentContainer h1 {
+  font-size: 40px;
+}
+
+.privateContentContainer p {
+  margin-left: 5px;
+  color: var(--nice-purp);
+  font-size: 18px;
+}
+
+.privateContentContainer button {
+  margin: 0px;
+  margin-left: 5px;
+  background: none;
+  border: none;
+  padding: 0px;
+  text-decoration: underline;
+}
+
+@media(max-width: 800px) {
+  .privateIconContainer {
+    height: 225px;
+    width: 200px;
+  }
+
+  .privateContentContainer h1 {
+    font-size: 38px;
+  }
+
+  .privateContentContainer p {
+    font-size: 17px;
+  }
+}
+
+@media(max-width: 440px) {
+  .privatePageContainer {
+    flex-direction: column;
+  }
+
+  .privateContentContainer {
+    margin-top: 15px;
+    align-items: center;
+  }
+
+ .privateIconContainer {
+    height: 175px;
+    width: 150px;
+  }
+
+  .privateContentContainer h1 {
+    font-size: 35px;
+  }
+
+  .privateContentContainer p {
+    font-size: 18px;
+  }
+}

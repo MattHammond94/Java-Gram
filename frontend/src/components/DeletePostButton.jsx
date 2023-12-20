@@ -7,9 +7,8 @@ import Modal from "./Modal";
 import { IoTrashSharp } from "react-icons/io5";
 
 const DeletePostButton = ({ post, setModalContent, setModalOpenStatus, setContentLoading, refetch }) => {
-  const [deletePost, { isLoading: deletePostLoading }] = useDeletePostMutation();
-  const [deletePostImageFromCloud, { isLoading: deleteFromCloudLoading }] = useRemovePostImageFromCloudMutation();
-  const { refetch: refetchAllPosts } = useGetAllPostsQuery();
+  const [deletePost] = useDeletePostMutation();
+  const [deletePostImageFromCloud] = useRemovePostImageFromCloudMutation();
   const [confirmModalOpenStatus, setConfirmModalOpenStatus] = useState(false);
 
   const confirmDeletionContent = (

@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import { useGetSelectedUserInfoQuery } from "../slices/usersApiSlice";
 import { useSelector } from "react-redux";
 import Loader from "./Loader";
@@ -19,20 +18,15 @@ const UserPageHeader = ({ username, totalPosts }) => {
   const [modalOpenStatus, setModalOpenStatus] = useState(false);
   const [modalContent, setModalContent] = useState(null);
   const [contentLoading, setContentLoading] = useState(false);
-  const navigate = useNavigate();
   const { userInfo } = useSelector((state) => state.auth);
   const { data: selectedUserInfo, error: selectedUserError, isLoading: selectedUserInfoLoading, refetch } = useGetSelectedUserInfoQuery(`${username}`);
-
-  const handleNavigate = () => {
-    navigate('/feed')
-  }
 
   const usernameCheck = () => {
     return userInfo.username === username
   }
 
   if (selectedUserInfoLoading) {
-    return <Loader variant={ 'large' }/>
+    return <Loader />
   }
 
   if (selectedUserError) {
@@ -74,7 +68,7 @@ const UserPageHeader = ({ username, totalPosts }) => {
           </div>
         </div>
         <div className='rightSide'>
-          <button className="firstButton" onClick={ handleNavigate }><IoHome className="homeIcon" /></button>
+          <a href="/feed" className="firstButton"><IoHome className="homeIcon" /></a>
           { usernameCheck() && <OpenModalButton
             buttonContent={ <FaCog className="cogIcon" /> }  
             modalContent={ <SettingsList setModalContent={ setModalContent } setContentLoading={ setContentLoading } setModalOpenStatus={ setModalOpenStatus } refetch={ refetch } /> } 
