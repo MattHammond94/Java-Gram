@@ -11,6 +11,12 @@ export const commentsApiSlice = apiSlice.injectEndpoints({
         body: data
       }),
     }),
+    deleteAllUsersComments: builder.mutation({
+      query: () => ({
+        url: `${COMMENTS_URL}/new`,
+        method: 'DELETE'
+      }),
+    }),
   }),
   onError: (error) => {
     if (error.data && error.data.message) {
@@ -23,4 +29,5 @@ export const commentsApiSlice = apiSlice.injectEndpoints({
 
 export const {
   useCreateCommentMutation,
+  useDeleteAllUsersCommentsMutation
 } = commentsApiSlice;
