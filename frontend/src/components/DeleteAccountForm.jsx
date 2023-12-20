@@ -1,5 +1,6 @@
 import { useDeleteUserMutation, useLogoutMutation, useGetUserInfoQuery } from "../slices/usersApiSlice";
 import { useDeleteAllUsersPostsMutation } from "../slices/postApiSlice";
+import { useDeleteAllUsersCommentsMutation } from "../slices/commentApiSlice";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { logout } from "../slices/authSlice";
@@ -13,6 +14,7 @@ const DeleteAccountForm = ({ setContentLoading }) => {
   const [apiError, setApiError] = useState('');
   const [loadingStatus, setLoadingStatus] = useState(false);
   const [deleteAllPosts] = useDeleteAllUsersPostsMutation();
+  const [deleteAllComments] = useDeleteAllUsersCommentsMutation();
   const [deleteUser] = useDeleteUserMutation();
   const [removeCookie] = useLogoutMutation();
   const { data: userInfo, isLoading: userInfoLoading, error: userInfoError } = useGetUserInfoQuery();
@@ -30,6 +32,7 @@ const DeleteAccountForm = ({ setContentLoading }) => {
       setLoadingStatus(true);
       setContentLoading(true);
       await deleteAllPosts();
+      await deleteAllComments();
       await deleteUser();
       await removeCookie();
       dispatch(logout());

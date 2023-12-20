@@ -13,7 +13,7 @@ export const commentsApiSlice = apiSlice.injectEndpoints({
     }),
     deleteAllUsersComments: builder.mutation({
       query: () => ({
-        url: `${COMMENTS_URL}/new`,
+        url: `${COMMENTS_URL}/allUsers`,
         method: 'DELETE'
       }),
     }),
