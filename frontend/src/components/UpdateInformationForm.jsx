@@ -68,7 +68,7 @@ const UpdateInformationForm = ({ setContentLoading, setModalOpenStatus, refetch 
   }
 
   return (
-    <div className="formTemplate updateInfoForm" style={{ width: '360px', height: Object.keys(errorMessages).length > 0 ? '650px' : '620px' }}>
+    <div className="formTemplate updateInfoForm" style={{ height: Object.keys(errorMessages).length > 0 ? '650px' : '620px' }}>
       { completionStatus ? <h1>Details successfully updated!</h1> : 
       <form autoComplete="off" onSubmit={ submitHandler } style={{ marginTop: '16px' }}>
         <h1>Update Profile Information</h1>

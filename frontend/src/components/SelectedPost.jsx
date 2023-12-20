@@ -23,6 +23,7 @@ const SelectedPost = ({ post: initialPost, username, setModalContent, setModalOp
       setPost(updatedPost);
     } catch(err) {
       console.log(err);
+      return setCommentError(err.message || err);
     }
   }
 

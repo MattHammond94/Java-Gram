@@ -13,7 +13,7 @@ const Loader = ({ variant }) => {
         <div></div>
         <div></div>
       </div>
-      { variant === 'large' ? <p>Loading...</p> : null }
+      { variant === 'large' ? <p className="largeLoaderPTag">Loading...</p> : null }
     </>
 
   )
