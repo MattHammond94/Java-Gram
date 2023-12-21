@@ -226,9 +226,7 @@ const addCommentToPost = asyncHandler(async (req, res) => {
   }
   
   const postCommentBelongsTo = await Post.findById({ _id: postId });
-
   postCommentBelongsTo.comments.push(commentId);
-
   const commentAddedToPost = await postCommentBelongsTo.save()
 
   if (commentAddedToPost) { 

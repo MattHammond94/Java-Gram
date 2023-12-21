@@ -18,7 +18,7 @@ const AddCommentButton = ({ selectedPost, caption, setCommentError, refetch, han
     }
 
     try {
-      const comment = await createComment({ caption: caption });
+      const comment = await createComment({ caption: caption, postId: selectedPost._id });
       const addComment = await addCommentToPost({ postId: selectedPost._id, commentId: comment.data._id });
       if (addComment) {
         setLoadingStatus(false);
