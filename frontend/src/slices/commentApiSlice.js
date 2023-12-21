@@ -23,6 +23,13 @@ export const commentsApiSlice = apiSlice.injectEndpoints({
         method: 'DELETE'
       }),
     }),
+    updateComment: builder.mutation({
+      query: (id, data) => ({
+        url: `${COMMENTS_URL}/${id}`,
+        method: 'PUT',
+        body: data
+      }),
+    }),
   }),
   onError: (error) => {
     if (error.data && error.data.message) {
@@ -36,5 +43,6 @@ export const commentsApiSlice = apiSlice.injectEndpoints({
 export const {
   useCreateCommentMutation,
   useDeleteCommentMutation,
-  useDeleteAllUsersCommentsMutation
+  useDeleteAllUsersCommentsMutation,
+  useUpdateCommentMutation
 } = commentsApiSlice;

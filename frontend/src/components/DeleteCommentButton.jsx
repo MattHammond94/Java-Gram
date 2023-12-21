@@ -15,7 +15,7 @@ const DeleteCommentButton = ({ commentId, handleRemoveComment, refetch }) => {
   }
 
   return (
-    <IoTrashSharp className="commentBin" onClick={ (e) => handleDeleteComment(e) }/>
+    <IoTrashSharp className="commentIcons" onClick={ (e) => handleDeleteComment(e) }/>
   )
 }
 
