@@ -133,20 +133,16 @@ const deleteAllUsersPosts = asyncHandler(async (req, res) => {
     throw new Error('Unable to fetch all posts at this time');
   }
 
-  // Double check the asynchronous nature of the map function in this scenario
-  if (allUsersPosts.length > 0) {
-    allUsersPosts.map(async (post) => 
-      await cloudinary.uploader.destroy(post.imageCloudId,
-        (error) => {
-          if(error) {
-            res.status(400)
-            throw new Error(`Error deleting image from cloud: ${error}`);
-          }
-        }
-      )
-    );
-  } else {
-    return res.status(200).json({ message: 'User has no posts to delete.' });
+  for (const post of allUsersPosts) {
+    const commentIds = post.comments;
+    await Comment.deleteMany({ _id: { $in: commentIds } });
+
+    await cloudinary.uploader.destroy(post.imageCloudId, (error) => {
+      if (error) {
+        res.status(400);
+        throw new Error(`Error deleting image from cloud: ${error}`);
+      }
+    });
   }
 
   const allDeletedPosts = await Post.deleteMany({ user: userId });
@@ -202,8 +198,6 @@ const addLikeToPost = asyncHandler(async (req, res) => {
 const updatePostCaption = asyncHandler( async (req, res) => {
   const { caption } = req.body
   const { id } = req.params
-
-  //Handle caption input validation on frontend. - Account for empty strings
 
   if (!mongoose.Types.ObjectId.isValid(id)) {
     res.status(400)
@@ -325,7 +319,7 @@ const deletePost = asyncHandler(async (req, res) => {
       res.status(400);
       throw new Error('Error deleting assosciated comments from this post')
     }
-    
+
     res.status(200).json({ message: 'Post successfully deleted' })
   } else {
     res.status(400)
