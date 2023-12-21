@@ -93,7 +93,7 @@ const deleteComment = asyncHandler(async (req, res) => {
   );
 
   if (deletedComment && updatedPost) {
-    res.status(200).json({ message: 'Comment successfully deleted' });
+    res.status(200).json(id);
   } else {
     res.status(400)
     throw new Error('Error - Unable to delete this comment');

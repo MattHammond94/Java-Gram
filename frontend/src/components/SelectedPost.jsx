@@ -27,6 +27,17 @@ const SelectedPost = ({ post: initialPost, username, setModalContent, setModalOp
     }
   }
 
+  const handleRemoveComment = (deletedCommentId) => {
+    try {
+      const updatedComments = post.comments.filter(comment => comment._id !== deletedCommentId.data);
+      const updatedPost = { ...post, comments: updatedComments };
+      setPost(updatedPost);
+    } catch (err) {
+      console.log(err);
+      return setCommentError(`Unable to delete comment at this moment in time: ${err.message || err}`);
+    }
+  }
+
   return (
     <>
       <div className="selectedPostModal">
@@ -43,7 +54,7 @@ const SelectedPost = ({ post: initialPost, username, setModalContent, setModalOp
           <div className="selectedPostLine"></div>
           <div className="commentsContainer">
             { post.comments && post.comments.length > 0 ? (post.comments.map((comment) => (
-              <Comment key={comment._id}  comment={ comment }/>
+              <Comment key={comment._id} comment={ comment } loggedInUser={ userInfo.username } handleRemoveComment={ handleRemoveComment } refetch={ refetch }/>
               )))
               :
               (

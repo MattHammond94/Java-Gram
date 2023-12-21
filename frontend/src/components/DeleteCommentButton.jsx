@@ -1,15 +1,21 @@
-
+import { useDeleteCommentMutation } from "../slices/commentApiSlice";
 // Icon:
 import { IoTrashSharp } from "react-icons/io5";
 
-const DeleteCommentButton = () => {
+const DeleteCommentButton = ({ commentId, handleRemoveComment, refetch }) => {
+  const [deleteComment] = useDeleteCommentMutation();
 
-  const handleDeleteComment = async () => {
-    console.log('comment deleted');
+  const handleDeleteComment = async (e) => {
+    e.preventDefault();
+    const deletedComment = await deleteComment(commentId);
+    if (deletedComment) {
+      refetch();
+      handleRemoveComment(deletedComment);
+    }
   }
 
   return (
-    <IoTrashSharp className="commentBin" onClick={ () =>  handleDeleteComment }/>
+    <IoTrashSharp className="commentBin" onClick={ (e) => handleDeleteComment(e) }/>
   )
 }
 

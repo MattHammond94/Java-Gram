@@ -1,6 +1,7 @@
+import DeleteCommentButton from './DeleteCommentButton';
 import formatDistanceToNow from 'date-fns/formatDistanceToNow';
 
-const Comment = ({ comment }) => {
+const Comment = ({ comment, loggedInUser, handleRemoveComment, refetch }) => {
   return (
     <div className="commentContainer">
       <div className="commentHeaderContainer">
@@ -11,6 +12,13 @@ const Comment = ({ comment }) => {
       <div className="commentCaptionContainer">
         <p>{ comment.caption }</p>
       </div>
+      { loggedInUser === comment.user.username ? 
+        (<div>
+          <DeleteCommentButton commentId={ comment._id } handleRemoveComment={ handleRemoveComment } refetch={ refetch }/>
+        </div>) 
+        : 
+        null 
+      }
       <div className="commentDivider"></div>
     </div>
   )
