@@ -1,5 +1,6 @@
 import asyncHandler from "express-async-handler";
 import Post from "../models/postModel.js";
+import Comment from "../models/commentModel.js";
 import mongoose from "mongoose";
 import cloudinary from "../config/cloudinaryConfig.js";
 
@@ -318,6 +319,13 @@ const deletePost = asyncHandler(async (req, res) => {
   const deletedPost = await Post.findOneAndDelete({ _id: id });
 
   if (deletedPost) {
+    const commentIds = deletedPost.comments;
+    const deletedComments = await Comment.deleteMany({ _id: { $in: commentIds } });
+    if (!deletedComments) {
+      res.status(400);
+      throw new Error('Error deleting assosciated comments from this post')
+    }
+    
     res.status(200).json({ message: 'Post successfully deleted' })
   } else {
     res.status(400)
