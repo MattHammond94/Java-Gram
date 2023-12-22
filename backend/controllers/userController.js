@@ -285,6 +285,19 @@ const updateUser = asyncHandler(async (req, res) => {
 const deleteUser = asyncHandler(async (req, res) => {
   const user = await User.findById(req.user._id);
 
+  console.log(user.profilePictureCloudId);
+
+  if (user.profilePictureCloudId) {
+    await cloudinary.uploader.destroy(user.profilePictureCloudId,
+      (error) => {
+        if(error) {
+          res.status(400)
+          throw new Error(`Error: ${error}`)
+        }
+      }
+    );
+  }
+
   if(user) {
     try {
       await User.deleteOne(user);
