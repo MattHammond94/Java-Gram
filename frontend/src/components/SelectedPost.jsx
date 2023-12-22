@@ -29,7 +29,7 @@ const SelectedPost = ({ post: initialPost, username, setModalContent, setModalOp
 
   const handleRemoveComment = (deletedCommentId) => {
     try {
-      const updatedComments = post.comments.filter(comment => comment._id !== deletedCommentId.data);
+      const updatedComments = post.comments.filter(comment => comment._id !== deletedCommentId);
       const updatedPost = { ...post, comments: updatedComments };
       setPost(updatedPost);
     } catch (err) {
@@ -39,9 +39,6 @@ const SelectedPost = ({ post: initialPost, username, setModalContent, setModalOp
   }
 
   const handleUpdateComment = (updatedComment) => {
-    console.log(updatedComment);
-    console.log(updatedComment._id);
-
     try {
       const commentIndex = post.comments.findIndex(comment => comment._id === updatedComment._id);
     
@@ -49,7 +46,6 @@ const SelectedPost = ({ post: initialPost, username, setModalContent, setModalOp
         const updatedComments = [...post.comments];
         updatedComments[commentIndex] = updatedComment;
         const updatedPost = { ...post, comments: updatedComments };
-        console.log(updatedPost);
         setPost(updatedPost);
       }
     } catch(err) {

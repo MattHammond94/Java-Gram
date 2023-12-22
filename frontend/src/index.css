@@ -89,6 +89,24 @@ button {
   align-items: center;
 }
 
+textarea {
+  resize: none;
+  font-family: var(--text-font);
+  color: var(--semi-dark-purp);
+  font-size: 1rem;
+  border: solid 2px var(--grey-purp);
+  caret-color: var(--semi-dark-purp);
+  border-radius: 7px;
+}
+
+input::selection, textarea::selection {
+  background: var(--mid-purp);
+}
+
+textarea:focus {
+  outline: 1px solid var(--grey-purp);
+}
+
 /* === OPEN MODAL BUTTON === */ 
 .openModalButton {
   will-change: filter;
@@ -103,6 +121,9 @@ button {
 .disabledButton {
   cursor: not-allowed; 
   pointer-events: none; 
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 /* === FILE SELECTOR INPUT TYPES === */
@@ -192,16 +213,8 @@ input[type='password'] {
 }
 
 .formTemplate textarea {
-  resize: none;
   height: 150px;
   width: 295px;
-
-  font-family: var(--text-font);
-  color: var(--semi-dark-purp);
-  font-size: 1.1rem;
-  border-color: bold var(--grey-purp);
-  caret-color: var(--semi-dark-purp);
-  border-radius: 7px;
 }
 
 .formTemplate p {
@@ -362,6 +375,12 @@ input[type='password'] {
 
 .modalCloseButton:hover {
   color: var(--mid-purp);
+}
+
+@media(max-width: 550px) {
+  .modalCloseButton {
+    font-size: 35px;
+  }
 }
 
 @media(max-width: 450px) {
@@ -1504,14 +1523,6 @@ input[type='password'] {
   margin-top: 5px;
 }
 
-.selectedPostForm textarea::selection {
-  background: var(--mid-purp);
-}
-
-.selectedPostForm :focus {
-  outline: 1px solid var(--grey-purp);
-}
-
 .commentButton, .addCommentLoadingBtn {
   height: 50px;
   width: 75px;
@@ -1589,6 +1600,8 @@ input[type='password'] {
 
 .commentCaptionContainer {
   display: flex;
+  justify-content: space-between;
+  flex-direction: row;
   width: 100%;
   margin-top: 7px;
   margin-bottom: 3px;
@@ -1599,11 +1612,62 @@ input[type='password'] {
   text-align: left;
 }
 
+.commentCaptionContainer form {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.commentCaptionContainer textarea {
+  height: 50px;
+  width: 220px;
+  margin-left: 2px;
+  margin-left: 3px;
+  margin-right: 3px;
+}
+
+.commentCaptionContainer form button {
+  margin: 0;
+  height: 50px;
+  width:  50px;
+  font-size: 10px;
+}
+
 .commentDivider {
   height: 1px;
   width: 99%;
   background-image: linear-gradient(to right, rgba(70, 47, 99, 0.8), rgba(214, 186, 248, 0.8));
   margin-bottom: 5px;
+}
+
+/* === DELETE COMMENT AND UPDATE COMMENT BUTTON COMPONENT === */
+
+.commentIcons {
+  color: var(--semi-dark-purp);
+  height: 21px;
+  width: 17px;
+  cursor: pointer;
+  margin-right: 5px;
+  margin-top: 2px;
+}
+
+.commentIcons:hover {
+  color: var(--nice-purp);
+}
+
+.updateError {
+  font-size: 12px;
+  align-self: center;
+  color: var(--grey-purp);
+}
+
+.commentIconsContainer {
+  display: flex;
+  flex-direction: column;
+  margin-left: 10px;
+  margin-right: 5px;
+  margin-bottom: 2px;
 }
 
 @media (max-width: 780px) {
@@ -1637,7 +1701,17 @@ input[type='password'] {
   .selectedPostComments {
     font-size: 17px;
   }
-  
+
+  .commentCaptionContainer textarea {
+    height: 50px;
+    width: 190px;
+  }
+
+  .commentIcons {
+    height: 20px;
+    width: 16px;
+  }
+
   .selectedPostForm {
    display: flex;
    justify-content: center;
@@ -1728,6 +1802,28 @@ input[type='password'] {
     margin-top: 2px;
     height: 160px;
     align-self: flex-start;
+  }
+
+  .commentIcons {
+    height: 24px;
+    width: 17px;
+  }
+
+  .commentCaptionContainer textarea {
+    height: 40px;
+    width: 300px;
+  }
+  
+  .commentCaptionContainer form button {
+    height: 40px;
+    width: 50px;
+    margin-left: 2px;
+  }
+
+  .commentIconsContainer {
+    flex-direction: row;
+    margin-right: 20px;
+    margin-left: 15px;
   }
   
   .noCommentsContainer p {
@@ -1823,6 +1919,27 @@ input[type='password'] {
 
   .selectedPostComments {
     margin-top: 1px;
+  }
+
+  .commentIconsContainer {
+    margin-right: 19px;
+    margin-left: 12px;
+  }
+
+  .commentIcons {
+    height: 25px;
+    width: 18px;
+  }
+
+  .commentCaptionContainer textarea {
+    height: 35px;
+    width: 220px;
+  }
+  
+  .commentCaptionContainer form button {
+    height: 35px;
+    width: 45px;
+    margin-left: 2px;
   }
 
   .commentError {
