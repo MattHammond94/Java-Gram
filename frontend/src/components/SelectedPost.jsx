@@ -14,7 +14,7 @@ const SelectedPost = ({ post: initialPost, username, setModalContent, setModalOp
     setPost(initialPost);
   }, [initialPost]);
 
-  const handleUpdateComments = (newComment) => {
+  const handleNewComment = (newComment) => {
     try {
       const updatedPost = { ...post };
       const updatedComments = [...updatedPost.comments];
@@ -38,6 +38,26 @@ const SelectedPost = ({ post: initialPost, username, setModalContent, setModalOp
     }
   }
 
+  const handleUpdateComment = (updatedComment) => {
+    console.log(updatedComment);
+    console.log(updatedComment._id);
+
+    try {
+      const commentIndex = post.comments.findIndex(comment => comment._id === updatedComment._id);
+    
+      if (commentIndex !== -1) {
+        const updatedComments = [...post.comments];
+        updatedComments[commentIndex] = updatedComment;
+        const updatedPost = { ...post, comments: updatedComments };
+        console.log(updatedPost);
+        setPost(updatedPost);
+      }
+    } catch(err) {
+      console.log(err);
+      return setCommentError(`Unable to update this comment: ${err.message || err}`);
+    }
+  }
+
   return (
     <>
       <div className="selectedPostModal">
@@ -54,7 +74,7 @@ const SelectedPost = ({ post: initialPost, username, setModalContent, setModalOp
           <div className="selectedPostLine"></div>
           <div className="commentsContainer">
             { post.comments && post.comments.length > 0 ? (post.comments.map((comment) => (
-              <Comment key={comment._id} comment={ comment } loggedInUser={ userInfo.username } handleRemoveComment={ handleRemoveComment } refetch={ refetch }/>
+              <Comment key={comment._id} comment={ comment } loggedInUser={ userInfo.username } handleRemoveComment={ handleRemoveComment } handleUpdateComment={ handleUpdateComment } refetch={ refetch }/>
               )))
               :
               (
@@ -68,7 +88,7 @@ const SelectedPost = ({ post: initialPost, username, setModalContent, setModalOp
           <div className="selectedPostLine"></div>
           <form className="selectedPostForm">
             <textarea name="comment" value={commentValue} onChange={ (e) => setCommentValue(e.target.value) }/>
-            <AddCommentButton selectedPost={ post } caption={ commentValue } setCommentError={ setCommentError } refetch={ refetch } handleUpdateComments={ handleUpdateComments } setCommentValue={ setCommentValue } />
+            <AddCommentButton selectedPost={ post } caption={ commentValue } setCommentError={ setCommentError } refetch={ refetch } handleNewComment={ handleNewComment } setCommentValue={ setCommentValue } />
           </form>
           { commentError && <p className='commentError'>{commentError}</p> }
         </div>
