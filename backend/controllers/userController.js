@@ -32,6 +32,7 @@ const createUser = asyncHandler(async (req, res) => {
       username: user.username,
       profilePicture: user.profilePicture,
       email: user.email,
+      createdAt: user.createdAt
     });
   } else {
     res.status(400);
@@ -56,7 +57,8 @@ const logInUser = asyncHandler(async (req, res) => {
       profilePicture: user.profilePicture,
       email: user.email,
       followers: user.followers,
-      following: user.following
+      following: user.following,
+      createdAt: user.createdAt
     });
   } else {
     res.status(401);

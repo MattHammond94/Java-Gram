@@ -1,5 +1,5 @@
-import { useDeleteUserMutation, useLogoutMutation, useGetUserInfoQuery } from "../slices/usersApiSlice";
-import { useDeleteAllUsersPostsMutation } from "../slices/postApiSlice";
+import { useDeleteUserMutation, useLogoutMutation } from "../slices/usersApiSlice";
+import { useDeleteAllUsersPostsMutation, useGetAllPostsQuery } from "../slices/postApiSlice";
 import { useDeleteAllUsersCommentsMutation } from "../slices/commentApiSlice";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -7,6 +7,8 @@ import { logout } from "../slices/authSlice";
 import { useDispatch } from "react-redux";
 import formatDistanceToNow from 'date-fns/formatDistanceToNow';
 import Loader from "./Loader";
+
+import { useSelector } from "react-redux";
 
 const DeleteAccountForm = ({ setContentLoading }) => {
   const navigate = useNavigate();
@@ -17,15 +19,8 @@ const DeleteAccountForm = ({ setContentLoading }) => {
   const [deleteAllComments] = useDeleteAllUsersCommentsMutation();
   const [deleteUser] = useDeleteUserMutation();
   const [removeCookie] = useLogoutMutation();
-  const { data: userInfo, isLoading: userInfoLoading, error: userInfoError } = useGetUserInfoQuery();
-
-  if (userInfoLoading) {
-    return <Loader />
-  }
-
-  if (userInfoError) {
-    return <div>Error: {userInfoError}</div>;
-  }
+  const { userInfo } = useSelector((state) => state.auth);
+  // const { refetch: refetch } = useGetAllPostsQuery();
 
   const handleAccountDeletion = async () => {
     try {
@@ -35,6 +30,7 @@ const DeleteAccountForm = ({ setContentLoading }) => {
       await deleteAllComments();
       await deleteUser();
       await removeCookie();
+      // await refetch();
       dispatch(logout());
       navigate('/');
     } catch(error) {
