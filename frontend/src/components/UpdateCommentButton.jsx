@@ -1,6 +1,9 @@
+import { useState } from "react";
 import { useUpdateCommentMutation } from "../slices/commentApiSlice";
+import Loader from "./Loader";
 
 const UpdateCommentButton = ({ commentId, caption, setUpdateError, setUpdateCaptionStatus, handleUpdateComment, refetch }) => {
+  const [loading, setLoading] = useState(false);
   const [updateComment] = useUpdateCommentMutation();
 
   const handleCommentUpdate = async(e) => {
@@ -9,22 +12,23 @@ const UpdateCommentButton = ({ commentId, caption, setUpdateError, setUpdateCapt
     if(caption.length <= 0) {
       return setUpdateError('Caption cannot be empty');
     }
-
-    const updatedComment = await updateComment({ id: commentId, caption: caption });
+    
+    setUpdateError('');
+    setLoading(true);
+    const updatedComment = await updateComment({ id: commentId, caption: caption }).unwrap();
 
     if(updatedComment) {
-
-      console.log(updatedComment);
-      console.log(updatedComment.data);
-
-      handleUpdateComment(updatedComment.data);
+      handleUpdateComment(updatedComment);
       await refetch();
       setUpdateCaptionStatus(false);
+      setLoading(false);
     }
   }
 
   return (
-    <button onClick={ (e) => handleCommentUpdate(e) }>Update</button>
+    <>
+      { loading ? <button disabled className="disabledButton"><Loader /></button> : <button onClick={ (e) => handleCommentUpdate(e) }>Update</button> }
+    </>
   )
 }
 

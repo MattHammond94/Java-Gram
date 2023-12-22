@@ -7,7 +7,7 @@ const DeleteCommentButton = ({ commentId, handleRemoveComment, refetch }) => {
 
   const handleDeleteComment = async (e) => {
     e.preventDefault();
-    const deletedComment = await deleteComment(commentId);
+    const deletedComment = await deleteComment(commentId).unwrap();
     if (deletedComment) {
       refetch();
       handleRemoveComment(deletedComment);
