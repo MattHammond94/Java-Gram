@@ -1,7 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-let logoutTimer = null;
-
 const initialState = {
   userInfo: localStorage.getItem('userInfo') ? JSON.parse(localStorage.getItem('userInfo')) : null
 }
@@ -13,19 +11,16 @@ const authSlice = createSlice({
     setCredentials: (state, action) => {
       state.userInfo = action.payload;
       localStorage.setItem('userInfo', JSON.stringify(action.payload));
-
-      logoutTimer = setTimeout(() => {
-        authSlice.actions.logout();
-      }, 60 * 60 * 24 * 1000);
+      const currentTime = new Date();
+      const expiryTime = new Date(currentTime.getTime() + 60 * 60000);
+      console.log(currentTime);
+      console.log(expiryTime);
+      localStorage.setItem('tokenExpiry', expiryTime);
     },
     logout: (state, action) => {
       state.userInfo = null;
       localStorage.removeItem('userInfo');
-
-      if (logoutTimer) {
-        clearTimeout(logoutTimer);
-        logoutTimer = null;
-      }
+      localStorage.removeItem('tokenExpiry');
     },
   },
 });
