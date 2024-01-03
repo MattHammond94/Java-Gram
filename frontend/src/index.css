@@ -1152,11 +1152,15 @@ input[type='password'] {
   .middleTop h1 {
     font-size: 25px;
     margin-bottom: 3px;
+    max-width: 160px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
   }
 
   .middleTop p {
     font-size: 14px;
-    max-width: 290px;
+    max-width: 200px;
   }
 
   .middleTop button {
@@ -1188,11 +1192,12 @@ input[type='password'] {
   .middleTop h1 {
     font-size: 23px;
     margin-bottom: 3px;
+    max-width: 130px;
   }
 
   .middleTop p {
     font-size: 13px;
-    max-width: 270px;
+    max-width: 190px;
   }
 
   .middleTop button {
