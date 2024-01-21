@@ -9,9 +9,9 @@ const NotFoundPage = () => {
         </div>
         <div className="notFoundLine"></div>
         <div className="notFoundContentContainer">
-          <h1>404</h1>
-          <p>Nothing exists here!</p>
-          <a href="/">Return home...</a>
+          <h1 data-testid="error-code">404</h1>
+          <p data-testid="indicator">Nothing exists here!</p>
+          <a data-testid="anchor-tag" href="/">Return home...</a>
         </div>
       </div>
       <div className="waves layer1"></div>
