@@ -11,16 +11,18 @@ const authSlice = createSlice({
     setCredentials: (state, action) => {
       state.userInfo = action.payload;
       localStorage.setItem('userInfo', JSON.stringify(action.payload));
-      const currentTime = new Date();
-      const expiryTime = new Date(currentTime.getTime() + 60 * 60000);
-      console.log(currentTime);
-      console.log(expiryTime);
-      localStorage.setItem('tokenExpiry', expiryTime);
+
+      // Use the below to store an expiry date in local storage 1hr future dated from when user initially logs in.
+      // This can then be checked in our private route component.
+
+      // const currentTime = new Date();
+      // const expiryTime = new Date(currentTime.getTime() + 60 * 60000);
+      // localStorage.setItem('tokenExpiry', expiryTime);
     },
     logout: (state, action) => {
       state.userInfo = null;
       localStorage.removeItem('userInfo');
-      localStorage.removeItem('tokenExpiry');
+      // localStorage.removeItem('tokenExpiry');
     },
   },
 });

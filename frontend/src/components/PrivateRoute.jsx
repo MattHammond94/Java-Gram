@@ -1,32 +1,29 @@
 import { Outlet } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
-import { logout } from "../slices/authSlice";
+import { useSelector } from "react-redux";  // << Will need to re-import useDispatch here
 import PrivatePage from "../pages/PrivatePage";
 
+// import { logout } from "../slices/authSlice";
+
 const PrivateRoute = () => {
-  const dispatch = useDispatch();
   const { userInfo } = useSelector((state) => state.auth);
-  const tokenExpiration = localStorage.getItem('tokenExpiry');
-  console.log(tokenExpiration);
+  // const dispatch = useDispatch();
+  // const tokenExpiration = localStorage.getItem('tokenExpiry');
 
-  const isTokenValid = () => {
-    if (!userInfo || !tokenExpiration) {
-      return false;
-    }
+  // const isTokenValid = () => {
+  //   if (!userInfo || !tokenExpiration) {
+  //     return false;
+  //   }
 
-    const currentTime = new Date().getTime();
-    const expirationTime = new Date(tokenExpiration).getTime();
+  //   const currentTime = new Date().getTime();
+  //   const expirationTime = new Date(tokenExpiration).getTime();
 
-    console.log(currentTime);
-    console.log(expirationTime);
+  //   return expirationTime > currentTime;
+  // };
 
-    return expirationTime > currentTime;
-  };
-
-  if (!isTokenValid()) {
-    dispatch(logout());
-    return <PrivatePage />;
-  }
+  // if (!isTokenValid()) {
+  //   dispatch(logout());
+  //   return <PrivatePage />;
+  // }
 
   return userInfo ? <Outlet /> : <PrivatePage />;
 }
