@@ -1,5 +1,6 @@
 import express from "express";
 // import path from 'path';
+import cors from 'cors';
 import morgan from "morgan";
 import dotenv from "dotenv";
 dotenv.config();
@@ -15,6 +16,8 @@ import commentRoutes from './routes/commentRoutes.js';
 const app = express();
 
 // Middleware:
+app.use(cors());
+
 if (process.env.NODE_ENV !== 'test') {
   app.use(morgan('dev'));
 }
