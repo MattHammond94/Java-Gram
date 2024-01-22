@@ -1,6 +1,6 @@
 import { apiSlice } from "./apiSlice";
 
-const POST_URL = '/api/posts';
+const POST_URL = '/posts';
 
 export const postsApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({

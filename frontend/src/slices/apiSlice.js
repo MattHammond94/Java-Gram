@@ -1,6 +1,6 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
-const baseQuery = fetchBaseQuery({ baseUrl: 'https://java-gram-backend.onrender.com/api' });
+const baseQuery = fetchBaseQuery({ baseUrl: 'https://java-gram-backend.onrender.com/' });
 
 export const apiSlice = createApi({
   baseQuery,
