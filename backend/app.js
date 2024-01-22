@@ -1,6 +1,8 @@
 import express from "express";
+import path from 'path';
 import morgan from "morgan";
 import dotenv from "dotenv";
+import cors from "cors";
 dotenv.config();
 import cookieParser from "cookie-parser";
 import { notFound, errorHandler } from './middleware/errorHandler.js';
@@ -14,10 +16,8 @@ import commentRoutes from './routes/commentRoutes.js';
 const app = express();
 
 // Middleware:
-if (process.env.NODE_ENV !== 'test') {
-  app.use(morgan('dev'));
-}
-
+app.use(morgan('dev'));
+app.use(cors);
 app.use(express.json({ limit: '50mb' }));
 app.use(express.urlencoded({ extended: true, limit: '50mb' }));
 app.use(cookieParser());
@@ -26,9 +26,18 @@ app.use('/api/users', userRoutes);
 app.use('/api/posts', postRoutes);
 app.use('/api/comments', commentRoutes);
 
-app.get('/', (req, res) => {
-  res.send('server is running');
-})
+// if (process.env.NODE_ENV === 'production') {
+//   console.log('Yep ok')
+//   const __dirname = path.resolve();
+//   app.use(express.static(path.join(__dirname, 'frontend/dist')));
+
+//   app.get('*', (req, res) => res.sendFile(path.resolve(__dirname, 'frontend', 'dist', 'index.html')));
+// } else {
+//   app.get('/', (req, res) => {
+//     console.log("Ok then")
+//     res.send('server is running');
+//   })
+// }
 
 app.use(notFound);
 app.use(errorHandler);
