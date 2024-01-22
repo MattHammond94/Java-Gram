@@ -32,7 +32,9 @@ const SignUpForm = ({ setContentLoadingStatus }) => {
 
       try {
         const { email, username, password } = formValues;
+        console.log(newUser)
         const response = await newUser({ email, username, password }).unwrap();
+        console.log(response)
         dispatch(setCredentials({...response}));
         navigate('/feed')
       } catch(err) {
