@@ -12,6 +12,7 @@ const generateToken = (res, userId) => {
     httpOnly: true,
     // secure: process.env.NODE_ENV !== 'development',
     // sameSite: 'strict',
+    domain: 'java-gram-backend.onrender.com'
     // maxAge: 1 * 60 * 1000
   });
 }
