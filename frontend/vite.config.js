@@ -12,11 +12,11 @@ export default defineConfig({
   },
   server: {
     port: 3000,
-    proxy: {
-      '/api': {
-        target: 'https://java-gram-backend.onrender.com',
-        changeOrigin: true
-      },
-    },
+    // proxy: {
+    //   '/api': {
+    //     target: 'https://java-gram-backend.onrender.com',
+    //     changeOrigin: true
+    //   },
+    // },
   },
 });
