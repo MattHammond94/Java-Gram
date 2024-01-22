@@ -12,11 +12,19 @@ import userRoutes from './routes/userRoutes.js';
 import postRoutes from './routes/postRoutes.js';
 import commentRoutes from './routes/commentRoutes.js';
 
+// Cors config:
+const corsOptions = {
+  origin: 'https://java-gram-frontend.onrender.com',
+  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+  credentials: true,
+  optionsSuccessStatus: 204,
+};
+
 // Create app:
 const app = express();
 
 // Middleware:
-app.use(cors());
+app.use(cors(corsOptions));
 
 if (process.env.NODE_ENV !== 'test') {
   app.use(morgan('dev'));
