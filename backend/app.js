@@ -1,8 +1,7 @@
 import express from "express";
-import path from 'path';
+// import path from 'path';
 import morgan from "morgan";
 import dotenv from "dotenv";
-import cors from "cors";
 dotenv.config();
 import cookieParser from "cookie-parser";
 import { notFound, errorHandler } from './middleware/errorHandler.js';
@@ -16,8 +15,10 @@ import commentRoutes from './routes/commentRoutes.js';
 const app = express();
 
 // Middleware:
-app.use(morgan('dev'));
-app.use(cors);
+if (process.env.NODE_ENV !== 'test') {
+  app.use(morgan('dev'));
+}
+
 app.use(express.json({ limit: '50mb' }));
 app.use(express.urlencoded({ extended: true, limit: '50mb' }));
 app.use(cookieParser());
@@ -38,6 +39,7 @@ app.use('/api/comments', commentRoutes);
 //     res.send('server is running');
 //   })
 // }
+
 
 app.use(notFound);
 app.use(errorHandler);
