@@ -3,11 +3,7 @@ import mongoose from "mongoose";
 const connectDB = async (environment) => {
   let connectionString;
 
-  if(environment === "test") {
-    connectionString = process.env.TEST_DB_URI
-  } else {
-    connectionString = process.env.DB_URI
-  }
+  environment === 'production' ? connectionString = process.env.DB_URI : connectionString = process.env.TEST_DB_URI
 
   try {
     const connected = await mongoose.connect(connectionString);

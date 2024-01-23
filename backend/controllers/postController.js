@@ -55,22 +55,12 @@ const getAllPosts = asyncHandler(async (req, res) => {
   const allPosts = await Post.find({});
 
   if (allPosts) {
-    const status = res.status(200);
-
-    if (allPosts.length < 1) {
-      status.json({ message: 'There are currently no posts' });
-    }
-
     const arrayOfPromises = allPosts.map((post) => post.populate("user"));
-    
     await Promise.all(arrayOfPromises);
-
     const secondArrayOfPromises = allPosts.map((post) => post.populate("likedBy"));
-
     await Promise.all(secondArrayOfPromises);
 
-    status.json(allPosts.reverse());
-    
+    res.status(200).json(allPosts.reverse());
   } else {
     res.status(400);
     throw new Error('Unable to retrieve posts from the database');

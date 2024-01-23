@@ -35,9 +35,7 @@ const LogInForm = ({ setContentLoadingStatus }) => {
 
     try {
       setContentLoadingStatus(true);
-      console.log(login)
       const res = await login({ username, password }).unwrap();
-      console.log(res)
       dispatch(setCredentials({...res}))
       navigate('/feed')
     } catch (err) {

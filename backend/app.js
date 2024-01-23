@@ -14,7 +14,7 @@ import commentRoutes from './routes/commentRoutes.js';
 
 // Cors config:
 const corsOptions = {
-  origin: 'https://java-gram-frontend.onrender.com',
+  origin: ['https://java-gram-frontend.onrender.com', 'http://localhost:3000'],
   methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
   credentials: true,
   optionsSuccessStatus: 204,
@@ -50,7 +50,6 @@ app.use('/api/comments', commentRoutes);
 //     res.send('server is running');
 //   })
 // }
-
 
 app.use(notFound);
 app.use(errorHandler);
