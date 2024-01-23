@@ -17,9 +17,6 @@ import FeedPage from './pages/FeedPage.jsx';
 import NotFoundPage from './pages/NotFoundPage.jsx';
 import UserPage from './pages/UserPage.jsx';
 
-
-// import TestPage from './pages/TestPage.jsx';
-
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path='/' element={<App />}>

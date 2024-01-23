@@ -42,7 +42,7 @@
       "NODE_ENV": "test"
     },
     "setupFiles": [
-      "./testSetup.js"
+      "./backend/__tests__/config/testSetup.js"
     ],
     "testTimeout": 20000
   }
