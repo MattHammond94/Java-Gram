@@ -16,11 +16,23 @@ const generateToken = (res, userId) => {
   })
   res.cookie('jwt', token, {
     // httpOnly: true,
-    // secure: process.env.NODE_ENV !== 'development',
-    secure: true,
+    secure: process.env.NODE_ENV !== 'development',
+    // secure: true,
     sameSite: 'None',
     // maxAge: 1 * 60 * 1000
   });
+
+
+
+  // Below is what I had utlised previously when working from dev ENV - May be now that I 
+  //  have to generate different cookies based on NODE ENV:
+
+  // res.cookie('jwt', token, {
+  //   // httpOnly: true,
+  //   // secure: process.env.NODE_ENV !== 'development',
+  //   sameSite: 'Strict',
+  //   // maxAge: 1 * 60 * 1000
+  // });
 }
 
 export default generateToken;
