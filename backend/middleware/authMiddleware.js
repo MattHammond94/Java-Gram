@@ -5,13 +5,12 @@ import User from "../models/userModel.js";
 const protect = asyncHandler(async (req, res, next) => {
   let token;
 
-  console.log(req.cookies);
-
-  console.log(req.cookies.test);
+  console.log(`Cookies in the protect middleware: ${req.cookies}`);
+  console.log(`Test cookie: ${req.cookies.test}`);
   
   token = req.cookies.jwt;
 
-  console.log(token);  // Returns Undefined
+  console.log(`Token in the protect middleware as a cookie: ${token}`);  // Returns Undefined
 
   if (token) {
     try {
