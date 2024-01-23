@@ -10,12 +10,14 @@ const generateToken = (res, userId) => {
 
   console.log(`token has been generated: ${token}`)
 
-  res.cookie('test', 'Test cookie')
+  res.cookie('test', 'Test cookie', {
+    sameSite: 'None'
+  })
   res.cookie('jwt', token, {
     // httpOnly: true,
     // secure: process.env.NODE_ENV !== 'development',
     // secure: true,
-    // sameSite: 'None',
+    sameSite: 'None',
     // maxAge: 1 * 60 * 1000
   });
 }
