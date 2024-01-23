@@ -2,7 +2,7 @@ import User from "../../models/userModel.js";
 import { testDatabaseConnector, 
   testDatabaseUsersTruncator,
   testDatabaseConnectionCloser
-} from "../../../testSetup.js";
+} from "../config/testSetup.js";
 
 describe("User model", () => {
   const user = new User({

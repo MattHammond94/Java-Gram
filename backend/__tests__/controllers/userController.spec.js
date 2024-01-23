@@ -1,7 +1,7 @@
 import { testDatabaseConnector, 
   testDatabaseUsersTruncator,
   testDatabaseConnectionCloser
-} from "../../../testSetup.js";
+} from "../config/testSetup.js";
 
 import User from "../../models/userModel.js";
 import app from "../../app.js";

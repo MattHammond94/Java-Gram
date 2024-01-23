@@ -4,7 +4,7 @@ import Comment from '../../models/commentModel.js';
 import { testDatabaseConnector, 
   testDatabasePostsTruncator,
   testDatabaseConnectionCloser
-} from "../../../testSetup.js";
+} from "../config/testSetup.js";
 
 describe ('Post Model', () => {
   const newUser = new User({

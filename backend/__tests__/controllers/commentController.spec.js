@@ -3,7 +3,7 @@ import { testDatabaseConnector,
   testDatabasePostsTruncator,
   testDatabaseConnectionCloser,
   testDatabaseCommentTruncator
-} from "../../../testSetup.js";
+} from "../config/testSetup.js";
 
 import User from "../../models/userModel.js";
 import Post from "../../models/postModel.js";

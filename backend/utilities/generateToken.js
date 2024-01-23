@@ -1,14 +1,9 @@
 import jwt from 'jsonwebtoken';
 
 const generateToken = (res, userId) => {
-
-  console.log(`NODE_ENV: ${process.env.NODE_ENV}`);
-
   const token = jwt.sign({ userId }, process.env.JWT_SECRET, {
     // expiresIn: '1m'
   });
-
-  console.log(`token has been generated: ${token}`)
 
   res.cookie('jwt', token, {
     httpOnly: true,

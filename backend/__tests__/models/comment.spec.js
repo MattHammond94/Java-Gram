@@ -4,7 +4,7 @@ import { testDatabaseConnector,
   testDatabaseCommentTruncator,
   testDatabaseUsersTruncator,
   testDatabaseConnectionCloser
-} from "../../../testSetup.js";
+} from "../config/testSetup.js";
 
 describe('Comment Model', () => {
   const newUser = new User({
