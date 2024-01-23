@@ -1,5 +1,5 @@
 import express from "express";
-// import path from 'path';
+import path from 'path';
 import cors from 'cors';
 import morgan from "morgan";
 import dotenv from "dotenv";
@@ -38,18 +38,17 @@ app.use('/api/users', userRoutes);
 app.use('/api/posts', postRoutes);
 app.use('/api/comments', commentRoutes);
 
-// if (process.env.NODE_ENV === 'production') {
-//   console.log('Yep ok')
-//   const __dirname = path.resolve();
-//   app.use(express.static(path.join(__dirname, 'frontend/dist')));
+console.log(process.env.NODE_ENV);
 
-//   app.get('*', (req, res) => res.sendFile(path.resolve(__dirname, 'frontend', 'dist', 'index.html')));
-// } else {
-//   app.get('/', (req, res) => {
-//     console.log("Ok then")
-//     res.send('server is running');
-//   })
-// }
+if (process.env.NODE_ENV === 'production') {
+  const __dirname = path.resolve();
+  app.use(express.static(path.join(__dirname, 'frontend/dist')));
+  app.get('*', (req, res) => res.sendFile(path.resolve(__dirname, 'frontend', 'dist', 'index.html')));
+} else {
+  app.get('/', (req, res) => {
+    res.send('server is running');
+  })
+}
 
 app.use(notFound);
 app.use(errorHandler);
