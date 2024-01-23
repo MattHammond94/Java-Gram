@@ -14,7 +14,7 @@ const NotFoundPage = () => {
           <a data-testid="anchor-tag" href="/">Return home...</a>
         </div>
       </div>
-      <div className="waves layer1"></div>
+      <div data-testid="waves" className="waves layer1"></div>
     </>
   )
 }

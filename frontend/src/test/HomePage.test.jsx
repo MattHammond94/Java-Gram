@@ -31,21 +31,4 @@ describe ('HomePage', () => {
     console.log(signUpButton);
     expect(signUpButton).toBeInTheDocument();
   });
-
-  // it('redirects to /feed when userInfo is not null', async () => {
-  //   const mockStore = configureStore();
-  //   const store = mockStore({
-  //     auth: {
-  //       userInfo: { username: 'Test' },
-  //     },
-  //   });
-  
-  //   render(
-  //     <Provider store={store}>
-  //       <MemoryRouter>
-  //         <HomePage />
-  //       </MemoryRouter>
-  //     </Provider>
-  //   );
-  // });
 });

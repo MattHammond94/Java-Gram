@@ -20,4 +20,8 @@ describe("Not Found Page", () => {
     const anchorTag = screen.getByTestId("anchor-tag")
     expect(anchorTag.tagName).toBe('A');
   });
+
+  it('Should display the consistent theme svg file.', () => {
+    expect(screen.getByTestId("waves")).toBeVisible
+  });
 });
