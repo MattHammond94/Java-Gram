@@ -8,7 +8,10 @@ const generateToken = (res, userId) => {
     // expiresIn: '1m'
   });
 
-  res.cookie('test', 'Test cookie')
+  console.log(token)
+
+  const testCookie = res.cookie('test', 'Test cookie')
+  console.log(testCookie)
   res.cookie('jwt', token, {
     // httpOnly: true,
     // secure: process.env.NODE_ENV !== 'development',

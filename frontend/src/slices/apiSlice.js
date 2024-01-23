@@ -6,6 +6,7 @@ const baseQuery = fetchBaseQuery({
     headers.set('credentials', 'include');
     return headers;
   },
+  credentials: "include"
 });
 
 export const apiSlice = createApi({
