@@ -2,7 +2,7 @@ const TestPage = () => {
   
   const handleClick = async () => {
     const response = await fetch('https://java-gram-backend.onrender.com/api/users/token', {
-      method: 'GET',
+      method: 'POST',
       credentials: 'include',
       headers: {
         'Content-Type': 'application/json',
@@ -25,7 +25,7 @@ const TestPage = () => {
   
   return (
     <div>
-      <button onClick={() => handleClick}>Test</button>
+      <button onClick={handleClick}>Test</button>
     </div>
   )
 }
