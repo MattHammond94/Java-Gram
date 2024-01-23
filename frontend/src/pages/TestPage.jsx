@@ -1,7 +1,7 @@
 const TestPage = () => {
   
   const handleClick = async () => {
-    const response = await fetch('https://java-gram-backend.onrender.com/api/users/token', {
+    await fetch('https://java-gram-backend.onrender.com/api/users/token', {
       method: 'POST',
       credentials: 'include',
       headers: {
@@ -10,8 +10,16 @@ const TestPage = () => {
       body: JSON.stringify({ username: "MattyMooMilk", password: "Password123!" }),
     });
 
-    if (response) {
-      const res2 = await fetch('https://java-gram-backend.onrender.com/api/posts/all', {
+    const response2 = await fetch('https://java-gram-backend.onrender.com/api/users/checkUsername/MattyMooMilk', {
+      method: 'GET',
+      credentials: 'include',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+
+    if (response2) {
+      const res3 = await fetch('https://java-gram-backend.onrender.com/api/posts/all', {
         method: 'GET',
         credentials: 'include',
         headers: {
@@ -19,7 +27,7 @@ const TestPage = () => {
         },
       });
 
-      console.log(res2)
+      console.log(res3)
     }
   }
   
