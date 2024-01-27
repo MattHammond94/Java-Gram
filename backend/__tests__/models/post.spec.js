@@ -1,7 +1,8 @@
 import Post from '../../models/postModel.js';
 import User from '../../models/userModel.js';
 import Comment from '../../models/commentModel.js';
-import { testDatabaseConnector, 
+import { 
+  // testDatabaseConnector, 
   testDatabasePostsTruncator,
   testDatabaseConnectionCloser
 } from "../config/testSetup.js";
@@ -21,6 +22,7 @@ describe ('Post Model', () => {
 
   const newPost = new Post({
     image: 'This is a new image',
+    imageCloudId: 'aTestId',
     caption: 'This is a caption',
     user: newUser,
   });
@@ -32,6 +34,7 @@ describe ('Post Model', () => {
 
   const anotherPost = new Post({
     image: 'This is another image',
+    imageCloudId: 'anotherTestId',
     caption: 'This is another caption',
     user: newUser,
     comments: [newComment],
@@ -73,7 +76,7 @@ describe ('Post Model', () => {
   });
 
   it("Should be able to save a new post in the database", async() => {
-    await testDatabaseConnector();
+    // await testDatabaseConnector();
     await testDatabasePostsTruncator();
     await newPost.save();
 

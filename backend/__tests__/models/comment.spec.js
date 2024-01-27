@@ -1,6 +1,7 @@
 import Comment from '../../models/commentModel.js';
 import User from '../../models/userModel.js';
-import { testDatabaseConnector, 
+import { 
+  // testDatabaseConnector, 
   testDatabaseCommentTruncator,
   testDatabaseUsersTruncator,
   testDatabaseConnectionCloser
@@ -14,12 +15,13 @@ describe('Comment Model', () => {
   });
 
   const newComment = new Comment({
-    caption: 'This is a comment',
-    user: newUser
+    caption: 'This is a test comment',
+    user: newUser,
+    postId: newUser._id
   });
 
   it('Should have a caption attribute', () => {
-    expect(newComment.caption).toBe('This is a comment');
+    expect(newComment.caption).toBe('This is a test comment');
   });
 
   it('Should have a user object related to it to showcase who posted the comment', () => {
@@ -28,7 +30,7 @@ describe('Comment Model', () => {
   });
 
   it("Should be able to save a new comment in the database", async() => {
-    await testDatabaseConnector();
+    // await testDatabaseConnector();
     await testDatabaseCommentTruncator();
     await testDatabaseUsersTruncator();
     await newUser.save();
@@ -37,7 +39,7 @@ describe('Comment Model', () => {
     const comment = await Comment.findOne({ _id: savedComment._id });
     const foundUser = await User.findOne({ username: 'VirgilVanDijk' })
 
-    expect(comment.caption).toBe('This is a comment');
+    expect(comment.caption).toBe('This is a test comment');
     expect(comment.createdAt instanceof Date).toBe(true);
     expect(comment.user).toEqual(foundUser._id);
 

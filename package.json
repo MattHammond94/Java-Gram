@@ -42,7 +42,7 @@
       "NODE_ENV": "test"
     },
     "setupFiles": [
-      "./__tests__/config/testSetup.js"
+      "/Users/mattymoomilk/Java-Gram/backend/__tests__/config/testSetup.js"
     ],
     "testTimeout": 20000
   }

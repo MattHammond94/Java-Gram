@@ -1,5 +1,6 @@
 import User from "../../models/userModel.js";
-import { testDatabaseConnector, 
+import { 
+  // testDatabaseConnector, 
   testDatabaseUsersTruncator,
   testDatabaseConnectionCloser
 } from "../config/testSetup.js";
@@ -31,15 +32,18 @@ describe("User model", () => {
     expect(user.following.length).toBe(0)
   });
 
+  it('Should be created with a default profile picture reference url', () => {
+    expect(user.profilePicture).toBe('/Placeholder.jpg')
+  });
+
   it("Should return undefined for all attributes which are not required or a default", () => {
-    expect(user.profilePicture).toBe(undefined)
     expect(user.firstName).toBe(undefined)
     expect(user.lastName).toBe(undefined)
     expect(user.dateOfBirth).toBe(undefined)
   });
 
   it("Should be able to save a new user in the database", async() => {
-    await testDatabaseConnector();
+    // await testDatabaseConnector();
     await testDatabaseUsersTruncator();
     await user.save();
 
