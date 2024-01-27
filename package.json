@@ -7,7 +7,7 @@
   "scripts": {
     "start": "node backend/server.js",
     "server": "nodemon backend/server.js",
-    "test": "jest --runInBand",
+    "test": "jest --runInBand --rootDir=backend",
     "test-coverage": "jest --runInBand --coverage",
     "client": "npm run dev --prefix frontend",
     "dev": "concurrently \"npm run server\" \"npm run client\""
@@ -42,7 +42,7 @@
       "NODE_ENV": "test"
     },
     "setupFiles": [
-      "./backend/__tests__/config/testSetup.js"
+      "./__tests__/config/testSetup.js"
     ],
     "testTimeout": 20000
   }

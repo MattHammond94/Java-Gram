@@ -2,22 +2,28 @@ import mongoose from "mongoose";
 import dotenv from "dotenv";
 dotenv.config();
 process.env.NODE_ENV = 'test'
-console.log(`Tests are running in the: ${process.env.NODE_ENV}`);
+console.log(`Tests are running in the: ${process.env.NODE_ENV} environment`);
 
-const testDatabaseConnector = async () => {
-  try {
-    const connected = await mongoose.connect(process.env.TEST_DB_URI, {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-    });
+import connectDB from "../../config/databaseConnector";
+
+// const testDatabaseConnector = async () => {
+//   try {
+//     const connected = await mongoose.connect(process.env.TEST_DB_URI, {
+//       useNewUrlParser: true,
+//       useUnifiedTopology: true,
+//     });
   
-    console.log(`Connected to the test database @: ${connected.connection.host}`);
+//     console.log(`Connected to the test database @: ${connected.connection.host}`);
     
-  } catch(error) {
-    console.error(`Error: ${error.message}`);
-    process.exit(1);
-  }
-};
+//   } catch(error) {
+//     console.error(`Error: ${error.message}`);
+//     process.exit(1);
+//   }
+// };
+
+connectDB(process.env.NODE_ENV)
+
+// REMBER IT MAY NEED THE URLPARSER ETC ^^^^ 
 
 const testDatabaseUsersTruncator = async () => {
   try {
@@ -52,7 +58,7 @@ const testDatabaseConnectionCloser = async () => {
 }
 
 export { 
-  testDatabaseConnector,
+  // testDatabaseConnector,
   testDatabaseUsersTruncator,
   testDatabasePostsTruncator,
   testDatabaseCommentTruncator,

@@ -13,11 +13,11 @@ const HomePage = () => {
   const [modalContent, setModalContent] = useState(null);
   const [contentLoading, setContentLoading] = useState(false);
 
-  // useEffect(() => {
-  //   if (userInfo) {
-  //     navigate('/feed')
-  //   }
-  // }, [navigate, userInfo])
+  useEffect(() => {
+    if (userInfo) {
+      navigate('/feed')
+    }
+  }, [navigate, userInfo])
 
   return (
     <>
