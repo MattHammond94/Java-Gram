@@ -3,7 +3,6 @@ import dotenv from "dotenv";
 dotenv.config();
 process.env.NODE_ENV = 'test'
 console.log(`Tests are running in the: ${process.env.NODE_ENV} environment`);
-
 import connectDB from "../../config/databaseConnector";
 
 // const testDatabaseConnector = async () => {

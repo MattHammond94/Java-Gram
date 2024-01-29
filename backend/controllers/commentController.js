@@ -4,7 +4,7 @@ import Post from "../models/postModel.js";
 import mongoose from "mongoose";
 
 //Route:     POST /new
-//Creates a comment related to a post
+//Creates a comment document
 const createComment = asyncHandler(async (req, res) => {
   const user = req.user
   const { caption, postId } = req.body

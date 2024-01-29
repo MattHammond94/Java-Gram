@@ -1,17 +1,12 @@
-import { testDatabaseConnector, 
+import { 
   testDatabaseUsersTruncator,
   testDatabaseConnectionCloser
 } from "../config/testSetup.js";
-
 import User from "../../models/userModel.js";
 import app from "../../app.js";
 import supertest from "supertest";
 
 describe("/api/users - Endpoint", () => {
-  beforeAll(async () => {
-    await testDatabaseConnector();
-  });
-
   beforeEach(async() => {
     await testDatabaseUsersTruncator();
   });
@@ -27,9 +22,7 @@ describe("/api/users - Endpoint", () => {
   });
 
   describe("/new - Endpoint", () => {
-
     describe("When body params are correctly provided a new user should be created", () => {
-
       test("The response code is 201", async () => {
         let response = await supertest(app)
           .post("/api/users/new")

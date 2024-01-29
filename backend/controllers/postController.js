@@ -238,7 +238,7 @@ const addImageToCloudinary = asyncHandler(async(req, res) => {
   const { image } = req.body;
 
   const uploadedImage = await cloudinary.uploader.upload(image,
-    { 
+    {
       upload_preset: 'unsigned_uploads',
       allowed_formats: ['png', 'jpg', 'jpeg', 'svg', 'ico', 'jfif', 'webp'],
       transformation: [ 
@@ -246,7 +246,7 @@ const addImageToCloudinary = asyncHandler(async(req, res) => {
         {quality: "auto"},
         {fetch_format: "auto"}
       ],
-     },
+    },
     (error) => {
       if(error) {
         res.status(400)

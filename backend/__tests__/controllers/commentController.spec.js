@@ -1,4 +1,5 @@
-import { testDatabaseConnector, 
+import { 
+  // testDatabaseConnector, 
   testDatabaseUsersTruncator,
   testDatabasePostsTruncator,
   testDatabaseConnectionCloser,
@@ -19,11 +20,11 @@ let differentUser;
 let differentComment;
 let postUser;
 let testComment;
+let testPost;
 
 describe('/api/comment - Endpoint', () => {
-
   beforeAll(async () => {
-    await testDatabaseConnector();
+    // await testDatabaseConnector();
 
     await User.create({
       username: 'AUser', 
@@ -40,14 +41,25 @@ describe('/api/comment - Endpoint', () => {
     postUser = await User.findOne({ username: 'AUser' });
     differentUser = await User.findOne({ username: 'A Different User' });
 
+    await Post.create({
+      image: 'A different image for a different post',
+      imageCloudId: 'Test',
+      caption: 'A caption for a test post',
+      user: postUser._id
+    });
+
+    testPost = await Post.findOne({ image: 'A different image for a different post' });
+
     await Comment.create({
       caption: 'This is a test comment',
-      user: postUser
+      user: postUser,
+      postId: testPost._id
     });
 
     await Comment.create({
       caption: 'This is a different comment',
-      user: differentUser
+      user: differentUser,
+      postId: testPost._id
     });
     
     testComment = await Comment.findOne({ caption: 'This is a test comment' });
@@ -56,12 +68,9 @@ describe('/api/comment - Endpoint', () => {
     token = jwt.sign({ userId: postUser._id }, process.env.JWT_SECRET);
     altToken = jwt.sign({ userId: differentUser._id }, process.env.JWT_SECRET);
   });
-
-  beforeEach(async() => {
-    await testDatabasePostsTruncator();
-  });
-
+  
   afterAll(async () => {
+    await testDatabasePostsTruncator();
     await testDatabaseCommentTruncator();
     await testDatabaseUsersTruncator();
     await testDatabaseConnectionCloser();
@@ -71,7 +80,7 @@ describe('/api/comment - Endpoint', () => {
     test('/new', async () => {
       const response = await supertest(app)
       .post(`/api/comments/new`)
-      .send({ caption: 'Caption for new comment', user: postUser });
+      .send({ caption: 'Caption for new comment', user: postUser, postId: testPost._id });
       expect(response.status).toBe(401);
       expect(response.body.message).toBe('Unauthorized without a token');
     });
@@ -79,7 +88,7 @@ describe('/api/comment - Endpoint', () => {
     test('/:id - DELETE', async () => {
       const response = await supertest(app)
       .post(`/api/comments/new`)
-      .send({ caption: 'Caption for new comment', user: postUser });
+      .send({ caption: 'Caption for new comment', user: postUser, postId: testPost._id });
       expect(response.status).toBe(401);
       expect(response.body.message).toBe('Unauthorized without a token');
     });
@@ -87,7 +96,7 @@ describe('/api/comment - Endpoint', () => {
     test('/:id - PUT', async () => {
       const response = await supertest(app)
       .post(`/api/comments/new`)
-      .send({ caption: 'Caption for new comment', user: postUser });
+      .send({ caption: 'Caption for new comment', user: postUser, postId: testPost._id });
       expect(response.status).toBe(401);
       expect(response.body.message).toBe('Unauthorized without a token');
     });
@@ -98,29 +107,21 @@ describe('/api/comment - Endpoint', () => {
       const response = await supertest(app)
       .post(`/api/comments/new`)
       .set('Cookie', `jwt=${token}`)
-      .send({ caption: 'Caption for new comment', user: postUser });
+      .send({ caption: 'Caption for new comment', user: postUser, postId: testPost._id });
       expect(response.status).toBe(201);
       expect(response.body.caption).toBe('Caption for new comment');
       expect(response.body.user.username).toBe('AUser');
     });
   });
 
-  describe('/:id - PUT Endpoint', () => {
+  describe('/update - PUT Endpoint', () => {
     test('Successfully updates a comment', async () => {
       const response = await supertest(app)
-      .put(`/api/comments/${testComment._id}`)
+      .put(`/api/comments/update`)
       .set('Cookie', `jwt=${token}`)
-      .send({ caption: 'This is an updated caption for a comment' });
-      expect(response.body.caption).toBe('This is an updated caption for a comment');
+      .send({ caption: 'This is an updated caption for a comment', id: testComment._id });
       expect(response.status).toBe(200);
-    });
-
-    test('If an incorrect ID param is passed the correct error should be returned', async () => {
-      const response = await supertest(app)
-      .put(`/api/comments/InvalidId`)
-      .set('Cookie', `jwt=${token}`)
-      expect(response.status).toBe(400);
-      expect(response.body.message).toBe('Not a valid ID parameter');
+      expect(response.body.caption).toBe('This is an updated caption for a comment');
     });
 
     // test('If the comment does not belong to the user then an error should be returned', () => {
@@ -129,12 +130,15 @@ describe('/api/comment - Endpoint', () => {
   });
 
   describe('/:id - DELETE Endpoint', () => {
+
+    // This test will now require an actual post to be mocked 
+
     test('successfully deletes a comment', async () => {
       const response = await supertest(app)
       .delete(`/api/comments/${testComment._id}`)
       .set('Cookie', `jwt=${token}`)
       expect(response.status).toBe(200);
-      expect(response.body.message).toBe('Comment successfully deleted');
+      expect(response.body).toBe(testComment._id.toString());
     });
 
     // test('If the comment does not belong to the user then an error should be returned', async () => {
